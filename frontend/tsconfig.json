@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "outDir": "./public/",
+        "module": "esnext",
+        "esModuleInterop": true,
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "jsx": "react",
+        "target": "es5",
+        "allowJs": true,
+        "allowSyntheticDefaultImports": true,
+        "baseUrl": ".",
+        "paths": {
+            "*": ["*", "./src/*"]
+        },
+        "moduleResolution": "node",
+        "resolveJsonModule": true
+    },
+    "paths": {
+        "*": ["*"]
+    },
+    "include": [
+        "./src/"
+    ],
+    "exclude": ["node_modules"]
+}

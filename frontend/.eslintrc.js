@@ -1,0 +1,70 @@
+module.exports = {
+    env: {
+        browser: true,
+        es6: true,
+    },
+    extends: ['plugin:react/recommended', 'airbnb'],
+    globals: {
+        Atomics: 'readonly',
+        SharedArrayBuffer: 'readonly',
+    },
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 2018,
+        sourceType: 'module',
+    },
+    plugins: ['react', '@typescript-eslint', 'jam3'],
+    rules: {
+        indent: ['error', 4],
+        'react/jsx-indent': ['error', 4],
+        'react/jsx-indent-props': ['error', 4],
+        'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx', '.tsx'] }],
+        'import/prefer-default-export': 'off',
+        'import/no-unresolved': 'off',
+        'no-param-reassign': 'off',
+        'no-unused-vars': 'off',
+        'arrow-body-style': 'off',
+        'import/extensions': 'off',
+        'react/jsx-fragments': 'off',
+        'react/jsx-wrap-multilines': 'off',
+        'no-confusing-arrow': 'off',
+        'jsx-a11y/no-static-element-interactions': 'off',
+        'jsx-a11y/click-events-have-key-events': 'off',
+        'jsx-a11y/anchor-is-valid': 'off',
+        'implicit-arrow-linebreak': 'off',
+        'import/no-extraneous-dependencies': 'off',
+        'import/order': 'off',
+        'max-len': ['error', { code: 150 }],
+        'consistent-return': 'off',
+        'react/jsx-props-no-spreading': 'off',
+        'no-prototype-builtins': 'off',
+        'no-restricted-syntax': 'off',
+        'react/prop-types': 'off',
+        'react/require-default-props': 'off',
+        'react/no-unused-prop-types': 'off',
+        'no-use-before-define': 'off',
+        camelcase: 'off',
+        'react/no-array-index-key': 'off',
+        'jam3/no-sanitizer-with-danger': [2, { wrapperName: ['safeHtml'] }],
+        'no-underscore-dangle': ['error', { allowAfterThis: true }],
+    },
+    settings: {
+        'import/resolver': {
+            node: {
+                paths: ['src'],
+                extensions: ['.js', '.jsx', '.ts', '.tsx'],
+            },
+        },
+    },
+    overrides: [
+        {
+            files: ['**/*.test.ts', '**/*.test.jsx'],
+            env: {
+                jest: true,
+            },
+        },
+    ],
+};
