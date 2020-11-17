@@ -4,13 +4,17 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "dev": "webpack --progress --colors --config webpack.config.js && webpack-dev-server",
-        "build": "webpack --env=test --progress --colors --config webpack.prod.js",
+        "dev": "webpack --env=dev --progress --colors --config webpack.config.js && webpack-dev-server",
+        "build": "webpack --env=production --progress --colors --config webpack.prod.js",
         "build:analyse_bundle": "webpack --analyse_bundle=true --env=test --progress --colors --config webpack.prod.js"
     },
     "dependencies": {
+        "antd": "^4.8.4",
+        "i18next": "^19.8.3",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
+        "react-facebook": "^8.1.4",
+        "react-i18next": "^11.7.3",
         "react-router-dom": "^5.2.0",
         "styled-components": "^5.2.1"
     },
@@ -44,6 +48,7 @@
         "eslint-plugin-react": "^7.20.3",
         "eslint-plugin-react-hooks": "^2.5.1",
         "faker": "^4.1.0",
+        "file-loader": "^6.2.0",
         "fork-ts-checker-webpack-plugin": "^5.0.7",
         "gatsby": "^2.23.2",
         "html-webpack-plugin": "^4.3.0",

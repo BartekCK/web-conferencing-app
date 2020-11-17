@@ -1,0 +1,40 @@
+{
+    "pl": {
+        "translation": {
+            "common": {
+                "newMeet": "Nowe spotkanie",
+                "signIn": "Zaloguj się",
+                "signUp": "Kliknij tutaj aby założyć konto",
+                "signInByFacebook": "Zaloguj się kontem Facebook",
+                "email": "Email",
+                "password": "Hasło"
+            },
+            "home": {
+                "header": "Spójrz na świat razem z nami"
+            },
+            "messages": {
+                "emptyEmail": "Proszę podaj swój email!",
+                "emptyPassword": "Proszę podaj swoje hasło!"
+            }
+        }
+    },
+    "en": {
+        "translation": {
+            "common": {
+                "newMeet": "New meet",
+                "signIn": "Sign In",
+                "signUp": "Sign Up",
+                "signInByFacebook": "Login via Facebook",
+                "email": "Email",
+                "password": "Password"
+            },
+            "home": {
+                "header": "Look at the world with us"
+            },
+            "messages": {
+                "emptyEmail": "Please input your email!",
+                "emptyPassword": "Please input your Password!"
+            }
+        }
+    }
+}

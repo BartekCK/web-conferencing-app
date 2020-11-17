@@ -19,9 +19,9 @@ module.exports = (app, params) => {
             liveReload: true,
             open: process.platform === 'linux' ? 'google-chrome' : 'Google Chrome',
             historyApiFallback: true,
-            host: 'gm-open-cms.qoo',
+            host: 'be.meet.pl',
             port: 8080,
-            https: false,
+            https: true,
             overlay: true,
         },
         resolve: {
@@ -49,6 +49,14 @@ module.exports = (app, params) => {
                     test: /\.(t|j)sx?$/,
                     use: { loader: 'eslint-loader' },
                     exclude: /node_modules/,
+                },
+                {
+                    test: /\.(png|jpe?g|gif|svg)$/i,
+                    use: [
+                        {
+                            loader: 'file-loader',
+                        },
+                    ],
                 },
             ],
         },
