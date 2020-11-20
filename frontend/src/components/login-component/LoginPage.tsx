@@ -12,13 +12,23 @@ import { Form, Input, Button } from 'antd';
 // assets
 import LogoSvg from 'assets/home/logo.svg';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+
+import { dispatchSetCurrentLayout } from 'core/store/slices/config.slice';
+import { LayoutType } from 'core/store/types/enum';
 
 const LoginComponent: React.FC = () => {
     const onFinish = (values) => {
         // console.log('Received values of form: ', values);
     };
 
+    const dispatch = useDispatch();
+
     const { t } = useTranslation();
+
+    const handleSignUp = React.useCallback(() => {
+        dispatch(dispatchSetCurrentLayout(LayoutType.REGISTER_LAYOUT));
+    }, [dispatch]);
 
     return (
         <LoginComponentStyled>
@@ -59,7 +69,11 @@ const LoginComponent: React.FC = () => {
 
             <div className="footer">
                 <FacebookLoginButton />
-                <button type="button" className="ant-btn ant-btn-ghost my-2">
+                <button
+                    type="button"
+                    className="ant-btn ant-btn-ghost my-2"
+                    onClick={handleSignUp}
+                >
                     {t('common.signUp')}
                 </button>
             </div>

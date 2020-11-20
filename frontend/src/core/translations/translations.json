@@ -4,17 +4,26 @@
             "common": {
                 "newMeet": "Nowe spotkanie",
                 "signIn": "Zaloguj się",
+                "signInReturn": "Powrót do logowania",
                 "signUp": "Kliknij tutaj aby założyć konto",
                 "signInByFacebook": "Zaloguj się kontem Facebook",
                 "email": "Email",
-                "password": "Hasło"
+                "password": "Hasło",
+                "passwordRepeat": "Potwierdź hasło",
+                "phoneNumber": "Numer telefonu",
+                "register": "Załóż konto"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
             },
             "messages": {
                 "emptyEmail": "Proszę podaj swój email!",
-                "emptyPassword": "Proszę podaj swoje hasło!"
+                "emptyPassword": "Proszę podaj swoje hasło!",
+                "validEmail": "Podany email jest niepoprawny!",
+                "emptyRepeatPassword": "Proszę potwierdź swoje hasło!",
+                "emptyPhone": "Proszę podaj swój numer telefonu!",
+                "validRepeatPassword": "Wporwadzone hasła się różnią!",
+                "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!"
             }
         }
     },
@@ -23,17 +32,26 @@
             "common": {
                 "newMeet": "New meet",
                 "signIn": "Sign In",
+                "signInReturn": "Back to login",
                 "signUp": "Sign Up",
                 "signInByFacebook": "Login via Facebook",
                 "email": "Email",
-                "password": "Password"
+                "password": "Password",
+                "passwordRepeat": "Confirm password",
+                "phoneNumber": "Phone number",
+                "register": "Sign Up"
             },
             "home": {
                 "header": "Look at the world with us"
             },
             "messages": {
                 "emptyEmail": "Please input your email!",
-                "emptyPassword": "Please input your Password!"
+                "validEmail": "The input is not valid E-mail!",
+                "emptyPassword": "Please input your Password!",
+                "emptyRepeatPassword": "Please confirm your password!",
+                "validRepeatPassword": "The two passwords that you entered do not match!",
+                "emptyPhone": "Please input your phone number!",
+                "emptyCaptcha": "Please prove that you aren't robot !"
             }
         }
     }

@@ -4,6 +4,7 @@ import { HomeStyled } from './style';
 // hooks
 import { useTranslation } from 'react-i18next';
 import LoginComponent from 'components/login-component';
+import CredentialFactory from 'container/credential-factory';
 
 const Home: React.FC = () => {
     const [textLink, setTextLink] = React.useState<string>('');
@@ -45,7 +46,7 @@ const Home: React.FC = () => {
                 </div>
             </div>
             <div className="right d-md-7">
-                <LoginComponent />
+                <CredentialFactory />
             </div>
         </HomeStyled>
     );
