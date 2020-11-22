@@ -9,9 +9,15 @@
                 "signInByFacebook": "Zaloguj się kontem Facebook",
                 "email": "Email",
                 "password": "Hasło",
+                "newPassword": "Nowe hasło",
                 "passwordRepeat": "Potwierdź hasło",
                 "phoneNumber": "Numer telefonu",
-                "register": "Załóż konto"
+                "register": "Załóż konto",
+                "settings": "Ustawienia",
+                "passwordChange": "Zmiana hasła",
+                "setImage": "Zdjęcie profilowe",
+                "currentPassword": "Aktualne hasło",
+                "send": "Wyślij"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -37,9 +43,15 @@
                 "signInByFacebook": "Login via Facebook",
                 "email": "Email",
                 "password": "Password",
+                "newPassword": "New password",
                 "passwordRepeat": "Confirm password",
                 "phoneNumber": "Phone number",
-                "register": "Sign Up"
+                "register": "Sign Up",
+                "settings": "Settings",
+                "passwordChange": "Change password",
+                "setImage": "Photo image",
+                "currentPassword": "Set current password",
+                "send": "Send"
             },
             "home": {
                 "header": "Look at the world with us"

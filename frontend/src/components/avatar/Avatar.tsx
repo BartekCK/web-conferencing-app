@@ -8,13 +8,14 @@ import { UserOutlined } from '@ant-design/icons';
 
 interface IProps {
     imgSrc?: string;
+    handleClick: () => void;
 }
 
 const CustomAvatar: React.FC<IProps> = (props: IProps) => {
-    const { imgSrc } = props;
+    const { imgSrc, handleClick } = props;
 
     return (
-        <CustomAvatarStyled imgSrc={imgSrc}>
+        <CustomAvatarStyled imgSrc={imgSrc} onClick={handleClick}>
             {!imgSrc && <UserOutlined />}
         </CustomAvatarStyled>
     );

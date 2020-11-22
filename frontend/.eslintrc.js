@@ -37,7 +37,7 @@ module.exports = {
         'implicit-arrow-linebreak': 'off',
         'import/no-extraneous-dependencies': 'off',
         'import/order': 'off',
-        'max-len': ['error', { code: 150 }],
+        // 'max-len': ['error', { code: 150 }],
         'consistent-return': 'off',
         'react/jsx-props-no-spreading': 'off',
         'no-prototype-builtins': 'off',
