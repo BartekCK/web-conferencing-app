@@ -1,10 +1,16 @@
 import React from 'react';
+
+// components
 import {
     Button, Form, Input, notification,
 } from 'antd';
+
+// types
 import { FormInstance } from 'antd/es/form';
-import { useTranslation } from 'react-i18next';
 import { ActionType } from 'core/types/enums';
+
+// hooks
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     handleModalClose: () => void;

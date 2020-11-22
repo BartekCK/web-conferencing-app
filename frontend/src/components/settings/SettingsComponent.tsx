@@ -1,7 +1,12 @@
 import React from 'react';
-import { Tabs } from 'antd';
+
+// hooks
 import { useTranslation } from 'react-i18next';
+
+// components
+import { Tabs } from 'antd';
 import ChangePassword from './components/change-password';
+import ImageCropping from 'components/settings/components/image-cropping';
 
 interface IProps {
     onChangeTab?: () => void;
@@ -16,7 +21,7 @@ const SettingsComponent: React.FC<IProps> = ({ onChangeTab, handleModalClose }: 
     return (
         <Tabs defaultActiveKey="1" onChange={onChangeTab} centered size="small">
             <TabPane tab={t('common.setImage')} key="1">
-                Content of Tab Pane 1
+                <ImageCropping handleModalClose={handleModalClose} />
             </TabPane>
             <TabPane tab={t('common.passwordChange')} key="2">
                 <ChangePassword handleModalClose={handleModalClose} />

@@ -17,7 +17,9 @@
                 "passwordChange": "Zmiana hasła",
                 "setImage": "Zdjęcie profilowe",
                 "currentPassword": "Aktualne hasło",
-                "send": "Wyślij"
+                "send": "Wyślij",
+                "imageEdit": "Edycja zdjęcia",
+                "upload": "Dodaj"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -53,7 +55,9 @@
                 "passwordChange": "Change password",
                 "setImage": "Photo image",
                 "currentPassword": "Set current password",
-                "send": "Send"
+                "send": "Send",
+                "imageEdit": "Image edit",
+                "upload": "Upload"
             },
             "home": {
                 "header": "Look at the world with us"
