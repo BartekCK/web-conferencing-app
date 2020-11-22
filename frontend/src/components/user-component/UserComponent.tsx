@@ -33,7 +33,7 @@ const UserComponent: React.FC = () => {
                     onCancel={handleModalClose}
                     footer={null}
                 >
-                    <SettingsComponent />
+                    <SettingsComponent handleModalClose={handleModalClose} />
                 </Modal>
             )}
         </React.Fragment>

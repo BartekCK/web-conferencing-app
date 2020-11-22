@@ -5,11 +5,12 @@ import ChangePassword from './components/change-password';
 
 interface IProps {
     onChangeTab?: () => void;
+    handleModalClose: () => void;
 }
 
 const { TabPane } = Tabs;
 
-const SettingsComponent: React.FC<IProps> = ({ onChangeTab }: IProps) => {
+const SettingsComponent: React.FC<IProps> = ({ onChangeTab, handleModalClose }: IProps) => {
     const { t } = useTranslation();
 
     return (
@@ -18,7 +19,7 @@ const SettingsComponent: React.FC<IProps> = ({ onChangeTab }: IProps) => {
                 Content of Tab Pane 1
             </TabPane>
             <TabPane tab={t('common.passwordChange')} key="2">
-                <ChangePassword />
+                <ChangePassword handleModalClose={handleModalClose} />
             </TabPane>
         </Tabs>
     );

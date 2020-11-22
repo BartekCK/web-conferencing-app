@@ -1,14 +1,49 @@
 import React from 'react';
-import { Button, Form, Input } from 'antd';
+import {
+    Button, Form, Input, notification,
+} from 'antd';
 import { FormInstance } from 'antd/es/form';
 import { useTranslation } from 'react-i18next';
+import { ActionType } from 'core/types/enums';
 
-const ChangePassword = () => {
+interface IProps {
+    handleModalClose: () => void;
+}
+
+const ChangePassword: React.FC<IProps> = ({ handleModalClose }: IProps) => {
+    const [isLoading, setLoading] = React.useState<boolean>(false);
+
     const [form] = Form.useForm();
     const { t } = useTranslation();
 
-    const onFinish = (values) => {
-        console.log(values);
+    const openNotification = (type: ActionType) => {
+        if (type === ActionType.SUCCESS) {
+            notification.info({
+                message: t('common.passwordChange'),
+                description: t('messages.changePassword'),
+                placement: 'topLeft',
+                duration: 2,
+            });
+            handleModalClose();
+            return;
+        }
+        notification.error({
+            message: t('common.passwordChange'),
+            description: t('messages.validPassword'),
+            placement: 'topLeft',
+            duration: 2,
+        });
+    };
+
+    const onFinish = async (values) => {
+        setLoading(true);
+        try {
+            openNotification(ActionType.SUCCESS);
+        } catch (e) {
+            openNotification(ActionType.ERROR);
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -28,7 +63,6 @@ const ChangePassword = () => {
                         message: t('messages.emptyPassword'),
                     },
                 ]}
-                hasFeedback
             >
                 <Input.Password />
             </Form.Item>
@@ -77,7 +111,7 @@ const ChangePassword = () => {
                 <Input.Password />
             </Form.Item>
             <Form.Item>
-                <Button type="primary" htmlType="submit">
+                <Button type="primary" htmlType="submit" loading={isLoading}>
                     {t('common.send')}
                 </Button>
             </Form.Item>

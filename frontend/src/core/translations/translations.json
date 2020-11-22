@@ -26,10 +26,12 @@
                 "emptyEmail": "Proszę podaj swój email!",
                 "emptyPassword": "Proszę podaj swoje hasło!",
                 "validEmail": "Podany email jest niepoprawny!",
+                "validPassword": "Podane hasło jest niepoprawne!",
                 "emptyRepeatPassword": "Proszę potwierdź swoje hasło!",
                 "emptyPhone": "Proszę podaj swój numer telefonu!",
                 "validRepeatPassword": "Wporwadzone hasła się różnią!",
-                "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!"
+                "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!",
+                "changePassword": "Hasło zostało zmienione"
             }
         }
     },
@@ -59,11 +61,13 @@
             "messages": {
                 "emptyEmail": "Please input your email!",
                 "validEmail": "The input is not valid E-mail!",
+                "validPassword": "The specified password is incorrect!",
                 "emptyPassword": "Please input your Password!",
                 "emptyRepeatPassword": "Please confirm your password!",
                 "validRepeatPassword": "The two passwords that you entered do not match!",
                 "emptyPhone": "Please input your phone number!",
-                "emptyCaptcha": "Please prove that you aren't robot !"
+                "emptyCaptcha": "Please prove that you aren't robot !",
+                "changePassword": "Password has been changed"
             }
         }
     }
