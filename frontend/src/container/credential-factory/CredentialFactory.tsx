@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 // components
 import LoginComponent from 'components/login-component';
 import RegisterComponent from 'components/register-component';
+import UserComponent from 'components/user-component';
 
 // types
 import { LayoutType } from 'core/store/types/enum';
@@ -19,7 +20,7 @@ const CredentialFactory = () => {
         case LayoutType.REGISTER_LAYOUT:
             return <RegisterComponent />;
         case LayoutType.USER_LAYOUT:
-            return <LoginComponent />;
+            return <UserComponent />;
         default:
             return <LoginComponent />;
         }
