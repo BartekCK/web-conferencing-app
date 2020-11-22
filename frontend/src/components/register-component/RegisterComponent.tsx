@@ -3,14 +3,21 @@ import React from 'react';
 // hooks
 import { useTranslation } from 'react-i18next';
 
+// components
 import { Form, Input, Button } from 'antd';
+import ReCAPTCHA from 'react-google-recaptcha';
 import { ArrowLeftOutlined } from '@ant-design/icons';
+
+// styles
 import { RegisterComponentStyled } from 'components/register-component/styles';
-import { useDispatch } from 'react-redux';
+
+// store
 import { dispatchSetCurrentLayout } from 'core/store/slices/config.slice';
+import { useDispatch } from 'react-redux';
+
+// types
 import { LayoutType } from 'core/store/types/enum';
 import { FormInstance } from 'antd/es/form';
-import ReCAPTCHA from 'react-google-recaptcha';
 
 const RegisterComponent: React.FC = () => {
     const { t } = useTranslation();

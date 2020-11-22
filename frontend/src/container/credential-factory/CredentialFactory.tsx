@@ -1,9 +1,15 @@
 import React from 'react';
+
+// dispatch
 import { useSelector } from 'react-redux';
+
+// components
 import LoginComponent from 'components/login-component';
-import { IStore } from 'core/store/types';
 import RegisterComponent from 'components/register-component';
+
+// types
 import { LayoutType } from 'core/store/types/enum';
+import { IStore } from 'core/store/types';
 
 const CredentialFactory = () => {
     const { currentLayout } = useSelector((state: IStore) => state.config);

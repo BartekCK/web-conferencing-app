@@ -12,9 +12,12 @@ import { Form, Input, Button } from 'antd';
 // assets
 import LogoSvg from 'assets/home/logo.svg';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-import { useDispatch } from 'react-redux';
 
+// store
+import { useDispatch } from 'react-redux';
 import { dispatchSetCurrentLayout } from 'core/store/slices/config.slice';
+
+// types
 import { LayoutType } from 'core/store/types/enum';
 
 const LoginComponent: React.FC = () => {
@@ -48,7 +51,7 @@ const LoginComponent: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                     name="password"
-                    rules={[{ required: true, message: t('messages.emptyEmail') }]}
+                    rules={[{ required: true, message: t('messages.emptyPassword') }]}
                 >
                     <Input
                         prefix={<LockOutlined className="site-form-item-icon" />}

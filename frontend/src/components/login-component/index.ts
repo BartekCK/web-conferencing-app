@@ -1,3 +1,3 @@
-import LoginComponent from './LoginPage';
+import LoginComponent from './LoginComponent';
 
 export default LoginComponent;

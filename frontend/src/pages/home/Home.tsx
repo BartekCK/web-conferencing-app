@@ -3,7 +3,8 @@ import React from 'react';
 import { HomeStyled } from './style';
 // hooks
 import { useTranslation } from 'react-i18next';
-import LoginComponent from 'components/login-component';
+
+// components
 import CredentialFactory from 'container/credential-factory';
 
 const Home: React.FC = () => {
