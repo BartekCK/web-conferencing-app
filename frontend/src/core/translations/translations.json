@@ -19,7 +19,8 @@
                 "currentPassword": "Aktualne hasło",
                 "send": "Wyślij",
                 "imageEdit": "Edycja zdjęcia",
-                "upload": "Dodaj"
+                "upload": "Dodaj",
+                "visit": "Wejdź"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -33,7 +34,8 @@
                 "emptyPhone": "Proszę podaj swój numer telefonu!",
                 "validRepeatPassword": "Wporwadzone hasła się różnią!",
                 "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!",
-                "changePassword": "Hasło zostało zmienione"
+                "changePassword": "Hasło zostało zmienione",
+                "copyClipboard": "Skopiowano do schowka"
             }
         }
     },
@@ -57,7 +59,8 @@
                 "currentPassword": "Set current password",
                 "send": "Send",
                 "imageEdit": "Image edit",
-                "upload": "Upload"
+                "upload": "Upload",
+                "visit": "Visit"
             },
             "home": {
                 "header": "Look at the world with us"
@@ -71,7 +74,8 @@
                 "validRepeatPassword": "The two passwords that you entered do not match!",
                 "emptyPhone": "Please input your phone number!",
                 "emptyCaptcha": "Please prove that you aren't robot !",
-                "changePassword": "Password has been changed"
+                "changePassword": "Password has been changed",
+                "copyClipboard": "Copy to clipboard"
             }
         }
     }
