@@ -1,0 +1,12 @@
+Wszystkie pokoje użytkownika
+wysyłam: token użytkownika
+dostane:
+id: string;
+    name: string;
+    roomCode: string;
+
+
+Conversation:
+Sprawdź czy uzytkownik jest zalogowany i sprawdz czy pokoj istnieje
+wysyłam
+    roomCode: string;

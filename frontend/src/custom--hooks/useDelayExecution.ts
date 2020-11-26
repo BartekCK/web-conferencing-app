@@ -31,6 +31,7 @@ function useDelayExecution(
         if (ref && !ref.current) return;
         ref.current.addEventListener('keyup', delayFunc);
         return () => {
+            if (ref && !ref.current) return;
             ref.current.removeEventListener('keyup', delayFunc);
             clearTimeout(typingTimer);
         };

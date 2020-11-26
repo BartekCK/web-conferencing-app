@@ -11,6 +11,7 @@ import { notification } from 'antd';
 
 // hooks
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 interface IProps {
     id: string;
@@ -22,12 +23,14 @@ const SingleRoom: React.FC<IProps> = ({ roomCode, name, id }: IProps) => {
     const spanRef = React.useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
 
+    const history = useHistory();
+
     const handleOpenModal = () => {
         console.log('Open Modal');
     };
 
     const handleStartMeet = () => {
-        console.log('Start Meet');
+        history.push(`/conversation/${roomCode}`);
     };
 
     const handleCopy = async () => {
