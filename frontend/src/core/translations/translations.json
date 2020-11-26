@@ -36,7 +36,8 @@
                 "validRepeatPassword": "Wporwadzone hasła się różnią!",
                 "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!",
                 "changePassword": "Hasło zostało zmienione",
-                "copyClipboard": "Skopiowano do schowka"
+                "copyClipboard": "Skopiowano do schowka",
+                "emptyResult": "Brak wyników"
             }
         }
     },
@@ -77,7 +78,8 @@
                 "emptyPhone": "Please input your phone number!",
                 "emptyCaptcha": "Please prove that you aren't robot !",
                 "changePassword": "Password has been changed",
-                "copyClipboard": "Copy to clipboard"
+                "copyClipboard": "Copy to clipboard",
+                "emptyResult": "No results"
             }
         }
     }
