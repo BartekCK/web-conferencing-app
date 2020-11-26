@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 // components
 import LoginComponent from 'components/login-component';
 import RegisterComponent from 'components/register-component';
-import UserComponent from 'components/user-component';
+import UserComponent from 'container/user-component';
 
 // types
 import { LayoutType } from 'core/store/types/enum';

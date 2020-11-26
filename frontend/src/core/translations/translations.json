@@ -20,7 +20,8 @@
                 "send": "Wyślij",
                 "imageEdit": "Edycja zdjęcia",
                 "upload": "Dodaj",
-                "visit": "Wejdź"
+                "visit": "Wejdź",
+                "search": "Wyszukaj"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -60,7 +61,8 @@
                 "send": "Send",
                 "imageEdit": "Image edit",
                 "upload": "Upload",
-                "visit": "Visit"
+                "visit": "Visit",
+                "search": "Search"
             },
             "home": {
                 "header": "Look at the world with us"

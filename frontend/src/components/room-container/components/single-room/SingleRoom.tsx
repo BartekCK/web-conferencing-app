@@ -1,7 +1,7 @@
 import React from 'react';
 
 // styles
-import { SingleRoomStyled } from './styles';
+import { InputRoomStyled, SingleRoomStyled } from './styles';
 
 // icons
 import { CopyOutlined } from '@ant-design/icons';
@@ -13,10 +13,12 @@ import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 
 interface IProps {
+    id: string;
+    name: string;
     roomCode: string;
 }
 
-const SingleRoom: React.FC<IProps> = ({ roomCode }: IProps) => {
+const SingleRoom: React.FC<IProps> = ({ roomCode, name, id }: IProps) => {
     const spanRef = React.useRef<HTMLInputElement>(null);
     const { t } = useTranslation();
 
@@ -41,27 +43,32 @@ const SingleRoom: React.FC<IProps> = ({ roomCode }: IProps) => {
 
     return (
         <SingleRoomStyled>
-            <span
-                className="ant-btn title"
-                ref={spanRef}
-                onClick={handleOpenModal}
-            >
-                {roomCode}
-            </span>
-            <button
-                type="button"
-                className="btn-copy ant-btn ant-btn-ghost"
-                onClick={handleCopy}
-            >
-                <CopyOutlined />
-            </button>
-            <button
-                type="button"
-                className="btn-visit ant-btn ant-btn-primary"
-                onClick={handleStartMeet}
-            >
-                {t('common.visit')}
-            </button>
+            <div className="title--wrapper">
+                <span className="title">{name}</span>
+            </div>
+            <InputRoomStyled>
+                <span
+                    className="ant-btn title"
+                    ref={spanRef}
+                    onClick={handleOpenModal}
+                >
+                    {roomCode}
+                </span>
+                <button
+                    type="button"
+                    className="btn-copy ant-btn ant-btn-ghost"
+                    onClick={handleCopy}
+                >
+                    <CopyOutlined />
+                </button>
+                <button
+                    type="button"
+                    className="btn-visit ant-btn ant-btn-primary"
+                    onClick={handleStartMeet}
+                >
+                    {t('common.visit')}
+                </button>
+            </InputRoomStyled>
         </SingleRoomStyled>
     );
 };
