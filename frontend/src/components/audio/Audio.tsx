@@ -44,7 +44,6 @@ const Audio: React.FC = () => {
             }
 
             const average = values / length;
-            console.log(Math.round(average));
             setMicroPower(Math.round(average));
         };
     };
@@ -97,7 +96,7 @@ const Audio: React.FC = () => {
     };
 
     return (
-        <div className="ml-3 d-flex">
+        <div className="audio--container d-flex">
             <AudioStyled
                 style={{
                     backgroundColor: calculateColor(),
@@ -120,4 +119,4 @@ const Audio: React.FC = () => {
     );
 };
 
-export default Audio;
+export default React.memo(Audio);
