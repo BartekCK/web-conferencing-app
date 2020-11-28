@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import ConversationContext from './provider';
 import conversationReducer from './reducers';
 import { IConversation } from 'pages/conversation/types';
-import Video from 'components/video';
+import ConversationWrapper from 'pages/conversation/ConversationWrapper';
 
 const initialState: IConversation = {
     isPlaying: false,
@@ -28,7 +28,7 @@ const Conversation: React.FC = () => {
                 dispatch,
             }}
         >
-            <Video />
+            <ConversationWrapper conversationConfig={conversationConfig} />
         </ConversationContext.Provider>
     );
 };

@@ -1,4 +1,6 @@
 import React from 'react';
+
+// styles
 import { AudioStyled } from './styles';
 
 const Audio: React.FC = () => {

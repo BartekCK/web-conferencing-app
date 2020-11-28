@@ -21,7 +21,9 @@
                 "imageEdit": "Edycja zdjęcia",
                 "upload": "Dodaj",
                 "visit": "Wejdź",
-                "search": "Wyszukaj"
+                "search": "Wyszukaj",
+                "sound": "Dźwięk",
+                "display": "Obraz"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -63,7 +65,9 @@
                 "imageEdit": "Image edit",
                 "upload": "Upload",
                 "visit": "Visit",
-                "search": "Search"
+                "search": "Search",
+                "sound": "Sound",
+                "display": "Display"
             },
             "home": {
                 "header": "Look at the world with us"
