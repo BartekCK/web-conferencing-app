@@ -7,7 +7,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { RoomContainerStyled } from './styles';
 
 // types
-import { ISingleRoom } from './types';
+import { ISingleRoom } from 'core/types';
 
 // components
 import SingleRoom from './components/single-room';
@@ -35,6 +35,8 @@ const RoomContainer: React.FC = () => {
                 id: uuidv4(),
                 roomCode: uuidv4().slice(0, -18),
                 name: uuidv4().slice(32),
+                roomMates: [],
+                roomOwner: uuidv4().slice(32),
             });
         }
         setRooms(temp);
@@ -68,13 +70,13 @@ const RoomContainer: React.FC = () => {
 
     const renderSingleRoom = () => {
         if (filterList.length > 0) {
-            return filterList.map(({ roomCode, name, id }: ISingleRoom) => (
-                <SingleRoom key={id} id={id} name={name} roomCode={roomCode} />
+            return filterList.map((singleRoom: ISingleRoom) => (
+                <SingleRoom key={singleRoom.id} singleRoom={singleRoom} />
             ));
         }
         if (rooms.length > 0 && inputValue === '') {
-            return rooms.map(({ roomCode, name, id }: ISingleRoom) => (
-                <SingleRoom key={id} id={id} name={name} roomCode={roomCode} />
+            return rooms.map((singleRoom: ISingleRoom) => (
+                <SingleRoom key={singleRoom.id} singleRoom={singleRoom} />
             ));
         }
         return (

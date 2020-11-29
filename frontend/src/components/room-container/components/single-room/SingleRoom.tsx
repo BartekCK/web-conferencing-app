@@ -13,16 +13,19 @@ import { notification } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
+// types
+import { ISingleRoom } from 'core/types';
+
 interface IProps {
-    id: string;
-    name: string;
-    roomCode: string;
+    singleRoom: ISingleRoom;
 }
 
-const SingleRoom: React.FC<IProps> = ({ roomCode, name, id }: IProps) => {
-    const spanRef = React.useRef<HTMLInputElement>(null);
-    const { t } = useTranslation();
+const SingleRoom: React.FC<IProps> = ({ singleRoom }: IProps) => {
+    const { roomCode, name, id } = singleRoom;
 
+    const spanRef = React.useRef<HTMLInputElement>(null);
+
+    const { t } = useTranslation();
     const history = useHistory();
 
     const handleOpenModal = () => {

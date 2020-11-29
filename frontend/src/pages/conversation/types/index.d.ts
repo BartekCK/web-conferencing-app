@@ -1,5 +1,8 @@
 import React from 'react';
 
+// types
+import { ISingleRoom } from 'core/types';
+
 export interface IConversationContext{
     conversationConfig: any,
     dispatch: any,
@@ -14,6 +17,7 @@ export interface IDevices {
 export interface IConversation {
     isPlaying: boolean
     devices: IDevices
+    currentRoom: ISingleRoom | null
 }
 
 export interface IConversationContextShare {

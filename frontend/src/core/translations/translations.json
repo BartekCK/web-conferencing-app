@@ -26,7 +26,8 @@
                 "display": "Obraz",
                 "microphone": "Mikrofon",
                 "speakers": "Głośniki",
-                "camera": "Kamera"
+                "camera": "Kamera",
+                "join": "Dołącz"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -42,7 +43,9 @@
                 "emptyCaptcha": "Proszę zazcznacz, że nie jesteś robotem!",
                 "changePassword": "Hasło zostało zmienione",
                 "copyClipboard": "Skopiowano do schowka",
-                "emptyResult": "Brak wyników"
+                "emptyResult": "Brak wyników",
+                "joinAsk": "Chcesz dołączyć?",
+                "waitAnswer": "Oczekiwanie na akceptacje..."
             }
         }
     },
@@ -73,7 +76,8 @@
                 "display": "Display",
                 "microphone": "Microphone",
                 "speakers": "Speakers",
-                "camera": "Camera"
+                "camera": "Camera",
+                "join": "Dołącz"
             },
             "home": {
                 "header": "Look at the world with us"
@@ -89,7 +93,9 @@
                 "emptyCaptcha": "Please prove that you aren't robot !",
                 "changePassword": "Password has been changed",
                 "copyClipboard": "Copy to clipboard",
-                "emptyResult": "No results"
+                "emptyResult": "No results",
+                "joinAsk": "Do you want to join?",
+                "waitAnswer": "Awaiting entry acceptance..."
             }
         }
     }

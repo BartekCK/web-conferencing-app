@@ -1,10 +1,11 @@
 import React from 'react';
 import { ConversationPrepareStyled } from 'pages/conversation/containers/conversation-prepare/style';
-import InputOutputModal from 'container/input-output-modal';
+import InputOutputModal from 'pages/conversation/containers/input-output-modal';
 import UserVideo from 'components/user-video';
 import ConversationContext from 'pages/conversation/provider';
 import { IConversationContextShare } from 'pages/conversation/types';
 import { setPlaying, updateDevice } from 'pages/conversation/actions';
+import ConversationStartButton from 'pages/conversation/components/conversation-start-button/ConversationStartButton';
 
 interface IProps {}
 
@@ -75,19 +76,22 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
     };
 
     return (
-        <ConversationPrepareStyled>
-            <UserVideo
-                openSettingModal={() => setModalOpen(true)}
-                start={start}
-                ref={videoRef}
-            />
+        <React.Fragment>
+            <ConversationPrepareStyled>
+                <UserVideo
+                    openSettingModal={() => setModalOpen(true)}
+                    start={start}
+                    ref={videoRef}
+                />
+                <ConversationStartButton />
+            </ConversationPrepareStyled>
             <InputOutputModal
                 start={start}
                 isVisible={isModalOpen}
                 onCancel={() => setModalOpen(false)}
                 handleChangeSpeakersOutput={handleChangeSpeakersOutput}
             />
-        </ConversationPrepareStyled>
+        </React.Fragment>
     );
 };
 

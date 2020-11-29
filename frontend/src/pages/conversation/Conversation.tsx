@@ -1,9 +1,17 @@
 import React from 'react';
+
+// hooks
 import { useParams } from 'react-router-dom';
+
+// context
 import ConversationContext from './provider';
 import conversationReducer from './reducers';
-import { IConversation, IConversationContextShare } from 'pages/conversation/types';
-import ConversationWrapper from 'pages/conversation/ConversationWrapper';
+
+// types
+import { IConversation, IConversationContextShare } from './types';
+
+// components
+import ConversationWrapper from './ConversationWrapper';
 
 const initialState: IConversation = {
     isPlaying: false,
@@ -12,6 +20,7 @@ const initialState: IConversation = {
         speakersDeviceID: 'default',
         videoDeviceID: 'default',
     },
+    currentRoom: null,
 };
 
 const Conversation: React.FC = () => {
@@ -24,6 +33,7 @@ const Conversation: React.FC = () => {
 
     React.useEffect(() => {
         // check user is login and room exist
+        // get room info by slug
     }, []);
 
     const valuesForShare: IConversationContextShare = {

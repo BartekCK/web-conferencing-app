@@ -2,13 +2,19 @@ import React from 'react';
 
 // components
 import { Modal, Tabs } from 'antd';
-import VideoInput from './containers/video-input/VideoInput';
+import InputOutputSelect from 'components/input-output-select/InputOutputSelect';
 
 // hooks
 import { useTranslation } from 'react-i18next';
+
+// icons
 import { CustomerServiceOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { IConversationContextShare } from 'pages/conversation/types';
-import ConversationContext from 'pages/conversation/provider';
+
+// types
+import { IConversationContextShare } from '../../types';
+
+// context
+import ConversationContext from '../../provider';
 import { updateDevice } from 'pages/conversation/actions';
 
 interface IProps {
@@ -84,14 +90,14 @@ const InputOutputModal: React.FC<IProps> = (props: IProps) => {
                             }
                             key="1"
                         >
-                            <VideoInput
+                            <InputOutputSelect
                                 devices={devices}
                                 kind="audioinput"
                                 placeholder={t('common.microphone')}
                                 onChange={handleChangeMicroInput}
                                 value={conversationConfig.devices.microphoneDeviceID}
                             />
-                            <VideoInput
+                            <InputOutputSelect
                                 devices={devices}
                                 kind="audiooutput"
                                 placeholder={t('common.speakers')}
@@ -108,7 +114,7 @@ const InputOutputModal: React.FC<IProps> = (props: IProps) => {
                             }
                             key="2"
                         >
-                            <VideoInput
+                            <InputOutputSelect
                                 devices={devices}
                                 kind="videoinput"
                                 placeholder={t('common.camera')}
