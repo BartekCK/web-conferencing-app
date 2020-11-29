@@ -10,10 +10,12 @@ interface IProps {
 const ConversationWrapper: React.FC<IProps> = ({
     conversationConfig,
 }: IProps) => {
-    if (conversationConfig.isPlaying) {
-        return <ConversationStart />;
-    }
-    return <ConversationPrepare />;
+    // if (conversationConfig.isPlaying) {
+    //     return <ConversationStart />;
+    // }
+    // return <ConversationPrepare />;
+
+    return <ConversationPrepare />; // temp
 };
 
 export default ConversationWrapper;

@@ -24,7 +24,7 @@ const UserVideo = React.forwardRef((props: IProps, videoRef: any) => {
 
     return (
         <VideoStyled>
-            <video className="user-video" ref={videoRef} autoPlay playsInline />
+            <video className="user-video" ref={videoRef} autoPlay playsInline muted />
             <Audio />
             <SettingsButton handleClick={openSettingModal} />
         </VideoStyled>

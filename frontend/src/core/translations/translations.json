@@ -23,7 +23,10 @@
                 "visit": "Wejdź",
                 "search": "Wyszukaj",
                 "sound": "Dźwięk",
-                "display": "Obraz"
+                "display": "Obraz",
+                "microphone": "Mikrofon",
+                "speakers": "Głośniki",
+                "camera": "Kamera"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -67,7 +70,10 @@
                 "visit": "Visit",
                 "search": "Search",
                 "sound": "Sound",
-                "display": "Display"
+                "display": "Display",
+                "microphone": "Microphone",
+                "speakers": "Speakers",
+                "camera": "Camera"
             },
             "home": {
                 "header": "Look at the world with us"

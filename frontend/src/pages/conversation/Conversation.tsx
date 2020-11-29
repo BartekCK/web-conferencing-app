@@ -2,11 +2,16 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import ConversationContext from './provider';
 import conversationReducer from './reducers';
-import { IConversation } from 'pages/conversation/types';
+import { IConversation, IConversationContextShare } from 'pages/conversation/types';
 import ConversationWrapper from 'pages/conversation/ConversationWrapper';
 
 const initialState: IConversation = {
     isPlaying: false,
+    devices: {
+        microphoneDeviceID: 'default',
+        speakersDeviceID: 'default',
+        videoDeviceID: 'default',
+    },
 };
 
 const Conversation: React.FC = () => {
@@ -21,12 +26,14 @@ const Conversation: React.FC = () => {
         // check user is login and room exist
     }, []);
 
+    const valuesForShare: IConversationContextShare = {
+        conversationConfig,
+        dispatch,
+    };
+
     return (
         <ConversationContext.Provider
-            value={{
-                conversationConfig,
-                dispatch,
-            }}
+            value={valuesForShare}
         >
             <ConversationWrapper conversationConfig={conversationConfig} />
         </ConversationContext.Provider>

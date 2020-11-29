@@ -5,26 +5,27 @@ import { Select } from 'antd';
 interface IProps {
     devices: any;
     kind: string;
+    value: string;
     placeholder: string;
     onChange: (value: string) => void;
 }
 
 const InputOutputSelect: React.FC<IProps> = (props: IProps) => {
     const {
-        devices, kind, placeholder, onChange,
+        devices, kind, placeholder, onChange, value,
     } = props;
 
     const { Option } = Select;
 
     return (
-        <div className="m-3">
-            <span>{placeholder}</span>
+        <div className="mb-3">
+            <span className="">{placeholder}</span>
             <Select
                 style={{ width: '100%' }}
                 showSearch
                 placeholder={placeholder}
                 onChange={onChange}
-                defaultActiveFirstOption
+                value={value}
             >
                 {devices.map(
                     (device) =>

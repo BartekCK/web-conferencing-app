@@ -2,6 +2,9 @@ import React from 'react';
 import { ConversationPrepareStyled } from 'pages/conversation/containers/conversation-prepare/style';
 import InputOutputModal from 'container/input-output-modal';
 import UserVideo from 'components/user-video';
+import ConversationContext from 'pages/conversation/provider';
+import { IConversationContextShare } from 'pages/conversation/types';
+import { setPlaying, updateDevice } from 'pages/conversation/actions';
 
 interface IProps {}
 
@@ -17,6 +20,8 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
     const streamRef = React.useRef<MediaStream | null>(null);
     const videoRef = React.useRef<any>(null);
 
+    const { conversationConfig, dispatch } = React.useContext<IConversationContextShare>(ConversationContext);
+
     const start = async (audioDeviceID?: string, videDeviceID?: string) => {
         if (!videoRef.current) return;
         if (window.stream) {
@@ -29,6 +34,8 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
                 audio: {
                     deviceId: audioDeviceID ? { exact: audioDeviceID } : undefined,
                     echoCancellation: true,
+                    noiseSuppression: false,
+                    autoGainControl: false,
                 },
                 video: {
                     deviceId: videDeviceID ? { exact: videDeviceID } : undefined,
@@ -57,9 +64,14 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
         };
     }, []);
 
-    const handleChangeOutput = (deviceID: string): void => {
+    React.useEffect(() => {
         if (!videoRef.current) return;
-        videoRef.current.setSinkId(deviceID);
+        const { speakersDeviceID } = conversationConfig.devices;
+        videoRef.current.setSinkId(speakersDeviceID);
+    }, [conversationConfig.devices.speakersDeviceID]);
+
+    const handleChangeSpeakersOutput = (deviceID: string): void => {
+        dispatch(updateDevice({ speakersDeviceID: deviceID }));
     };
 
     return (
@@ -73,7 +85,7 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
                 start={start}
                 isVisible={isModalOpen}
                 onCancel={() => setModalOpen(false)}
-                handleChangeSpeakersOutput={handleChangeOutput}
+                handleChangeSpeakersOutput={handleChangeSpeakersOutput}
             />
         </ConversationPrepareStyled>
     );

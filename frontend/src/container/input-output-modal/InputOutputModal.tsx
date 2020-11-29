@@ -6,10 +6,10 @@ import VideoInput from './containers/video-input/VideoInput';
 
 // hooks
 import { useTranslation } from 'react-i18next';
-import {
-    CustomerServiceOutlined,
-    VideoCameraOutlined,
-} from '@ant-design/icons';
+import { CustomerServiceOutlined, VideoCameraOutlined } from '@ant-design/icons';
+import { IConversationContextShare } from 'pages/conversation/types';
+import ConversationContext from 'pages/conversation/provider';
+import { updateDevice } from 'pages/conversation/actions';
 
 interface IProps {
     isVisible: boolean;
@@ -24,23 +24,44 @@ const InputOutputModal: React.FC<IProps> = (props: IProps) => {
         isVisible, onCancel, start, handleChangeSpeakersOutput,
     } = props;
 
+    const { conversationConfig, dispatch } = React.useContext<
+        IConversationContextShare
+    >(ConversationContext);
+
     const [devices, setDevices] = React.useState<MediaDeviceInfo[]>([]);
     const { t } = useTranslation();
 
+    const getConnectedDevices = async (): Promise<MediaDeviceInfo[]> => {
+        const resultDevices: MediaDeviceInfo[] = await navigator.mediaDevices.enumerateDevices();
+        setDevices(resultDevices);
+        return resultDevices;
+    };
+
+    React.useEffect(() => {
+        const setVideoCamera = async () => {
+            const deviceList: MediaDeviceInfo[] = await getConnectedDevices();
+            const tempVideo: MediaDeviceInfo[] = deviceList.filter(
+                (device: MediaDeviceInfo) => device.kind === 'videoinput',
+            );
+            if (tempVideo.length > 0) {
+                dispatch(updateDevice({ videoDeviceID: tempVideo[0].deviceId }));
+            }
+        };
+        setVideoCamera();
+    }, []);
+
     React.useEffect(() => {
         if (!isVisible) return;
-        const getConnectedDevices = async () => {
-            const resultDevices = await navigator.mediaDevices.enumerateDevices();
-            setDevices(resultDevices);
-        };
         getConnectedDevices();
     }, [isVisible]);
 
     const handleChangeVideoInput = (value: string) => {
+        dispatch(updateDevice({ videoDeviceID: value }));
         start(undefined, value);
     };
 
     const handleChangeMicroInput = (value: string) => {
+        dispatch(updateDevice({ microphoneDeviceID: value }));
         start(value);
     };
 
@@ -66,14 +87,16 @@ const InputOutputModal: React.FC<IProps> = (props: IProps) => {
                             <VideoInput
                                 devices={devices}
                                 kind="audioinput"
-                                placeholder="Mikrofon"
+                                placeholder={t('common.microphone')}
                                 onChange={handleChangeMicroInput}
+                                value={conversationConfig.devices.microphoneDeviceID}
                             />
                             <VideoInput
                                 devices={devices}
                                 kind="audiooutput"
-                                placeholder="Głośniki"
+                                placeholder={t('common.speakers')}
                                 onChange={handleChangeSpeakersOutput}
+                                value={conversationConfig.devices.speakersDeviceID}
                             />
                         </TabPane>
                         <TabPane
@@ -88,8 +111,9 @@ const InputOutputModal: React.FC<IProps> = (props: IProps) => {
                             <VideoInput
                                 devices={devices}
                                 kind="videoinput"
-                                placeholder="Video"
+                                placeholder={t('common.camera')}
                                 onChange={handleChangeVideoInput}
+                                value={conversationConfig.devices.videoDeviceID}
                             />
                         </TabPane>
                     </Tabs>
