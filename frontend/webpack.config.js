@@ -19,10 +19,13 @@ module.exports = (app, params) => {
             liveReload: true,
             open: process.platform === 'linux' ? 'google-chrome' : 'Google Chrome',
             historyApiFallback: true,
-            host: 'be.meet.pl',
+            // host: 'be.meet.pl',
             port: 8080,
-            https: true,
+            https: false,
             overlay: true,
+            // proxy: {
+            //     '/api': 'http://localhost:3000',
+            // },
         },
         resolve: {
             modules: [

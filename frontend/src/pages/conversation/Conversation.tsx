@@ -14,7 +14,7 @@ import { IConversation, IConversationContextShare } from './types';
 import ConversationWrapper from './ConversationWrapper';
 
 const initialState: IConversation = {
-    isPlaying: false,
+    isPlaying: true, // TODO: TEMP
     devices: {
         microphoneDeviceID: 'default',
         speakersDeviceID: 'default',
