@@ -27,7 +27,8 @@
                 "microphone": "Mikrofon",
                 "speakers": "Głośniki",
                 "camera": "Kamera",
-                "join": "Dołącz"
+                "join": "Dołącz",
+                "error": "Wystąpił błąd"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -45,7 +46,9 @@
                 "copyClipboard": "Skopiowano do schowka",
                 "emptyResult": "Brak wyników",
                 "joinAsk": "Chcesz dołączyć?",
-                "waitAnswer": "Oczekiwanie na akceptacje..."
+                "waitAnswer": "Oczekiwanie na akceptacje...",
+                "commonError": "Wystąpił nieoczekiwany błąd, przepraszamy",
+                "userCreated": "Użytkownik został utworzony"
             }
         }
     },
@@ -77,7 +80,8 @@
                 "microphone": "Microphone",
                 "speakers": "Speakers",
                 "camera": "Camera",
-                "join": "Dołącz"
+                "join": "Dołącz",
+                "error": "Error"
             },
             "home": {
                 "header": "Look at the world with us"
@@ -95,7 +99,9 @@
                 "copyClipboard": "Copy to clipboard",
                 "emptyResult": "No results",
                 "joinAsk": "Do you want to join?",
-                "waitAnswer": "Awaiting entry acceptance..."
+                "waitAnswer": "Awaiting entry acceptance...",
+                "commonError": "An unexpected error has occurred",
+                "userCreated": "User was created"
             }
         }
     }

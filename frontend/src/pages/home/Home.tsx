@@ -21,8 +21,12 @@ const Home: React.FC = () => {
         testGet();
     };
 
-    const handleTempGet2 = () => {
-        testGetWithAuth();
+    const handleTempGet2 = async () => {
+        try {
+            await testGetWithAuth();
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (

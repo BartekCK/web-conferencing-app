@@ -18,11 +18,9 @@ const authController = {
                 password,
                 phone,
             });
-            const token = createToken(user.id, user.email);
-            res.cookie('jwt', token, { maxAge: MAX_AGE_SECONDS * 1000 });
-            res.send(user);
+            res.status(201).send('User created');
         } catch (e) {
-            res.send(e);
+            res.status(400).send(e);
         }
     },
 

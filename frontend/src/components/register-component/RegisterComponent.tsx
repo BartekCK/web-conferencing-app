@@ -4,7 +4,9 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 
 // components
-import { Form, Input, Button } from 'antd';
+import {
+    Form, Input, Button, notification,
+} from 'antd';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 
@@ -18,6 +20,8 @@ import { useDispatch } from 'react-redux';
 // types
 import { LayoutType } from 'core/store/types/enum';
 import { FormInstance } from 'antd/es/form';
+import { createUserPost } from 'core/api/commands';
+import { IUser } from 'core/types';
 
 const RegisterComponent: React.FC = () => {
     const { t } = useTranslation();
@@ -25,8 +29,23 @@ const RegisterComponent: React.FC = () => {
 
     const [form] = Form.useForm();
 
-    const onFinish = (values) => {
-        console.log('Received values of form: ', values);
+    const onFinish = async (user: IUser) => {
+        try {
+            await createUserPost(user);
+            notification.info({
+                message: t('messages.userCreated'),
+                placement: 'topLeft',
+                duration: 2,
+            });
+            dispatch(dispatchSetCurrentLayout(LayoutType.LOGIN_LAYOUT));
+        } catch (e) {
+            notification.error({
+                message: t('common.error'),
+                description: t('messages.commonError'),
+                placement: 'topLeft',
+                duration: 2,
+            });
+        }
     };
 
     const handleReturnToLogin = React.useCallback(() => {
@@ -133,10 +152,7 @@ const RegisterComponent: React.FC = () => {
                         },
                     ]}
                 >
-                    <ReCAPTCHA
-                        sitekey={process.env.CAPTCHA_KEY}
-                        size="compact"
-                    />
+                    <ReCAPTCHA sitekey={process.env.CAPTCHA_KEY} size="compact" />
                 </Form.Item>
 
                 <Form.Item>

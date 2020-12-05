@@ -1,5 +1,6 @@
 import { axiosInstance } from 'core/api/config';
 import { Routes } from 'core/api/routes';
+import { IUser } from 'core/types';
 
 export const testGet = async () => {
     const res = await axiosInstance.get(Routes.testGetWithoutAuth());
@@ -16,7 +17,7 @@ export const loginFacebookPost = async (data: any) => {
     return res.data;
 };
 
-export const createUserPost = async (user: any) => {
+export const createUserPost = async (user: IUser) => {
     const res = await axiosInstance.post(Routes.createUser(), user);
     return res.data;
 };
