@@ -14,7 +14,7 @@ const cookieExtractor = (req: Request) => {
     return token;
 };
 
-export const passportStrategyJWT = passport.use(
+const passportStrategyJWT = passport.use(
     new Strategy(
         {
             secretOrKey: process.env.SECRET_AUTH_KEY || 'secret',
@@ -32,3 +32,5 @@ export const passportStrategyJWT = passport.use(
         },
     ),
 );
+
+export default passportStrategyJWT.authenticate('jwt', { session: false })

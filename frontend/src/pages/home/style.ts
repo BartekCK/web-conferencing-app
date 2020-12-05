@@ -15,6 +15,7 @@ export const HomeStyled = styled.div`
 
         > .button--section {
             display: flex;
+            position: relative;
         }
     }
     > .right {

@@ -11,6 +11,7 @@ import { ActionType } from 'core/types/enums';
 
 // hooks
 import { useTranslation } from 'react-i18next';
+import { changePasswordPost } from 'core/api/commands';
 
 interface IProps {
     handleModalClose: () => void;
@@ -44,6 +45,7 @@ const ChangePassword: React.FC<IProps> = ({ handleModalClose }: IProps) => {
     const onFinish = async (values) => {
         setLoading(true);
         try {
+            await changePasswordPost(values);
             openNotification(ActionType.SUCCESS);
         } catch (e) {
             openNotification(ActionType.ERROR);

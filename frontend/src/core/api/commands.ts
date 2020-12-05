@@ -1,6 +1,6 @@
 import { axiosInstance } from 'core/api/config';
 import { Routes } from 'core/api/routes';
-import { IUser } from 'core/types';
+import { IChangePassword, IUser } from 'core/types';
 
 export const testGet = async () => {
     const res = await axiosInstance.get(Routes.testGetWithoutAuth());
@@ -29,5 +29,10 @@ export const loginUserPost = async (user: IUser) => {
 
 export const loginUserTokenGet = async () => {
     const res = await axiosInstance.get(Routes.login(true));
+    return res.data;
+};
+
+export const changePasswordPost = async (data: IChangePassword) => {
+    const res = await axiosInstance.post(Routes.changePassword(), data);
     return res.data;
 };

@@ -13,3 +13,8 @@ export interface IUser {
     phone?: string;
     image?: string;
 }
+
+export interface IChangePassword {
+    currentPassword: string;
+    newPassword: string;
+}

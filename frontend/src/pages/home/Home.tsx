@@ -6,11 +6,15 @@ import { useTranslation } from 'react-i18next';
 
 // components
 import CredentialFactory from 'container/credential-factory';
+import { useSelector } from 'react-redux';
+import { IStore } from 'core/store/types';
+import { Popover } from 'antd';
 
 const Home: React.FC = () => {
     const [textLink, setTextLink] = React.useState<string>('');
 
     const { t } = useTranslation();
+    const { user } = useSelector((state: IStore) => state.auth);
 
     const handleChange = (event) => {
         setTextLink(event.target.value);
@@ -29,7 +33,11 @@ const Home: React.FC = () => {
                     electronic typesetting, remaining essentially unchanged.
                 </p>
                 <div className="button--section">
-                    <button className="ant-btn ant-btn-primary mx-2" type="button">
+                    <button
+                        disabled={!user}
+                        className="ant-btn ant-btn-primary mx-2"
+                        type="button"
+                    >
                         {t('common.newMeet')}
                     </button>
                     <input

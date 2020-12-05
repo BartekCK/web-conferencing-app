@@ -8,3 +8,8 @@ export interface IReqUserFacebookDTO {
     short_name: string;
     email: string;
 }
+
+export interface IReqChangePasswordDTO {
+    newPassword: string;
+    currentPassword: string;
+}

@@ -4,7 +4,6 @@ import http, { Server } from 'http';
 import io from 'socket.io';
 import SocketService from './services/socket';
 import connectDatabase from './config/database';
-import { authRouter } from './routes/authRoutes';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routing from './config/routing';
