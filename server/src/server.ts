@@ -6,6 +6,8 @@ import SocketService from './services/socket';
 import connectDatabase from './config/database';
 import { authRouter } from './routes/authRoutes';
 import cookieParser from 'cookie-parser';
+import cors from 'cors';
+import routing from './config/routing';
 
 dotenv.config();
 
@@ -16,6 +18,12 @@ const server: Server = http.createServer(app);
 
 app.use(express.json());
 app.use(cookieParser());
+app.use(
+    cors({
+        origin: 'https://localhost:8080',
+        credentials: true,
+    }),
+);
 
 const startServer = async (): Promise<void> => {
     try {
@@ -24,8 +32,7 @@ const startServer = async (): Promise<void> => {
             cors: { origin: '*' },
         });
 
-        app.use(authRouter);
-
+        routing(app);
         SocketService(socket);
 
         server.listen(PORT, () => {

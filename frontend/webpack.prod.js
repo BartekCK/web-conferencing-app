@@ -25,16 +25,16 @@ module.exports = (app, params) => {
         module: {
             rules: [
                 {
-                    test: /\.(t|j)sx?$/,
+                    testGetWithoutAuth: /\.(t|j)sx?$/,
                     use: { loader: 'ts-loader' },
                     exclude: /node_modules/,
                 },
                 {
-                    test: /\.css$/i,
+                    testGetWithoutAuth: /\.css$/i,
                     use: [MiniCssExtractPlugin.loader, 'css-loader'],
                 },
                 {
-                    test: /\.(t|j)sx?$/,
+                    testGetWithoutAuth: /\.(t|j)sx?$/,
                     loader: 'eslint-loader',
                     options: {
                         emitWarning: true,
@@ -43,7 +43,7 @@ module.exports = (app, params) => {
                     exclude: /node_modules/,
                 },
                 {
-                    test: /\.(png|jpe?g|gif)$/i,
+                    testGetWithoutAuth: /\.(png|jpe?g|gif)$/i,
                     use: [
                         {
                             loader: 'file-loader',
@@ -57,7 +57,7 @@ module.exports = (app, params) => {
                 maxSize: 90000,
                 cacheGroups: {
                     vendor: {
-                        test: /node_modules/,
+                        testGetWithoutAuth: /node_modules/,
                         chunks: 'initial',
                         name: 'vendor',
                         priority: 10,

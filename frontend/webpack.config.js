@@ -21,7 +21,7 @@ module.exports = (app, params) => {
             historyApiFallback: true,
             // host: 'be.meet.pl',
             port: 8080,
-            https: false,
+            https: true,
             overlay: true,
             // proxy: {
             //     '/api': 'http://localhost:3000',

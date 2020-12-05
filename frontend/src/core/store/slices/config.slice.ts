@@ -5,7 +5,7 @@ import { IConfigSlice } from '../types';
 import { LayoutType } from '../types/enum';
 
 const initialState: IConfigSlice = {
-    currentLayout: LayoutType.USER_LAYOUT,
+    currentLayout: LayoutType.LOGIN_LAYOUT,
 };
 
 const contentSlice = createSlice({

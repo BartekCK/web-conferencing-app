@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 
 // components
 import CredentialFactory from 'container/credential-factory';
+import { testGet, testGetWithAuth } from 'core/api/commands';
 
 const Home: React.FC = () => {
     const [textLink, setTextLink] = React.useState<string>('');
@@ -16,10 +17,24 @@ const Home: React.FC = () => {
         setTextLink(event.target.value);
     };
 
+    const handleTempGet = () => {
+        testGet();
+    };
+
+    const handleTempGet2 = () => {
+        testGetWithAuth();
+    };
+
     return (
         <HomeStyled>
             <div className="left d-md-5">
                 <h1>{t('home.header')}</h1>
+                <button type="button" onClick={handleTempGet}>
+                    no credentials
+                </button>
+                <button type="button" onClick={handleTempGet2}>
+                    credentials
+                </button>
                 <p>
                     Lorem Ipsum is simply dummy text of the printing and typesetting
                     industry. Lorem Ipsum has been the industry s standard dummy text

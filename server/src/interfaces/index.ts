@@ -10,6 +10,7 @@ export interface ResponseBody<T> extends Response {
 
 export interface IToken {
     id: string;
+    email: string;
     iat: number;
     exp: number;
 }

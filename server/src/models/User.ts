@@ -5,6 +5,8 @@ import bcrypt from 'bcrypt';
 export interface IUser {
     email: string;
     password: string;
+    facebookUserID?: string;
+    phone?: string;
 }
 
 export interface IUserDocument extends Document, IUser {}
@@ -21,12 +23,14 @@ const userSchema: Schema = new Schema({
         type: String,
         required: [true, 'Please enter a password'] as any,
     },
+    facebookUserID: {
+        type: String,
+        unique: true,
+    },
+    phone: {
+        type: String,
+    },
 });
-
-// userSchema.post('save', (doc, next) => {
-//     console.log(doc);
-//     next(null);
-// });
 
 userSchema.pre<IUserDocument>('save', async function (next) {
     const salt = await bcrypt.genSalt();

@@ -4,7 +4,6 @@ import { Strategy, VerifiedCallback } from 'passport-jwt';
 import * as dotenv from 'dotenv';
 import { IToken } from '../interfaces';
 import User, { IUserDocument } from '../models/User';
-
 dotenv.config();
 
 const cookieExtractor = (req: Request) => {

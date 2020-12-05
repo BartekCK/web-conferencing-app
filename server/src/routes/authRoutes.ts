@@ -1,15 +1,17 @@
 import { Router } from 'express';
 import authController from '../controllers/authController';
-import passport from 'passport';
-import { passportStrategyJWT } from '../middlewares/auth';
+import { passportStrategyJWT } from '../middlewares/authMiddleware';
+
 export const authRouter: Router = Router();
 
-authRouter.get('/signup', authController.signupGet);
 authRouter.post('/signup', authController.signupPost);
-authRouter.get(
-    '/login',
-    passportStrategyJWT.authenticate('jwt', { session: false }),
-    authController.loginGet,
-);
-authRouter.get('/login2', authController.loginGet);
 authRouter.post('/login', authController.loginPost);
+authRouter.post('/login/facebook', authController.loginFacebookPost);
+
+// test
+authRouter.get('/get/test-without-auth', authController.testAuthGet);
+authRouter.get(
+    '/get/test-with-auth',
+    passportStrategyJWT.authenticate('jwt', { session: false }),
+    authController.testAuthGet,
+);

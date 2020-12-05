@@ -1,8 +1,8 @@
-import User, { IUserDocument } from '../models/User';
+import User, { IUser, IUserDocument } from '../models/User';
 
 const userService = {
-    createUser: async (email: string, password: string): Promise<IUserDocument> => {
-        const user = new User({ email, password });
+    createUser: async (newUser: IUser): Promise<IUserDocument> => {
+        const user = new User(newUser);
         return await user.save();
     },
 };
