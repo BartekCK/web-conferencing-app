@@ -12,7 +12,7 @@ export interface IUser {
 
 export interface IUserDocument extends Document, IUser {}
 
-const userSchema: Schema = new Schema({
+export const userSchema: Schema = new Schema({
     email: {
         type: String,
         unique: true,

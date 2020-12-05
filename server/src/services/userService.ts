@@ -1,5 +1,5 @@
 import User, { IUser, IUserDocument } from '../models/User';
-import { IReqChangePasswordDTO } from '../dto/request';
+import { IChangePasswordDTO } from '../dto';
 import bcrypt from 'bcrypt';
 
 const userService = {
@@ -7,8 +7,8 @@ const userService = {
         const user = new User(newUser);
         return await user.save();
     },
-    changePassword: async (credentials: IReqChangePasswordDTO, userId: string): Promise<void> => {
-        const { newPassword, currentPassword }: IReqChangePasswordDTO = credentials;
+    changePassword: async (credentials: IChangePasswordDTO, userId: string): Promise<void> => {
+        const { newPassword, currentPassword }: IChangePasswordDTO = credentials;
         const user: IUserDocument | null = await User.findOne({ _id: userId });
         if (!user) {
             throw new Error('Error');

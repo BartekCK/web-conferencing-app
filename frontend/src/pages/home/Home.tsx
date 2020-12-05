@@ -8,7 +8,8 @@ import { useTranslation } from 'react-i18next';
 import CredentialFactory from 'container/credential-factory';
 import { useSelector } from 'react-redux';
 import { IStore } from 'core/store/types';
-import { Popover } from 'antd';
+import { createRoomPost } from 'core/api/commands';
+import { v4 as uuidv4 } from 'uuid';
 
 const Home: React.FC = () => {
     const [textLink, setTextLink] = React.useState<string>('');
@@ -18,6 +19,14 @@ const Home: React.FC = () => {
 
     const handleChange = (event) => {
         setTextLink(event.target.value);
+    };
+
+    const handleCreateRoomClick = async () => {
+        try {
+            await createRoomPost(uuidv4().slice(0, -18));
+        } catch (e) {
+            console.log(e);
+        }
     };
 
     return (
@@ -37,6 +46,7 @@ const Home: React.FC = () => {
                         disabled={!user}
                         className="ant-btn ant-btn-primary mx-2"
                         type="button"
+                        onClick={handleCreateRoomClick}
                     >
                         {t('common.newMeet')}
                     </button>

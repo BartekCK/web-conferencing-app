@@ -4,10 +4,6 @@ import userController from '../controllers/userController';
 
 const userRouter: Router = Router();
 
-userRouter.post(
-    '/change-password',
-    passportStrategyJWT,
-    userController.changePasswordPost,
-);
+userRouter.post('/change-password', passportStrategyJWT, userController.changePasswordPost);
 
 export default userRouter;

@@ -36,3 +36,8 @@ export const changePasswordPost = async (data: IChangePassword) => {
     const res = await axiosInstance.post(Routes.changePassword(), data);
     return res.data;
 };
+
+export const createRoomPost = async (roomCode: string) => {
+    const res = await axiosInstance.post(Routes.createRoom(), { roomCode });
+    return res.data;
+};

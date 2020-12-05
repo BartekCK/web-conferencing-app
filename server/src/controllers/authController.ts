@@ -1,16 +1,12 @@
 import { Response, Request } from 'express';
 import { RequestBody } from '../interfaces';
 import userService from '../services/userService';
-import { LoginDTO, UserDTO } from '../dto';
-import jwt from 'jsonwebtoken';
-import { MAX_AGE_SECONDS } from '../config/constants';
 import User, { IUserDocument } from '../models/User';
 import { createToken, setCookie } from '../services/authService';
-import { IResUserDTO } from '../dto/response';
-import { IReqUserFacebookDTO } from '../dto/request';
+import { ILoginDTO, IUserFacebookDTO, IUserCreateDTO, IUserDTO } from '../dto';
 
 const authController = {
-    signupPost: async (req: RequestBody<UserDTO>, res: Response) => {
+    signupPost: async (req: RequestBody<IUserCreateDTO>, res: Response) => {
         const { email, password, phone } = req.body;
         try {
             await userService.createUser({
@@ -28,7 +24,7 @@ const authController = {
         res.send('Hello world');
     },
 
-    loginPost: async (req: RequestBody<LoginDTO>, res: Response<IResUserDTO>) => {
+    loginPost: async (req: RequestBody<ILoginDTO>, res: Response<IUserDTO>) => {
         const { email: emailBody, password } = req.body;
         try {
             const user: IUserDocument = await User.login(emailBody, password);
@@ -50,8 +46,8 @@ const authController = {
     },
 
     loginFacebookPost: async (
-        req: RequestBody<IReqUserFacebookDTO>,
-        res: Response<IResUserDTO>,
+        req: RequestBody<IUserFacebookDTO>,
+        res: Response<IUserDTO>,
     ) => {
         const { id, email } = req.body;
         try {
