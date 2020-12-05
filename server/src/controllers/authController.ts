@@ -26,9 +26,11 @@ const authController = {
             res.send(e);
         }
     },
+
     loginGet: (req: Request, res: Response) => {
         res.send('Hello world');
     },
+
     loginPost: async (req: RequestBody<LoginDTO>, res: Response<IResUserDTO>) => {
         const { email: emailBody, password } = req.body;
         try {

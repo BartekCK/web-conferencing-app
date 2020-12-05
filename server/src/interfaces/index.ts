@@ -7,3 +7,9 @@ export interface RequestBody<T> extends Request {
 export interface ResponseBody<T> extends Response {
     body: T;
 }
+
+export interface IToken {
+    id: string;
+    iat: number;
+    exp: number;
+}
