@@ -20,7 +20,8 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(
     cors({
-        origin: 'https://be.meet.pl:8080',
+        origin: ['https://localhost:8080', 'https://be.meet.pl:8080', 'https://127.0.0.1:8080'],
+        // origin: ['https://127.0.0.1:8080'],
         credentials: true,
     }),
 );

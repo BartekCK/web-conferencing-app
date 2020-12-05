@@ -7,6 +7,7 @@ export interface ISingleRoom {
 }
 
 export interface IUser {
+    id?: string;
     email: string;
     password: string;
     phone?: string;

@@ -5,12 +5,15 @@ import { useTranslation } from 'react-i18next';
 // components
 import { FacebookProvider, LoginButton } from 'react-facebook';
 import { loginFacebookPost } from 'core/api/commands';
+import { dispatchSetCurrentUser } from 'core/store/slices/auth.slice';
+import { useDispatch } from 'react-redux';
 
 const FacebookLoginButton: React.FC = () => {
-    // const [cookies, setCookie, removeCookie] = useCookies();
+    const dispatch = useDispatch();
 
     const handleFacebookLogin = async (event) => {
-        await loginFacebookPost(event.profile);
+        const data = await loginFacebookPost(event.profile);
+        dispatch(dispatchSetCurrentUser(data));
     };
 
     const { t } = useTranslation();

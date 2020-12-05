@@ -24,5 +24,6 @@ export const HomeStyled = styled.div`
         align-items: center;
         justify-content: center;
         position: relative;
+        overflow: hidden;
     }
 `;

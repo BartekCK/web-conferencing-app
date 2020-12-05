@@ -21,3 +21,13 @@ export const createUserPost = async (user: IUser) => {
     const res = await axiosInstance.post(Routes.createUser(), user);
     return res.data;
 };
+
+export const loginUserPost = async (user: IUser) => {
+    const res = await axiosInstance.post(Routes.login(false), user);
+    return res.data;
+};
+
+export const loginUserTokenGet = async () => {
+    const res = await axiosInstance.get(Routes.login(true));
+    return res.data;
+};

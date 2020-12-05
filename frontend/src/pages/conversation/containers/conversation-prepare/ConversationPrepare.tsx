@@ -4,7 +4,7 @@ import InputOutputModal from 'pages/conversation/containers/input-output-modal';
 import UserVideo from 'components/user-video';
 import ConversationContext from 'pages/conversation/provider';
 import { IConversationContextShare } from 'pages/conversation/types';
-import { setPlaying, updateDevice } from 'pages/conversation/actions';
+import { updateDevice } from 'pages/conversation/actions';
 import ConversationStartButton from 'pages/conversation/components/conversation-start-button/ConversationStartButton';
 
 interface IProps {}

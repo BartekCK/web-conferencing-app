@@ -15,7 +15,10 @@ interface IProps {
 
 const { TabPane } = Tabs;
 
-const SettingsComponent: React.FC<IProps> = ({ onChangeTab, handleModalClose }: IProps) => {
+const SettingsComponent: React.FC<IProps> = ({
+    onChangeTab,
+    handleModalClose,
+}: IProps) => {
     const { t } = useTranslation();
 
     return (

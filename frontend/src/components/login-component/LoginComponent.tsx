@@ -7,7 +7,9 @@ import { useTranslation } from 'react-i18next';
 
 // components
 import FacebookLoginButton from 'components/button-facebook';
-import { Form, Input, Button } from 'antd';
+import {
+    Form, Input, Button, notification,
+} from 'antd';
 
 // assets
 import LogoSvg from 'assets/home/logo.svg';
@@ -16,15 +18,14 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 // store
 import { useDispatch } from 'react-redux';
 import { dispatchSetCurrentLayout } from 'core/store/slices/config.slice';
+import { dispatchSetCurrentUser } from 'core/store/slices/auth.slice';
 
 // types
 import { LayoutType } from 'core/store/types/enum';
+import { loginUserPost } from 'core/api/commands';
+import { IUser } from 'core/types';
 
 const LoginComponent: React.FC = () => {
-    const onFinish = (values) => {
-        // console.log('Received values of form: ', values);
-    };
-
     const dispatch = useDispatch();
 
     const { t } = useTranslation();
@@ -32,6 +33,20 @@ const LoginComponent: React.FC = () => {
     const handleSignUp = React.useCallback(() => {
         dispatch(dispatchSetCurrentLayout(LayoutType.REGISTER_LAYOUT));
     }, [dispatch]);
+
+    const onFinish = async (user: IUser) => {
+        try {
+            const data: IUser = await loginUserPost(user);
+            dispatch(dispatchSetCurrentUser(data));
+        } catch (e) {
+            notification.error({
+                message: t('common.error'),
+                description: t('messages.commonError'),
+                placement: 'topLeft',
+                duration: 2,
+            });
+        }
+    };
 
     return (
         <LoginComponentStyled>
@@ -51,7 +66,9 @@ const LoginComponent: React.FC = () => {
                 </Form.Item>
                 <Form.Item
                     name="password"
-                    rules={[{ required: true, message: t('messages.emptyPassword') }]}
+                    rules={[
+                        { required: true, message: t('messages.emptyPassword') },
+                    ]}
                 >
                     <Input
                         prefix={<LockOutlined className="site-form-item-icon" />}

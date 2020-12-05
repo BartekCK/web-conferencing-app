@@ -28,7 +28,8 @@
                 "speakers": "Głośniki",
                 "camera": "Kamera",
                 "join": "Dołącz",
-                "error": "Wystąpił błąd"
+                "error": "Wystąpił błąd",
+                "logOut": "Wyloguj"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -81,7 +82,8 @@
                 "speakers": "Speakers",
                 "camera": "Camera",
                 "join": "Dołącz",
-                "error": "Error"
+                "error": "Error",
+                "logOut": "Log out"
             },
             "home": {
                 "header": "Look at the world with us"

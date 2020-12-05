@@ -8,17 +8,27 @@ import SettingsComponent from 'components/settings';
 import RoomContainer from 'components/room-container';
 import CustomAvatar from 'components/avatar/Avatar';
 import { Modal } from 'antd';
+import { useCookies } from 'react-cookie';
+import { dispatchSetCurrentUser } from 'core/store/slices/auth.slice';
+import { useDispatch } from 'react-redux';
 
 const UserComponent: React.FC = () => {
     const [isModalVisible, setModalVisible] = React.useState<boolean>(false);
-
+    const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
     const { t } = useTranslation();
+    const dispatch = useDispatch();
 
     const handleAvatarClick = () => {
         setModalVisible(true);
     };
 
     const handleModalClose = () => {
+        setModalVisible(false);
+    };
+
+    const handleLogOut = () => {
+        removeCookie('jwt');
+        dispatch(dispatchSetCurrentUser(null));
         setModalVisible(false);
     };
 
@@ -36,6 +46,13 @@ const UserComponent: React.FC = () => {
                     onCancel={handleModalClose}
                     footer={null}
                 >
+                    <button
+                        onClick={handleLogOut}
+                        type="button"
+                        className="ant-btn ant-btn-ghost float-right"
+                    >
+                        {t('common.logOut')}
+                    </button>
                     <SettingsComponent handleModalClose={handleModalClose} />
                 </Modal>
             )}

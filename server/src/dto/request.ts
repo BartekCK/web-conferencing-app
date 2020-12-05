@@ -1,4 +1,4 @@
-export interface IUserFacebookDTO {
+export interface IReqUserFacebookDTO {
     id: string;
     first_name: string;
     last_name: string;

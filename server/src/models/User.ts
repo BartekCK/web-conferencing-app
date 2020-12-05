@@ -7,6 +7,7 @@ export interface IUser {
     password: string;
     facebookUserID?: string;
     phone?: string;
+    image?: string;
 }
 
 export interface IUserDocument extends Document, IUser {}
@@ -30,6 +31,7 @@ const userSchema: Schema = new Schema({
     phone: {
         type: String,
     },
+    image: String,
 });
 
 userSchema.pre<IUserDocument>('save', async function (next) {

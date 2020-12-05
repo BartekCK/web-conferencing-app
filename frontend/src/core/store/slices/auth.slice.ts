@@ -1,24 +1,24 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 // types
-import { IConfigSlice } from '../types';
-import { LayoutType } from '../types/enum';
+import { IAuthSlice } from '../types';
+import { IUser } from 'core/types';
 
-const initialState: IConfigSlice = {
-    currentLayout: LayoutType.LOGIN_LAYOUT,
+const initialState: IAuthSlice = {
+    user: null,
 };
 
-const contentSlice = createSlice({
-    name: 'config',
+const authSlice = createSlice({
+    name: 'auth',
     initialState,
     reducers: {
-        dispatchSetCurrentLayout(state: IConfigSlice, action: PayloadAction<LayoutType>) {
-            state.currentLayout = action.payload;
+        dispatchSetCurrentUser(state: IAuthSlice, action: PayloadAction<IUser | null>) {
+            state.user = action.payload;
         },
     },
     extraReducers: {},
 });
 
-export const { dispatchSetCurrentLayout } = contentSlice.actions;
+export const { dispatchSetCurrentUser } = authSlice.actions;
 
-export default contentSlice.reducer;
+export default authSlice.reducer;
