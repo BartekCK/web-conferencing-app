@@ -30,7 +30,10 @@
                 "join": "Dołącz",
                 "error": "Wystąpił błąd",
                 "logOut": "Wyloguj",
-                "setRoomName": "Ustaw nazwę konwersacji"
+                "setRoomName": "Ustaw nazwę konwersacji",
+                "groupCreate": "Stwórz grupę",
+                "save": "Zapisz",
+                "deleteConversation": "Usuń konwersacje"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -50,7 +53,8 @@
                 "joinAsk": "Chcesz dołączyć?",
                 "waitAnswer": "Oczekiwanie na akceptacje...",
                 "commonError": "Wystąpił nieoczekiwany błąd, przepraszamy",
-                "userCreated": "Użytkownik został utworzony"
+                "userCreated": "Użytkownik został utworzony",
+                "deleteConversation": "Wpisz kod pokoju żeby usunać"
             }
         }
     },
@@ -82,10 +86,13 @@
                 "microphone": "Microphone",
                 "speakers": "Speakers",
                 "camera": "Camera",
-                "join": "Dołącz",
+                "join": "Join",
                 "error": "Error",
                 "logOut": "Log out",
-                "setRoomName": "Set room name"
+                "setRoomName": "Set room name",
+                "groupCreate": "Create group",
+                "save": "Save",
+                "deleteConversation": "Delete conversation"
             },
             "home": {
                 "header": "Look at the world with us"
@@ -105,7 +112,8 @@
                 "joinAsk": "Do you want to join?",
                 "waitAnswer": "Awaiting entry acceptance...",
                 "commonError": "An unexpected error has occurred",
-                "userCreated": "User was created"
+                "userCreated": "User was created",
+                "deleteConversation": "Enter the room code to delete"
             }
         }
     }

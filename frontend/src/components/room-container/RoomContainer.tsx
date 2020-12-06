@@ -35,19 +35,7 @@ const RoomContainer: React.FC = () => {
     };
 
     React.useEffect(() => {
-        // Get all rooms list
         getAllRooms();
-        // const temp: ISingleRoom[] = [];
-        // for (let i = 0; i < 15; i += 1) {
-        //     temp.push({
-        //         id: uuidv4(),
-        //         roomCode: uuidv4().slice(0, -18),
-        //         roomName: uuidv4().slice(32),
-        //         guests: [],
-        //         owner: uuidv4().slice(32),
-        //     });
-        // }
-        // setRooms(temp);
     }, []);
 
     React.useEffect(() => {
@@ -55,6 +43,11 @@ const RoomContainer: React.FC = () => {
             setFilterList([]);
         }
     }, [inputValue]);
+
+    const deleteRoom = (idForDelete: string) => {
+        setRooms((prevState) => prevState.filter((room) => room.id !== idForDelete));
+        setFilterList((prevState) => prevState.filter((room) => room.id !== idForDelete));
+    };
 
     const searchInList = async () => {
         setLoading(true);
@@ -80,12 +73,20 @@ const RoomContainer: React.FC = () => {
     const renderSingleRoom = () => {
         if (filterList.length > 0) {
             return filterList.map((singleRoom: ISingleRoom) => (
-                <SingleRoom key={singleRoom.id} singleRoom={singleRoom} />
+                <SingleRoom
+                    deleteRoom={deleteRoom}
+                    key={singleRoom.id}
+                    singleRoom={singleRoom}
+                />
             ));
         }
         if (rooms.length > 0 && inputValue === '') {
             return rooms.map((singleRoom: ISingleRoom) => (
-                <SingleRoom key={singleRoom.id} singleRoom={singleRoom} />
+                <SingleRoom
+                    deleteRoom={deleteRoom}
+                    key={singleRoom.id}
+                    singleRoom={singleRoom}
+                />
             ));
         }
         return (
