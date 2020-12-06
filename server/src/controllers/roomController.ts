@@ -2,20 +2,18 @@ import { Request, Response } from 'express';
 import User, { IUserDocument } from '../models/User';
 import Room, { IRoomDocument } from '../models/Room';
 import { RequestBody } from '../interfaces';
-import { IRoomCreateDTO } from '../dto';
+import roomService from '../services/roomService';
 
 const roomController = {
     addNewRoomPost: async (req: RequestBody<{ roomCode: string }>, res: Response) => {
         const { id } = req.user as IUserDocument;
         const { roomCode } = req.body;
-        const user: IUserDocument | null = await User.findOne({ _id: id }).exec();
-        if (!user) {
-            throw new Error('User not found');
+        try {
+            const room: IRoomDocument = await roomService.createNewRoom(roomCode, id);
+            res.status(201).send(room);
+        } catch (e) {
+            res.status(400).send(e);
         }
-        const room: IRoomDocument = new Room({ owner: user, roomCode });
-        const result: IRoomDocument = await room.save();
-        console.log(result);
-        res.status(201).send('ok');
     },
 };
 

@@ -21,7 +21,7 @@ interface IProps {
 }
 
 const SingleRoom: React.FC<IProps> = ({ singleRoom }: IProps) => {
-    const { roomCode, name, id } = singleRoom;
+    const { roomCode, roomName, id } = singleRoom;
 
     const spanRef = React.useRef<HTMLInputElement>(null);
 
@@ -50,7 +50,7 @@ const SingleRoom: React.FC<IProps> = ({ singleRoom }: IProps) => {
     return (
         <SingleRoomStyled>
             <div className="title--wrapper">
-                <span className="title">{name}</span>
+                <span className="title">{roomName}</span>
             </div>
             <InputRoomStyled>
                 <span

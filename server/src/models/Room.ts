@@ -1,26 +1,36 @@
 import { Document, model, Model, Schema } from 'mongoose';
-import { IUser, IUserDocument, userSchema } from './User';
+import User, { IUser, IUserDocument, userSchema } from './User';
 
 export interface IRoom {
-    roomName: string,
-    roomCode: string
-    owner: IUser,
-    guests: IUser[],
+    roomName?: string;
+    roomCode: string;
+    owner: Schema.Types.ObjectId | IUser;
+    guests?: IUser[];
 }
 
 export interface IRoomDocument extends Document, IRoom {}
 
 const roomSchema = new Schema({
-    roomName: String,
+    roomName: {
+        type: String,
+        required: false,
+    },
     roomCode: {
         type: String,
         required: true,
     },
-    owner: userSchema,
-    guests: [userSchema],
+    owner: {
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
+    },
+    guests: {
+        type: [Schema.Types.ObjectId],
+        ref: User,
+        required: false,
+    },
 });
 
-export interface IRoomModel extends Model<IRoomDocument> {
-}
+export interface IRoomModel extends Model<IRoomDocument> {}
 
-export default model<IRoomDocument, IRoomModel>('room', roomSchema)
+export default model<IRoomDocument, IRoomModel>('room', roomSchema);

@@ -34,9 +34,9 @@ const RoomContainer: React.FC = () => {
             temp.push({
                 id: uuidv4(),
                 roomCode: uuidv4().slice(0, -18),
-                name: uuidv4().slice(32),
-                roomMates: [],
-                roomOwner: uuidv4().slice(32),
+                roomName: uuidv4().slice(32),
+                guests: [],
+                owner: uuidv4().slice(32),
             });
         }
         setRooms(temp);

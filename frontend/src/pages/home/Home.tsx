@@ -10,12 +10,16 @@ import { useSelector } from 'react-redux';
 import { IStore } from 'core/store/types';
 import { createRoomPost } from 'core/api/commands';
 import { v4 as uuidv4 } from 'uuid';
+import { useHistory } from 'react-router-dom';
+import { notification } from 'antd';
+import { ISingleRoom } from 'core/types';
 
 const Home: React.FC = () => {
     const [textLink, setTextLink] = React.useState<string>('');
 
     const { t } = useTranslation();
     const { user } = useSelector((state: IStore) => state.auth);
+    const history = useHistory();
 
     const handleChange = (event) => {
         setTextLink(event.target.value);
@@ -23,9 +27,15 @@ const Home: React.FC = () => {
 
     const handleCreateRoomClick = async () => {
         try {
-            await createRoomPost(uuidv4().slice(0, -18));
+            const data: ISingleRoom = await createRoomPost(uuidv4().slice(0, -18));
+            history.push(`/conversation/${data.roomCode}`);
         } catch (e) {
-            console.log(e);
+            notification.error({
+                message: t('common.error'),
+                description: t('messages.commonError'),
+                placement: 'topLeft',
+                duration: 2,
+            });
         }
     };
 
