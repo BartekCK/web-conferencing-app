@@ -4,6 +4,7 @@ import Room, { IRoomDocument } from '../models/Room';
 import { RequestBody } from '../interfaces';
 import roomService from '../services/roomService';
 import userService from '../services/userService';
+import { IRoomDTO } from '../dto';
 
 const roomController = {
     addNewRoomPost: async (req: RequestBody<{ roomCode: string }>, res: Response) => {
@@ -49,6 +50,16 @@ const roomController = {
         }
     },
 
+    userRoomPut: async (req: RequestBody<IRoomDTO>, res: Response) => {
+        const { id: userId } = req.user as IUserDocument;
+        const { roomId } = req.params;
+        try {
+            const room: IRoomDocument = await roomService.updateRoom(roomId, userId, req.body);
+            return res.status(200).send({ id: room.id, ...room.toObject() });
+        } catch (e) {
+            return res.status(400).send(e);
+        }
+    },
 };
 
 export default roomController;

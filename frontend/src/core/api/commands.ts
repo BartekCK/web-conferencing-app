@@ -1,6 +1,6 @@
 import { axiosInstance } from 'core/api/config';
 import { Routes } from 'core/api/routes';
-import { IChangePassword, IUser } from 'core/types';
+import { IChangePassword, ISingleRoom, IUser } from 'core/types';
 
 export const testGet = async () => {
     const res = await axiosInstance.get(Routes.testGetWithoutAuth());
@@ -54,5 +54,10 @@ export const userRoomByIdDelete = async (roomId: string) => {
 
 export const userRoomByIdGet = async (roomId: string) => {
     const res = await axiosInstance.get(Routes.room(roomId));
+    return res.data;
+};
+
+export const userRoomPut = async (roomId: string, data: Partial<ISingleRoom>) => {
+    const res = await axiosInstance.put(Routes.room(roomId), data);
     return res.data;
 };

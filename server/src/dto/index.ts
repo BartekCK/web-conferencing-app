@@ -1,3 +1,6 @@
+import { Schema } from 'mongoose';
+import { IUser } from '../models/User';
+
 export interface IUserFacebookDTO {
     id: string;
     first_name: string;
@@ -35,9 +38,9 @@ export interface IRoomCreateDTO {
 
 export interface IRoomDTO {
     roomName?: string;
-    roomCode: string;
-    owner: IUserDTO;
-    guests: IUserDTO[];
+    roomCode?: string;
+    owner?: IUserDTO;
+    guests?: (Schema.Types.ObjectId | IUser | string)[];
 }
 
 export interface ILoginDTO {

@@ -1,6 +1,7 @@
-import User, { IUserDocument } from '../models/User';
+import User, { IUser, IUserDocument } from '../models/User';
 import Room, { IRoomDocument } from '../models/Room';
 import userService from './userService';
+import { IRoomDTO } from '../dto';
 
 const roomService = {
     createNewRoom: async (roomCode: string, userId: string): Promise<IRoomDocument> => {
@@ -17,7 +18,10 @@ const roomService = {
     },
 
     getUserRoom: async (roomId: string, userId: string): Promise<IRoomDocument> => {
-        const room: IRoomDocument | null = await Room.findOne({ _id: roomId, owner: userId }).populate('owner').exec();
+        const room: IRoomDocument | null = await Room.findOne({ _id: roomId, owner: userId })
+            .populate('owner')
+            .populate('guests')
+            .exec();
         if (!room) {
             throw new Error('Room not found');
         }
@@ -26,6 +30,14 @@ const roomService = {
 
     deleteUserRoom: async (roomId: string, userId: string): Promise<IRoomDocument> => {
         return await Room.deleteOne({ _id: roomId, owner: userId }).exec();
+    },
+
+    updateRoom: async (roomId: string, userId: string, data: IRoomDTO): Promise<IRoomDocument> => {
+        const room: IRoomDocument = await roomService.getUserRoom(roomId, userId);
+        const { guests, roomName } = data;
+        room.roomName = roomName || room.roomName;
+        room.guests = guests || room.guests;
+        return await room.save();
     },
 };
 

@@ -17,7 +17,7 @@ import { useHistory } from 'react-router-dom';
 
 // types
 import { ISingleRoom } from 'core/types';
-import { userRoomByIdDelete, userRoomByIdGet } from 'core/api/commands';
+import { userRoomByIdDelete, userRoomByIdGet, userRoomPut } from 'core/api/commands';
 import ImageCropping from 'components/settings/components/image-cropping';
 import ChangePassword from 'components/settings/components/change-password';
 
@@ -26,21 +26,28 @@ interface IProps {
     roomName: string | undefined;
     closeModal: () => void;
     deleteRoom: (id: string) => void;
+    updateRoom: (newRoom: ISingleRoom) => void;
 }
 
 const { TabPane } = Tabs;
 
 const SettingRoom: React.FC<IProps> = ({
-    roomId, closeModal, roomName, deleteRoom,
+    roomId,
+    closeModal,
+    roomName,
+    deleteRoom,
+    updateRoom,
 }: IProps) => {
     const [room, setRoom] = React.useState<ISingleRoom | null>(null);
-    const [newValue, setNewValue] = React.useState<string>(room?.roomName || '');
+    const [newValue, setNewValue] = React.useState<string>(roomName || '');
     const [currentNameRoom, setCurrentNameRoom] = React.useState<string>('');
+    const [isLoading, setLoading] = React.useState<boolean>(false);
 
     const { t } = useTranslation();
 
     const getRoomData = async () => {
         try {
+            setLoading(true);
             const data = await userRoomByIdGet(roomId);
             setRoom(data);
         } catch (e) {
@@ -51,6 +58,8 @@ const SettingRoom: React.FC<IProps> = ({
                 duration: 2,
             });
             closeModal();
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -58,12 +67,13 @@ const SettingRoom: React.FC<IProps> = ({
         getRoomData();
     }, []);
 
-    const changeRoomName = async () => {};
-    const handleDeleteRoom = async () => {
+    const changeRoomName = async () => {
         try {
-            await userRoomByIdDelete(roomId);
-            deleteRoom(roomId);
-            closeModal();
+            setLoading(true);
+            const res: ISingleRoom = await userRoomPut(roomId, {
+                roomName: newValue,
+            });
+            updateRoom(res);
         } catch (e) {
             notification.error({
                 message: t('common.error'),
@@ -71,6 +81,26 @@ const SettingRoom: React.FC<IProps> = ({
                 placement: 'topLeft',
                 duration: 2,
             });
+        } finally {
+            setLoading(false);
+            closeModal();
+        }
+    };
+    const handleDeleteRoom = async () => {
+        try {
+            setLoading(true);
+            await userRoomByIdDelete(roomId);
+            deleteRoom(roomId);
+        } catch (e) {
+            notification.error({
+                message: t('common.error'),
+                description: t('messages.commonError'),
+                placement: 'topLeft',
+                duration: 2,
+            });
+        } finally {
+            setLoading(false);
+            closeModal();
         }
     };
 
@@ -89,45 +119,48 @@ const SettingRoom: React.FC<IProps> = ({
         );
     }
     return (
-        <Tabs defaultActiveKey="1" centered size="small">
-            <TabPane tab={t('common.groupCreate')} key="1">
-                1
-            </TabPane>
-            <TabPane tab={t('common.settings')} key="3">
-                <div className="row mb-2">
-                    <Input
-                        placeholder={t('common.setRoomName')}
-                        className="col-6 mx-2"
-                        value={newValue}
-                        onChange={handleChange}
-                    />
-                    <Button
-                        disabled={newValue.length === 0 || roomName === newValue}
-                        className="col mx-2"
-                        type="primary"
-                        onClick={changeRoomName}
-                    >
-                        {t('common.save')}
-                    </Button>
-                </div>
-                <div className="row mt-4">
-                    <Input
-                        placeholder={t('messages.deleteConversation')}
-                        className="col-6 mx-2"
-                        value={currentNameRoom}
-                        onChange={(event) => setCurrentNameRoom(event.target.value)}
-                    />
-                    <Button
-                        disabled={room.roomCode !== currentNameRoom}
-                        className="col mx-2"
-                        danger
-                        onClick={handleDeleteRoom}
-                    >
-                        {t('common.deleteConversation')}
-                    </Button>
-                </div>
-            </TabPane>
-        </Tabs>
+        <Spin spinning={isLoading}>
+            <Tabs defaultActiveKey="1" centered size="small">
+                <TabPane tab={t('common.groupCreate')} key="1">
+                    1
+                </TabPane>
+                <TabPane tab={t('common.settings')} key="3">
+                    <div className="row mb-2">
+                        <Input
+                            placeholder={t('common.setRoomName')}
+                            className="col-6 mx-2"
+                            value={newValue}
+                            defaultValue={roomName}
+                            onChange={handleChange}
+                        />
+                        <Button
+                            disabled={newValue.length === 0 || roomName === newValue}
+                            className="col mx-2"
+                            type="primary"
+                            onClick={changeRoomName}
+                        >
+                            {t('common.save')}
+                        </Button>
+                    </div>
+                    <div className="row mt-4">
+                        <Input
+                            placeholder={t('messages.deleteConversation')}
+                            className="col-6 mx-2"
+                            value={currentNameRoom}
+                            onChange={(event) => setCurrentNameRoom(event.target.value)}
+                        />
+                        <Button
+                            disabled={room.roomCode !== currentNameRoom}
+                            className="col mx-2"
+                            danger
+                            onClick={handleDeleteRoom}
+                        >
+                            {t('common.deleteConversation')}
+                        </Button>
+                    </div>
+                </TabPane>
+            </Tabs>
+        </Spin>
     );
 };
 

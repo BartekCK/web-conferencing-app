@@ -6,11 +6,10 @@ export interface IRoom {
     roomName?: string;
     roomCode: string;
     owner: Schema.Types.ObjectId | IUser | string;
-    guests?: IUser[];
+    guests?: (Schema.Types.ObjectId | IUser | string)[];
 }
 
-export interface IRoomDocument extends Document, IRoom {
-}
+export interface IRoomDocument extends Document, IRoom {}
 
 const roomSchema = new Schema({
     roomName: {
@@ -30,9 +29,10 @@ const roomSchema = new Schema({
         type: [Schema.Types.ObjectId],
         ref: User,
         required: false,
+        unique: true,
+        default: [],
     },
 });
-
 
 export interface IRoomModel extends Model<IRoomDocument> {
     getAllRooms: any;
@@ -43,6 +43,5 @@ export interface IRoomModel extends Model<IRoomDocument> {
 //     rooms.map((room) => ({id: room._id, ...room}))
 //     throw new Error('incorrect email');
 // },)
-
 
 export default model<IRoomDocument, IRoomModel>('room', roomSchema);

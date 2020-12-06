@@ -46,7 +46,17 @@ const RoomContainer: React.FC = () => {
 
     const deleteRoom = (idForDelete: string) => {
         setRooms((prevState) => prevState.filter((room) => room.id !== idForDelete));
-        setFilterList((prevState) => prevState.filter((room) => room.id !== idForDelete));
+        setFilterList((prevState) =>
+            prevState.filter((room) => room.id !== idForDelete));
+    };
+
+    const updateRoom = (newRoom: ISingleRoom) => {
+        setRooms((prevState) =>
+            prevState.map((room) =>
+                room.id === newRoom.id ? { ...room, ...newRoom } : room));
+        setFilterList((prevState) =>
+            prevState.map((room) =>
+                room.id === newRoom.id ? { ...room, ...newRoom } : room));
     };
 
     const searchInList = async () => {
@@ -74,6 +84,7 @@ const RoomContainer: React.FC = () => {
         if (filterList.length > 0) {
             return filterList.map((singleRoom: ISingleRoom) => (
                 <SingleRoom
+                    updateRoom={updateRoom}
                     deleteRoom={deleteRoom}
                     key={singleRoom.id}
                     singleRoom={singleRoom}
@@ -83,6 +94,7 @@ const RoomContainer: React.FC = () => {
         if (rooms.length > 0 && inputValue === '') {
             return rooms.map((singleRoom: ISingleRoom) => (
                 <SingleRoom
+                    updateRoom={updateRoom}
                     deleteRoom={deleteRoom}
                     key={singleRoom.id}
                     singleRoom={singleRoom}

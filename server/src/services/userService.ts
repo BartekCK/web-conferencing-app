@@ -28,6 +28,14 @@ const userService = {
         }
         return user;
     },
+
+    findUserByEmail: async (userEmail: string): Promise<IUserDocument> => {
+        const user: IUserDocument | null = await User.findOne({ email: userEmail }).exec();
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user;
+    },
 };
 
 export default userService;

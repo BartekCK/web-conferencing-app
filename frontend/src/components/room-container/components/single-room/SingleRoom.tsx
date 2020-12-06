@@ -21,9 +21,10 @@ import SettingRoom from 'components/room-container/components/settings-room';
 interface IProps {
     singleRoom: ISingleRoom;
     deleteRoom: (id: string) => void;
+    updateRoom: (newRoom: ISingleRoom) => void;
 }
 
-const SingleRoom: React.FC<IProps> = ({ singleRoom, deleteRoom }: IProps) => {
+const SingleRoom: React.FC<IProps> = ({ singleRoom, deleteRoom, updateRoom }: IProps) => {
     const { roomCode, roomName, id } = singleRoom;
 
     const spanRef = React.useRef<HTMLInputElement>(null);
@@ -90,6 +91,7 @@ const SingleRoom: React.FC<IProps> = ({ singleRoom, deleteRoom }: IProps) => {
                 footer={null}
             >
                 <SettingRoom
+                    updateRoom={updateRoom}
                     deleteRoom={deleteRoom}
                     roomName={roomName}
                     roomId={id}

@@ -8,5 +8,6 @@ roomRouter.post('/', passportStrategyJWT, roomController.addNewRoomPost);
 roomRouter.get('/', passportStrategyJWT, roomController.allUserRoomsGet);
 roomRouter.get('/:roomId', passportStrategyJWT, roomController.userRoomGet);
 roomRouter.delete('/:roomId', passportStrategyJWT, roomController.userRoomDelete);
+roomRouter.put('/:roomId', passportStrategyJWT, roomController.userRoomPut);
 
 export default roomRouter;
