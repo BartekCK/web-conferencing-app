@@ -29,7 +29,8 @@
                 "camera": "Kamera",
                 "join": "Dołącz",
                 "error": "Wystąpił błąd",
-                "logOut": "Wyloguj"
+                "logOut": "Wyloguj",
+                "setRoomName": "Ustaw nazwę konwersacji"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -83,7 +84,8 @@
                 "camera": "Camera",
                 "join": "Dołącz",
                 "error": "Error",
-                "logOut": "Log out"
+                "logOut": "Log out",
+                "setRoomName": "Set room name"
             },
             "home": {
                 "header": "Look at the world with us"

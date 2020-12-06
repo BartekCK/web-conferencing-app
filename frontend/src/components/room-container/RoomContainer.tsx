@@ -19,6 +19,7 @@ import { SearchOutlined } from '@ant-design/icons';
 // hooks
 import { useTranslation } from 'react-i18next';
 import useDelayExecution from 'custom--hooks/useDelayExecution';
+import { allRoomsGet } from 'core/api/commands';
 
 const RoomContainer: React.FC = () => {
     const [rooms, setRooms] = React.useState<ISingleRoom[]>([]);
@@ -27,19 +28,26 @@ const RoomContainer: React.FC = () => {
     const [inputValue, setInputValue] = React.useState<string>('');
     const { t } = useTranslation();
 
+    const getAllRooms = async () => {
+        const res: any[] = await allRoomsGet();
+        const data: ISingleRoom[] = res.map((room) => ({ id: room._id, ...room }));
+        setRooms(data);
+    };
+
     React.useEffect(() => {
         // Get all rooms list
-        const temp: ISingleRoom[] = [];
-        for (let i = 0; i < 15; i += 1) {
-            temp.push({
-                id: uuidv4(),
-                roomCode: uuidv4().slice(0, -18),
-                roomName: uuidv4().slice(32),
-                guests: [],
-                owner: uuidv4().slice(32),
-            });
-        }
-        setRooms(temp);
+        getAllRooms();
+        // const temp: ISingleRoom[] = [];
+        // for (let i = 0; i < 15; i += 1) {
+        //     temp.push({
+        //         id: uuidv4(),
+        //         roomCode: uuidv4().slice(0, -18),
+        //         roomName: uuidv4().slice(32),
+        //         guests: [],
+        //         owner: uuidv4().slice(32),
+        //     });
+        // }
+        // setRooms(temp);
     }, []);
 
     React.useEffect(() => {
@@ -53,7 +61,8 @@ const RoomContainer: React.FC = () => {
         const temp = () => new Promise((resolve) => setTimeout(resolve, 1000));
         await temp();
         const result: ISingleRoom[] = rooms.filter((room: ISingleRoom) => {
-            return Object.keys(room).some((value: string) => room[value].includes(inputValue));
+            return Object.keys(room).some((value: string) =>
+                room[value].includes(inputValue));
         });
         setFilterList(result);
     };
@@ -82,10 +91,7 @@ const RoomContainer: React.FC = () => {
         return (
             <Empty
                 description={
-                    <button
-                        type="button"
-                        className="ant-btn ant-btn-primary "
-                    >
+                    <button type="button" className="ant-btn ant-btn-primary ">
                         {t('messages.emptyResult')}
                     </button>
                 }

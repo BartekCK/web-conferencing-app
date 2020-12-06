@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
-import User, { IUserDocument } from '../models/User';
+import User, { IUser, IUserDocument } from '../models/User';
 import Room, { IRoomDocument } from '../models/Room';
 import { RequestBody } from '../interfaces';
 import roomService from '../services/roomService';
+import userService from '../services/userService';
 
 const roomController = {
     addNewRoomPost: async (req: RequestBody<{ roomCode: string }>, res: Response) => {
@@ -10,11 +11,44 @@ const roomController = {
         const { roomCode } = req.body;
         try {
             const room: IRoomDocument = await roomService.createNewRoom(roomCode, id);
-            res.status(201).send(room);
+            return res.status(201).send(room);
         } catch (e) {
-            res.status(400).send(e);
+            return res.status(400).send(e);
         }
     },
+
+    allUserRoomsGet: async (req: Request, res: Response) => {
+        const { id } = req.user as IUserDocument;
+        try {
+            const rooms: IRoomDocument[] = await roomService.getAllUserRooms(id);
+            return res.status(200).send(rooms);
+        } catch (e) {
+            return res.status(400).send(e);
+        }
+    },
+
+    userRoomDelete: async (req: Request, res: Response) => {
+        const { id: userId } = req.user as IUserDocument;
+        const { roomId } = req.params;
+        try {
+            const room: IRoomDocument = await roomService.deleteUserRoom(roomId, userId);
+            return res.status(200).send(room);
+        } catch (e) {
+            return res.status(400).send(e);
+        }
+    },
+
+    userRoomGet: async (req: Request, res: Response) => {
+        const { id: userId } = req.user as IUserDocument;
+        const { roomId } = req.params;
+        try {
+            const room: IRoomDocument = await roomService.getUserRoom(roomId, userId);
+            return res.status(200).send(room);
+        } catch (e) {
+            return res.status(400).send(e);
+        }
+    },
+
 };
 
 export default roomController;

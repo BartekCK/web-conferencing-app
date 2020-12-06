@@ -15,6 +15,7 @@ import { useHistory } from 'react-router-dom';
 
 // types
 import { ISingleRoom } from 'core/types';
+import { userRoomByIdDelete } from 'core/api/commands';
 
 interface IProps {
     singleRoom: ISingleRoom;
@@ -28,8 +29,9 @@ const SingleRoom: React.FC<IProps> = ({ singleRoom }: IProps) => {
     const { t } = useTranslation();
     const history = useHistory();
 
-    const handleOpenModal = () => {
-        console.log('Open Modal');
+    const handleOpenModal = async () => {
+        const res = await userRoomByIdDelete(id);
+        console.log(res);
     };
 
     const handleStartMeet = () => {
@@ -50,7 +52,7 @@ const SingleRoom: React.FC<IProps> = ({ singleRoom }: IProps) => {
     return (
         <SingleRoomStyled>
             <div className="title--wrapper">
-                <span className="title">{roomName}</span>
+                <span className="title">{roomName || t('common.setRoomName')}</span>
             </div>
             <InputRoomStyled>
                 <span

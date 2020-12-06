@@ -1,9 +1,9 @@
 export interface ISingleRoom {
     id: string;
     roomCode: string;
-    roomName: string;
+    roomName?: string;
     owner: string;
-    guests: string[];
+    guests?: string[];
 }
 
 export interface IUser {

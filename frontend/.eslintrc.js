@@ -40,6 +40,7 @@ module.exports = {
         'import/order': 'off',
         'max-len': ['error', { code: 500 }],
         'consistent-return': 'off',
+        'no-underscore-dangle': 'off',
         'react/jsx-props-no-spreading': 'off',
         'no-prototype-builtins': 'off',
         'no-restricted-syntax': 'off',
@@ -50,7 +51,6 @@ module.exports = {
         camelcase: 'off',
         'react/no-array-index-key': 'off',
         'jam3/no-sanitizer-with-danger': [2, { wrapperName: ['safeHtml'] }],
-        'no-underscore-dangle': ['error', { allowAfterThis: true }],
     },
     settings: {
         'import/resolver': {

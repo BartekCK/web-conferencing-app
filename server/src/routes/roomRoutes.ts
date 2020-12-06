@@ -5,5 +5,8 @@ import passportStrategyJWT from '../middlewares/authMiddleware';
 const roomRouter: Router = Router();
 
 roomRouter.post('/', passportStrategyJWT, roomController.addNewRoomPost);
+roomRouter.get('/', passportStrategyJWT, roomController.allUserRoomsGet);
+roomRouter.get('/:roomId', passportStrategyJWT, roomController.userRoomGet);
+roomRouter.delete('/:roomId', passportStrategyJWT, roomController.userRoomDelete);
 
 export default roomRouter;

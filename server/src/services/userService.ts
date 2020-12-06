@@ -20,6 +20,14 @@ const userService = {
         user.password = newPassword;
         await user.save();
     },
+
+    findUser: async (userId: string): Promise<IUserDocument> => {
+        const user: IUserDocument | null = await User.findOne({ _id: userId }).exec();
+        if (!user) {
+            throw new Error('User not found');
+        }
+        return user;
+    },
 };
 
 export default userService;

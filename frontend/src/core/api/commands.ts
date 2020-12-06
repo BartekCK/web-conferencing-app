@@ -38,6 +38,21 @@ export const changePasswordPost = async (data: IChangePassword) => {
 };
 
 export const createRoomPost = async (roomCode: string) => {
-    const res = await axiosInstance.post(Routes.createRoom(), { roomCode });
+    const res = await axiosInstance.post(Routes.room(), { roomCode });
+    return res.data;
+};
+
+export const allRoomsGet = async () => {
+    const res = await axiosInstance.get(Routes.room());
+    return res.data;
+};
+
+export const userRoomByIdDelete = async (roomId: string) => {
+    const res = await axiosInstance.delete(Routes.room(roomId));
+    return res.data;
+};
+
+export const userRoomByIdGet = async (roomId: string) => {
+    const res = await axiosInstance.get(Routes.room(roomId));
     return res.data;
 };
