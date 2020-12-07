@@ -25,13 +25,12 @@ const roomSchema = new Schema({
         ref: 'user',
         required: true,
     },
-    guests: {
-        type: [Schema.Types.ObjectId],
-        ref: User,
-        required: false,
+    guests: [{
+        type: Schema.Types.ObjectId,
+        ref: 'user',
+        required: true,
         unique: true,
-        default: [],
-    },
+    }],
 });
 
 export interface IRoomModel extends Model<IRoomDocument> {

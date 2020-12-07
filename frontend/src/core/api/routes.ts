@@ -6,4 +6,5 @@ export const Routes = {
     login: (token: boolean) => (token ? '/api/auth/login/token' : '/api/auth/login'),
     changePassword: () => '/api/users/change-password',
     room: (roomId?: string) => (roomId ? `/api/rooms/${roomId}` : '/api/rooms'),
+    users: (param?: string) => (param ? `/api/users/${param}` : '/api/users'),
 };

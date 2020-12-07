@@ -147,7 +147,6 @@ const RegisterComponent: React.FC = () => {
                     name="captcha"
                     rules={[
                         {
-                            required: true,
                             message: t('messages.emptyCaptcha'),
                         },
                     ]}

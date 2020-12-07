@@ -61,3 +61,8 @@ export const userRoomPut = async (roomId: string, data: Partial<ISingleRoom>) =>
     const res = await axiosInstance.put(Routes.room(roomId), data);
     return res.data;
 };
+
+export const usersEmailsGet = async (params?: string) => {
+    const res = await axiosInstance.get(Routes.users(params));
+    return res.data;
+};

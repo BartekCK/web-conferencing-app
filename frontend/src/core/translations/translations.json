@@ -33,7 +33,10 @@
                 "setRoomName": "Ustaw nazwę konwersacji",
                 "groupCreate": "Stwórz grupę",
                 "save": "Zapisz",
-                "deleteConversation": "Usuń konwersacje"
+                "deleteConversation": "Usuń konwersacje",
+                "searchUserByEmail": "Wyszukaj użytkownika po adresie email",
+                "action": "Akacja",
+                "delete": "Usuń"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -92,7 +95,10 @@
                 "setRoomName": "Set room name",
                 "groupCreate": "Create group",
                 "save": "Save",
-                "deleteConversation": "Delete conversation"
+                "deleteConversation": "Delete conversation",
+                "searchUserByEmail": "Search user by email",
+                "action": "Action",
+                "delete": "Delete"
             },
             "home": {
                 "header": "Look at the world with us"

@@ -9,7 +9,7 @@ const roomService = {
         if (!user) {
             throw new Error('User not found');
         }
-        return await Room.create({ owner: user.id, roomCode });
+        return await Room.create({ owner: user.id, roomCode, guests: [] });
     },
 
     getAllUserRooms: async (userId: string): Promise<IRoomDocument[]> => {
@@ -33,11 +33,12 @@ const roomService = {
     },
 
     updateRoom: async (roomId: string, userId: string, data: IRoomDTO): Promise<IRoomDocument> => {
-        const room: IRoomDocument = await roomService.getUserRoom(roomId, userId);
         const { guests, roomName } = data;
+        const room: IRoomDocument = await roomService.getUserRoom(roomId, userId);
         room.roomName = roomName || room.roomName;
         room.guests = guests || room.guests;
-        return await room.save();
+        const result = await room.save();
+        return await result.populate('guests').populate('owner').execPopulate();
     },
 };
 

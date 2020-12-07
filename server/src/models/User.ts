@@ -26,7 +26,6 @@ export const userSchema: Schema = new Schema({
     },
     facebookUserID: {
         type: String,
-        unique: true,
     },
     phone: {
         type: String,

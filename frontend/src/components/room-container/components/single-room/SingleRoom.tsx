@@ -24,8 +24,12 @@ interface IProps {
     updateRoom: (newRoom: ISingleRoom) => void;
 }
 
-const SingleRoom: React.FC<IProps> = ({ singleRoom, deleteRoom, updateRoom }: IProps) => {
-    const { roomCode, roomName, id } = singleRoom;
+const SingleRoom: React.FC<IProps> = ({
+    singleRoom,
+    deleteRoom,
+    updateRoom,
+}: IProps) => {
+    const { roomCode, roomName } = singleRoom;
 
     const spanRef = React.useRef<HTMLInputElement>(null);
     const [isModalVisible, setModalVisible] = React.useState<boolean>(false);
@@ -84,20 +88,21 @@ const SingleRoom: React.FC<IProps> = ({ singleRoom, deleteRoom, updateRoom }: IP
                     </button>
                 </InputRoomStyled>
             </SingleRoomStyled>
-            <Modal
-                title={t('common.settings')}
-                visible={isModalVisible}
-                onCancel={() => setModalVisible(false)}
-                footer={null}
-            >
-                <SettingRoom
-                    updateRoom={updateRoom}
-                    deleteRoom={deleteRoom}
-                    roomName={roomName}
-                    roomId={id}
-                    closeModal={() => setModalVisible(false)}
-                />
-            </Modal>
+            {isModalVisible && (
+                <Modal
+                    title={t('common.settings')}
+                    visible={isModalVisible}
+                    onCancel={() => setModalVisible(false)}
+                    footer={null}
+                >
+                    <SettingRoom
+                        updateRoom={updateRoom}
+                        deleteRoom={deleteRoom}
+                        closeModal={() => setModalVisible(false)}
+                        singleRoom={singleRoom}
+                    />
+                </Modal>
+            )}
         </React.Fragment>
     );
 };

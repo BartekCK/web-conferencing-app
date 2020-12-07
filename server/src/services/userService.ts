@@ -36,6 +36,14 @@ const userService = {
         }
         return user;
     },
+
+    findUsersByEmail: async (userEmail: string): Promise<{id: string, email: string}[]> => {
+        const users: IUserDocument[] = await User.find({ email: { $regex: userEmail, $options: 'i' } })
+            .select('id email')
+            .limit(5)
+            .exec();
+        return users.map((user: IUserDocument) => ({ id: user.id,...user.toObject() }))
+    },
 };
 
 export default userService;

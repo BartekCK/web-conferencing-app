@@ -3,11 +3,12 @@ export interface ISingleRoom {
     roomCode: string;
     roomName?: string;
     owner: string;
-    guests?: string[];
+    guests?: (string | IUser)[];
 }
 
 export interface IUser {
     id?: string;
+    _id?: string;
     email: string;
     password: string;
     phone?: string;

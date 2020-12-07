@@ -40,7 +40,7 @@ export interface IRoomDTO {
     roomName?: string;
     roomCode?: string;
     owner?: IUserDTO;
-    guests?: (Schema.Types.ObjectId | IUser | string)[];
+    guests: [];
 }
 
 export interface ILoginDTO {

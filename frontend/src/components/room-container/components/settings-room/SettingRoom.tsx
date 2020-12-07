@@ -8,7 +8,7 @@ import { CopyOutlined } from '@ant-design/icons';
 
 // components
 import {
-    Button, Input, Modal, notification, Spin, Tabs,
+    AutoComplete, Button, Input, Modal, notification, Spin, Tabs,
 } from 'antd';
 
 // hooks
@@ -17,13 +17,18 @@ import { useHistory } from 'react-router-dom';
 
 // types
 import { ISingleRoom } from 'core/types';
-import { userRoomByIdDelete, userRoomByIdGet, userRoomPut } from 'core/api/commands';
+import {
+    userRoomByIdDelete,
+    userRoomByIdGet,
+    userRoomPut,
+    usersEmailsGet,
+} from 'core/api/commands';
 import ImageCropping from 'components/settings/components/image-cropping';
 import ChangePassword from 'components/settings/components/change-password';
+import GuestTable from 'components/room-container/components/settings-room/GuestTable';
 
 interface IProps {
-    roomId: string;
-    roomName: string | undefined;
+    singleRoom: ISingleRoom;
     closeModal: () => void;
     deleteRoom: (id: string) => void;
     updateRoom: (newRoom: ISingleRoom) => void;
@@ -32,12 +37,12 @@ interface IProps {
 const { TabPane } = Tabs;
 
 const SettingRoom: React.FC<IProps> = ({
-    roomId,
     closeModal,
-    roomName,
     deleteRoom,
     updateRoom,
+    singleRoom,
 }: IProps) => {
+    const { roomName, id: roomId } = singleRoom;
     const [room, setRoom] = React.useState<ISingleRoom | null>(null);
     const [newValue, setNewValue] = React.useState<string>(roomName || '');
     const [currentNameRoom, setCurrentNameRoom] = React.useState<string>('');
@@ -122,7 +127,7 @@ const SettingRoom: React.FC<IProps> = ({
         <Spin spinning={isLoading}>
             <Tabs defaultActiveKey="1" centered size="small">
                 <TabPane tab={t('common.groupCreate')} key="1">
-                    1
+                    <GuestTable singleRoom={room} setRoom={setRoom} />
                 </TabPane>
                 <TabPane tab={t('common.settings')} key="3">
                     <div className="row mb-2">
@@ -147,7 +152,8 @@ const SettingRoom: React.FC<IProps> = ({
                             placeholder={t('messages.deleteConversation')}
                             className="col-6 mx-2"
                             value={currentNameRoom}
-                            onChange={(event) => setCurrentNameRoom(event.target.value)}
+                            onChange={(event) =>
+                                setCurrentNameRoom(event.target.value)}
                         />
                         <Button
                             disabled={room.roomCode !== currentNameRoom}
