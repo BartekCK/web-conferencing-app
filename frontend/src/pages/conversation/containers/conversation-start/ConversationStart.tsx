@@ -1,8 +1,5 @@
 import React from 'react';
-// import SocketService from 'core/services/Socket.service';
 import io from 'socket.io-client';
-import myPeer from 'core/services/Peer.service';
-// import SocketService from 'core/services/Socket.service';
 import Peer from 'peerjs';
 import { useParams } from 'react-router-dom';
 
@@ -18,6 +15,7 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const myStream = React.useRef<MediaStream | undefined>(undefined);
 
     const mySocket = React.useRef<SocketIOClient.Socket | null>(null);
+    const myPeer = React.useRef<Peer | null>(null);
 
     const { slug } = useParams();
 
@@ -31,7 +29,8 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     };
 
     function connectToNewUser(userId: string, stream: MediaStream) {
-        const call: Peer.MediaConnection = myPeer.call(userId, stream);
+        if (!myPeer.current) return;
+        const call: Peer.MediaConnection = myPeer.current.call(userId, stream);
         const video = document.createElement('video');
 
         call.on('stream', (userVideoStream) => {
@@ -45,14 +44,14 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     }
 
     const startMyStream = async () => {
-        if (!myVideoRef.current || !divWrapperRef.current || !mySocket.current) return;
+        if (!myVideoRef.current || !divWrapperRef.current || !mySocket.current || !myPeer.current) return;
         myStream.current = await navigator.mediaDevices.getUserMedia({
             audio: false,
             video: true,
         });
         addVideoStream(myVideoRef.current, myStream.current);
 
-        myPeer.on('call', (call) => {
+        myPeer.current.on('call', (call) => {
             call.answer(myStream.current);
             const video = document.createElement('video');
             call.on('stream', (userVideoStream) => {
@@ -67,13 +66,16 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
     React.useLayoutEffect(() => {
         mySocket.current = io(ENDPOINT);
+        myPeer.current = new Peer(undefined, {
+            host: '127.0.0.1',
+            port: 3001,
+            secure: false,
+        });
 
         startMyStream();
 
-        myPeer.on('open', (id: string) => {
-            console.log(mySocket.current);
+        myPeer.current.on('open', (id: string) => {
             if (!mySocket.current) return;
-            console.log('JOIN');
             mySocket.current.emit('join-room', slug, id);
         });
 
@@ -88,8 +90,8 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
         });
 
         return () => {
-            if (!myStream.current || !myVideoRef.current || !mySocket.current) return;
-            myPeer.destroy();
+            if (!myStream.current || !myVideoRef.current || !mySocket.current || !myPeer.current) return;
+            myPeer.current.destroy();
             mySocket.current.close();
             const tracks: MediaStreamTrack[] = myStream.current.getTracks();
             tracks.forEach((track) => track.stop());
