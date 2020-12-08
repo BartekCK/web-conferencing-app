@@ -7,6 +7,7 @@ import connectDatabase from './config/database';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routing from './config/routing';
+import { PeerServer } from 'peer';
 
 dotenv.config();
 
@@ -20,7 +21,6 @@ app.use(cookieParser());
 app.use(
     cors({
         origin: ['https://localhost:8080', 'https://be.meet.pl:8080', 'https://127.0.0.1:8080'],
-        // origin: ['https://127.0.0.1:8080'],
         credentials: true,
     }),
 );
@@ -42,5 +42,7 @@ const startServer = async (): Promise<void> => {
         console.log(e);
     }
 };
+
+const peerServer = PeerServer({port: 3001, path: '/'});
 
 startServer();

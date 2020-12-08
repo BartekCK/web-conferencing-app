@@ -92,7 +92,6 @@ const GuestTable: React.FC<IProps> = ({ singleRoom, setRoom }: IProps) => {
                     className="col-8 mx-2"
                     onSelect={onSelect}
                     onSearch={onSearch}
-                    value={selectEmail}
                     placeholder={t('common.searchUserByEmail')}
                 />
                 <Button
