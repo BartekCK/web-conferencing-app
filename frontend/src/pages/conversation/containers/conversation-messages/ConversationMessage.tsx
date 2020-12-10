@@ -26,11 +26,22 @@ const ConversationMessage = React.forwardRef(
         const { isMessagesOpen } = props;
         const [inputValue, setInputValue] = React.useState<string>('');
         const [messages, setMessages] = React.useState<IMessage[]>([]);
+        const [isTyping, setTyping] = React.useState<string>('');
+
+        let typingTimer;
 
         React.useEffect(() => {
             if (!socketRef.current) return;
             socketRef.current.on('receive-message', (data: IMessage) => {
                 setMessages((prev) => [...prev, data]);
+            });
+
+            socketRef.current.on('receive-is-typing', (email: string) => {
+                setTyping(email);
+                clearTimeout(typingTimer);
+                typingTimer = setTimeout(() => {
+                    setTyping('');
+                }, 1000);
             });
         }, [socketRef]);
 
@@ -38,7 +49,9 @@ const ConversationMessage = React.forwardRef(
         const { t } = useTranslation();
 
         const handleChange = (event) => {
+            if (!socketRef.current || !user) return;
             setInputValue(event.target.value);
+            socketRef.current.emit('send-is-typing', user.email);
         };
 
         const sendMessage = () => {
@@ -70,6 +83,11 @@ const ConversationMessage = React.forwardRef(
                         />
                     ))}
                 </div>
+                {isTyping && (
+                    <div className="is--typing">
+                        {`${isTyping} ${t('common.isWriting')}`}
+                    </div>
+                )}
                 <div className="d-flex">
                     <Input
                         value={inputValue}

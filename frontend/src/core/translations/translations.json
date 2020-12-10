@@ -36,7 +36,9 @@
                 "deleteConversation": "Usuń konwersacje",
                 "searchUserByEmail": "Wyszukaj użytkownika po adresie email",
                 "action": "Akacja",
-                "delete": "Usuń"
+                "delete": "Usuń",
+                "isWriting": "pisze ..."
+
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -98,7 +100,8 @@
                 "deleteConversation": "Delete conversation",
                 "searchUserByEmail": "Search user by email",
                 "action": "Action",
-                "delete": "Delete"
+                "delete": "Delete",
+                "isWriting": "is writing ..."
             },
             "home": {
                 "header": "Look at the world with us"

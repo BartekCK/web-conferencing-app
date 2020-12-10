@@ -9,6 +9,7 @@ const ConversationMessageStyles = styled.div<IProps>`
     width: 350px;
     display: ${({ isOpen }: IProps) => (isOpen ? 'flex' : 'none')};
     flex-direction: column;
+
     > .messages--wrapper {
         flex-grow: 1;
         display: flex;
@@ -17,6 +18,21 @@ const ConversationMessageStyles = styled.div<IProps>`
         overflow: auto;
         align-items: center;
         width: 350px;
+    }
+
+    .messages--wrapper:first-child {
+        margin-top: auto !important;
+    }
+
+    > .is--typing {
+        color: #797979;
+        padding: 5px;
+        font-size: 10px;
+        font-weight: bold;
+        background: #ffffff;
+        border-radius: 15px;
+        margin: 5px;
+        align-self: flex-start;
     }
 `;
 const SingleMessageStyled = styled.div`

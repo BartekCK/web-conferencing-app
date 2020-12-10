@@ -8,9 +8,13 @@ const SocketService = (io: Server): void => {
         socket.on('join-room', (roomId, userId) => {
             socket.join(roomId);
             socket.to(roomId).broadcast.emit('user-connected', userId);
-            console.log(socket);
+
             socket.on('send-message', (data) => {
                 socket.to(roomId).emit('receive-message',data);
+            });
+
+            socket.on('send-is-typing', (email: string) => {
+                socket.to(roomId).emit('receive-is-typing',email);
             });
 
             socket.on('disconnect', () => {
