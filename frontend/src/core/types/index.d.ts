@@ -19,3 +19,9 @@ export interface IChangePassword {
     currentPassword: string;
     newPassword: string;
 }
+
+export interface IMessage{
+    message: string;
+    author: string;
+    date: string;
+}

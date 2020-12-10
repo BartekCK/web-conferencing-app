@@ -13,7 +13,7 @@ const ENDPOINT: string = 'http://127.0.0.1:3000/';
 
 const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const [peers, setPeers] = React.useState<{ userId: any; peer: any }[]>([]);
-    const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(false);
+    const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
 
     const myVideoRef = React.useRef<HTMLVideoElement>(null);
     const divWrapperRef = React.useRef<HTMLDivElement>(null);
