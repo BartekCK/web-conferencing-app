@@ -16,6 +16,7 @@ const ConversationMessageStyles = styled.div<IProps>`
         justify-content: flex-end;
         overflow: auto;
         align-items: center;
+        width: 350px;
     }
 `;
 const SingleMessageStyled = styled.div`

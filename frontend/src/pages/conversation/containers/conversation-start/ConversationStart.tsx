@@ -116,13 +116,16 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
         <ConversationStartStyled isMessagesOpen={isMessagesOpen}>
             <div className="video--wrapper" ref={divWrapperRef}>
                 <div className="open--bnt">
-                    <Button type="primary" onClick={() => setMessagesOpen((prev) => !prev)}>
+                    <Button
+                        type="primary"
+                        onClick={() => setMessagesOpen((prev) => !prev)}
+                    >
                         <LeftOutlined />
                     </Button>
                 </div>
                 <video ref={myVideoRef} muted />
             </div>
-            <ConversationMessage isMessagesOpen={isMessagesOpen} />
+            <ConversationMessage isMessagesOpen={isMessagesOpen} ref={mySocket} />
         </ConversationStartStyled>
     );
 };
