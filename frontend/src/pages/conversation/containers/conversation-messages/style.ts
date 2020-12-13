@@ -35,24 +35,29 @@ const ConversationMessageStyles = styled.div<IProps>`
         align-self: flex-start;
     }
 `;
-const SingleMessageStyled = styled.div`
-    margin: 10px 20px;
-    background: #ffffff;
-    border-radius: 15px;
-    padding: 10px;
-    width: 300px;
-    font-size: 12px;
-    > .header {
-        font-weight: bold;
-        display: flex;
-        justify-content: space-between;
-        font-size: 0.8em;
-    }
-    > .content {
-        margin: 10px 0;
-        max-width: 100%;
-        height: auto;
-    }
+
+const SingleMessageStyled = styled.div<{ isCurrentUser: boolean }>`
+  margin: 10px;
+  background: ${({ isCurrentUser }) => (isCurrentUser ? '#ffffff' : '#3f66ff')};
+  color: ${({ isCurrentUser }) => (isCurrentUser ? '#000000' : '#ffffff')};
+  border-radius: 15px;
+  padding: 10px;
+  width: 300px;
+  font-size: 12px;
+  align-self: ${({ isCurrentUser }) => (isCurrentUser ? 'flex-start' : 'flex-end')};;
+  
+  > .header {
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8em;
+  }
+
+  > .content {
+    margin: 10px 0;
+    max-width: 100%;
+    height: auto;
+  }
 `;
 
 export { ConversationMessageStyles, SingleMessageStyled };

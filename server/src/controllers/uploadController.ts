@@ -18,17 +18,12 @@ const uploadController = {
     },
 
     saveRoomAssetPost: async (req: Request, res: Response) => {
+        const { roomId } = req.params;
         if (!req.file) {
             return res.send('ERROR');
         }
-        // console.log(req.file);
-        const { roomId } = req.params;
-        console.log(roomId);
-        const resize: Resize = new Resize(`/assets/rooms/${roomId}/${uuid()}.jpeg`);
-        const isExist = await resize.checkIsDirExist(`/assets/rooms/${roomId}/`);
-        if(!isExist) throw new Error('Dir not exist');
-        const resultPath: string = await resize.save(req.file.buffer);
-        res.send(resultPath);
+
+        res.send(await uploadService.addImageToRoom(roomId, req.file.buffer));
     },
 };
 

@@ -24,6 +24,14 @@ const uploadService = {
         user.image = resultPath;
         return await user.save();
     },
+
+    addImageToRoom: async (roomCode: string, buffer: any) => {
+        const resize: Resize = new Resize(`/assets/rooms/${roomCode}/${uuid()}.jpeg`);
+        const isExist = await resize.checkIsDirExist(`/assets/rooms/${roomCode}/`);
+        if (!isExist) throw new Error('Dir not exist');
+        const resultPath: string = await resize.save(buffer);
+        return resultPath;
+    },
 };
 
 export default uploadService;

@@ -10,6 +10,7 @@ export class Resize {
     }
 
     async save(buffer: any) {
+        console.log(buffer);
         await sharp(buffer)
             .resize(300, 300, {
                 fit: sharp.fit.inside,
@@ -25,7 +26,6 @@ export class Resize {
     }
 
     async checkIsDirExist(dirForCheck: string) {
-        console.log(`${PUBLIC_PATH}${dirForCheck}`);
         return fs.existsSync(`${PUBLIC_PATH}${dirForCheck}`);
     }
 }

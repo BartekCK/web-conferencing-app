@@ -104,6 +104,7 @@ const ConversationMessage = React.forwardRef(
                     <input {...getInputProps()} />
                     {messages.map((message, idx) => (
                         <SingleMessage
+                            user={user}
                             key={idx}
                             message={message.message}
                             author={message.author}
