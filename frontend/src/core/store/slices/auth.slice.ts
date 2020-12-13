@@ -15,10 +15,14 @@ const authSlice = createSlice({
         dispatchSetCurrentUser(state: IAuthSlice, action: PayloadAction<IUser | null>) {
             state.user = action.payload;
         },
+        dispatchSetCurrentUserImage(state: IAuthSlice, action: PayloadAction<string>) {
+            if (!state.user) return;
+            state.user.image = action.payload;
+        },
     },
     extraReducers: {},
 });
 
-export const { dispatchSetCurrentUser } = authSlice.actions;
+export const { dispatchSetCurrentUser, dispatchSetCurrentUserImage } = authSlice.actions;
 
 export default authSlice.reducer;

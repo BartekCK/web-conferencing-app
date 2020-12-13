@@ -4,6 +4,8 @@ import { PUBLIC_PATH } from '../config/constants';
 import { Resize } from '../utils/Resize';
 import userService from '../services/userService';
 import { IUserDocument } from '../models/User';
+import { uuid } from 'uuidv4';
+import uploadService from '../services/uploadService';
 
 const uploadController = {
     saveUserAvatarPost: async (req: Request, res: Response) => {
@@ -11,11 +13,7 @@ const uploadController = {
             return res.send('ERROR');
         }
         const { id } = req.user as IUserDocument;
-        const user: IUserDocument = await userService.findUser(id);
-        const resize: Resize = new Resize(`/assets/users/${user.id}.png`);
-        const resultPath: string = await resize.save(req.file.buffer);
-        user.image = resultPath;
-        res.send(await user.save());
+        res.send(await uploadService.addUserAvatar(id, req.file.buffer));
     },
 
     saveRoomAssetPost: (req: Request, res: Response) => {

@@ -7,27 +7,23 @@ import { Upload } from 'antd';
 import { useTranslation } from 'react-i18next';
 import ImgCrop from 'antd-img-crop';
 import { Routes } from 'core/api/routes';
+import { useDispatch } from 'react-redux';
+import { dispatchSetCurrentUserImage } from 'core/store/slices/auth.slice';
 
 interface IProps {
-    handleModalClose?: () => void;
+    handleModalClose: () => void;
 }
 
 const ImageCropping: React.FC<IProps> = ({ handleModalClose }: IProps) => {
     const [fileList, setFileList] = React.useState<any>([]);
     const { t } = useTranslation();
+    const dispatch = useDispatch();
 
-    React.useEffect(() => {
-        // set file List
-        // setFileList([
-        //     {
-        //         url:
-        //             'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-        //     },
-        // ]);
-    }, []);
-
-    const onChange = ({ fileList: newFileList }) => {
-        console.log(newFileList.response);
+    const onChange = async ({ file }) => {
+        if (file.status === 'done') {
+            dispatch(dispatchSetCurrentUserImage(file.response.image));
+            handleModalClose();
+        }
     };
 
     return (
@@ -35,9 +31,10 @@ const ImageCropping: React.FC<IProps> = ({ handleModalClose }: IProps) => {
             <Upload
                 action={`${process.env.API_HOST}${Routes.uploadAvatar()}`}
                 listType="picture-card"
+                className="avatar-uploader"
                 fileList={fileList}
                 onChange={onChange}
-                // onRemove={(file) => console.log(file)}
+                showUploadList={false}
                 withCredentials
             >
                 {fileList.length < 1 && t('common.upload')}

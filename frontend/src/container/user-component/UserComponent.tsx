@@ -37,11 +37,11 @@ const UserComponent: React.FC = () => {
     return (
         <React.Fragment>
             <CustomAvatar
-                // imgSrc={
-                //     user && user.image
-                //         ? `${process.env.API_HOST}${user.image}`
-                //         : undefined
-                // }
+                imgSrc={
+                    user && user.image
+                        ? `${process.env.API_HOST}${user.image}`
+                        : undefined
+                }
                 handleClick={handleAvatarClick}
             />
             <RoomContainer />

@@ -10,8 +10,8 @@ import routing from './config/routing';
 import { PeerServer } from 'peer';
 import path from 'path';
 import fs from 'fs';
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-process.env.NODE_ENV = 'development';
+// process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+// process.env.NODE_ENV = 'development';
 
 dotenv.config();
 
