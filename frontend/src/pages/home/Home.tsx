@@ -39,6 +39,10 @@ const Home: React.FC = () => {
         }
     };
 
+    const handleBtnClick = () => {
+        history.push(`/conversation/${textLink}`);
+    };
+
     return (
         <HomeStyled>
             <div className="left d-md-5">
@@ -69,6 +73,7 @@ const Home: React.FC = () => {
                         disabled={textLink.length === 0}
                         className="ant-btn ant-btn-primary mx-2"
                         type="button"
+                        onClick={handleBtnClick}
                     >
                         <i className="fa fa-caret-right" aria-hidden="true" />
                     </button>
