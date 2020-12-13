@@ -10,6 +10,10 @@ import { useTranslation } from 'react-i18next';
 import { useDropzone } from 'react-dropzone';
 import { addRoomImagePost } from 'core/api/commands';
 import { useParams } from 'react-router-dom';
+import Picker from 'emoji-picker-react';
+import { PaperClipOutlined, SmileOutlined } from '@ant-design/icons';
+import TextArea from 'antd/es/input/TextArea';
+import useOutsideClick from 'custom--hooks/useOutsideClick';
 
 interface IProps {
     isMessagesOpen: boolean;
@@ -28,11 +32,19 @@ const ConversationMessage = React.forwardRef(
         socketRef: React.MutableRefObject<SocketIOClient.Socket | null>,
     ) => {
         const { isMessagesOpen, user } = props;
+
         const [inputValue, setInputValue] = React.useState<string>('');
         const [messages, setMessages] = React.useState<IMessage[]>([]);
         const [isTyping, setTyping] = React.useState<string>('');
+        const [isEmojiVisible, setEmojiVisible] = React.useState<boolean>(false);
+
         const { slug } = useParams();
         const { t } = useTranslation();
+
+        const buttonRef = React.useRef<HTMLButtonElement>(null);
+        const divRef = React.useRef<HTMLDivElement>(null);
+
+        useOutsideClick(isEmojiVisible, [divRef, buttonRef], () => setEmojiVisible(false));
 
         const onDrop = React.useCallback((acceptedFiles) => {
             acceptedFiles.forEach(async (file) => {
@@ -95,13 +107,22 @@ const ConversationMessage = React.forwardRef(
 
         const onKeyDown = (event: React.KeyboardEvent) => {
             if (event.key !== 'Enter') return;
+            event.preventDefault();
             sendMessage();
         };
 
+        const onEmojiClick = (event, emojiObject) => {
+            setInputValue((prev) => prev + emojiObject.emoji);
+        };
+
         return (
-            <ConversationMessageStyles isOpen={isMessagesOpen}>
-                <div className="messages--wrapper" {...getRootProps()}>
-                    <input {...getInputProps()} />
+            <ConversationMessageStyles isOpen={isMessagesOpen} isEmojiVisible={isEmojiVisible}>
+                <div
+                    className="messages--wrapper"
+                    {...getRootProps({
+                        onClick: (event) => event.stopPropagation(),
+                    })}
+                >
                     {messages.map((message, idx) => (
                         <SingleMessage
                             user={user}
@@ -118,12 +139,38 @@ const ConversationMessage = React.forwardRef(
                         {`${isTyping} ${t('common.isWriting')}`}
                     </div>
                 )}
-                <div className="d-flex">
-                    <Input
+                <div className="send--wrapper">
+                    <TextArea
                         value={inputValue}
                         onChange={handleChange}
                         onKeyDown={onKeyDown}
+                        autoSize
                     />
+                    <div className="emoi">
+                        <button
+                            className="ant-btn"
+                            type="button"
+                            onClick={() => setEmojiVisible((prev) => !prev)}
+                        >
+                            <SmileOutlined />
+                        </button>
+                        <div className="picker" ref={divRef}>
+                            <Picker
+                                onEmojiClick={onEmojiClick}
+                                disableSearchBar
+                                disableAutoFocus
+                            />
+                        </div>
+                    </div>
+                    <button
+                        className="ant-btn"
+                        type="button"
+                        {...getRootProps()}
+                        ref={buttonRef}
+                    >
+                        <input {...getInputProps()} />
+                        <PaperClipOutlined />
+                    </button>
                     <Button className="" type="primary" onClick={sendMessage}>
                         {t('common.send')}
                     </Button>
