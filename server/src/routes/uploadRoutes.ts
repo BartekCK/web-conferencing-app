@@ -9,6 +9,6 @@ const upload = multer();
 
 // uploadRouter.get('/users', uploadController.saveUserAvatarPost);
 uploadRouter.post('/users', passportStrategyJWT, upload.single('file'), uploadController.saveUserAvatarPost);
-uploadRouter.post('/rooms', uploadController.saveRoomAssetPost);
+uploadRouter.get('/rooms', uploadController.saveRoomAssetPost);
 
 export default uploadRouter;

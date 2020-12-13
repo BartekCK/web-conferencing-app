@@ -8,7 +8,7 @@ const routing = (app: Express) => {
     app.use('/api/auth', authRouter);
     app.use('/api/users', userRouter)
     app.use('/api/rooms', roomRouter)
-    app.use('/api/upload', uploadRouter)
+    app.use('/api/upload',  uploadRouter)
 };
 
 export default routing;

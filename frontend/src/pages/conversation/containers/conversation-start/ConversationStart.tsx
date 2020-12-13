@@ -9,8 +9,6 @@ import { Button } from 'antd';
 
 interface IProps {}
 
-const ENDPOINT: string = 'http://127.0.0.1:3000/';
-
 const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const [peers, setPeers] = React.useState<{ userId: any; peer: any }[]>([]);
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
@@ -73,9 +71,10 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     };
 
     React.useLayoutEffect(() => {
-        mySocket.current = io(ENDPOINT);
+        mySocket.current = io(process.env.API_HOST as string);
         myPeer.current = new Peer(undefined, {
-            host: '127.0.0.1',
+            // host: '127.0.0.1',
+            host: 'localhost',
             port: 3001,
             secure: false,
         });
