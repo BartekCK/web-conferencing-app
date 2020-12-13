@@ -10,7 +10,6 @@ export class Resize {
     }
 
     async save(buffer: any) {
-        console.log(buffer);
         await sharp(buffer)
             .resize(300, 300, {
                 fit: sharp.fit.inside,

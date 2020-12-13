@@ -28,8 +28,6 @@ const roomSchema = new Schema({
     guests: [{
         type: Schema.Types.ObjectId,
         ref: 'user',
-        required: true,
-        unique: true,
     }],
 });
 
