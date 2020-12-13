@@ -7,8 +7,7 @@ const uploadRouter = express.Router();
 
 const upload = multer();
 
-// uploadRouter.get('/users', uploadController.saveUserAvatarPost);
 uploadRouter.post('/users', passportStrategyJWT, upload.single('file'), uploadController.saveUserAvatarPost);
-uploadRouter.get('/rooms', uploadController.saveRoomAssetPost);
+uploadRouter.post('/rooms/:roomId', upload.single('file'), uploadController.saveRoomAssetPost);
 
 export default uploadRouter;

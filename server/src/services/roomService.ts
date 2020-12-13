@@ -2,6 +2,8 @@ import User, { IUser, IUserDocument } from '../models/User';
 import Room, { IRoomDocument } from '../models/Room';
 import userService from './userService';
 import { IRoomDTO } from '../dto';
+import fs from 'fs';
+import { PUBLIC_PATH } from '../config/constants';
 
 const roomService = {
     createNewRoom: async (roomCode: string, userId: string): Promise<IRoomDocument> => {
@@ -9,6 +11,7 @@ const roomService = {
         if (!user) {
             throw new Error('User not found');
         }
+        await fs.promises.mkdir(`${PUBLIC_PATH}/assets/rooms/${roomCode}`, { recursive: true });
         return await Room.create({ owner: user.id, roomCode, guests: [] });
     },
 

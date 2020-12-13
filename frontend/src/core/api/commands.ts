@@ -66,3 +66,8 @@ export const usersEmailsGet = async (params?: string) => {
     const res = await axiosInstance.get(Routes.users(params));
     return res.data;
 };
+
+export const addRoomImagePost = async (roomId: string, data: any) => {
+    const res = await axiosInstance.post(Routes.uploadRoomImage(roomId), data);
+    return res.data;
+};

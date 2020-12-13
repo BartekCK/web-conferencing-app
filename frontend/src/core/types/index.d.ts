@@ -20,8 +20,9 @@ export interface IChangePassword {
     newPassword: string;
 }
 
-export interface IMessage{
+export interface IMessage {
     message: string;
     author: string;
     date: string;
+    isFile: boolean;
 }

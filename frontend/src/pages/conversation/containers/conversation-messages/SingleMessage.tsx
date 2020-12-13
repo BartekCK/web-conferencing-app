@@ -5,17 +5,24 @@ interface IProps {
     message: string;
     author: string;
     date: string;
+    isFile: boolean;
 }
 
 const SingleMessage: React.FC<IProps> = (props: IProps) => {
-    const { message, author, date } = props;
+    const {
+        message, author, date, isFile,
+    } = props;
     return (
         <SingleMessageStyled>
             <div className="header">
                 <span className="author">{author}</span>
                 <span className="date">{date}</span>
             </div>
-            <p className="content">{message}</p>
+            {isFile ? (
+                <img className="content" src={message} alt={message} />
+            ) : (
+                <p className="content">{message}</p>
+            )}
         </SingleMessageStyled>
     );
 };

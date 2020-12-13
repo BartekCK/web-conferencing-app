@@ -8,4 +8,5 @@ export const Routes = {
     room: (roomId?: string) => (roomId ? `/api/rooms/${roomId}` : '/api/rooms'),
     users: (param?: string) => (param ? `/api/users/${param}` : '/api/users'),
     uploadAvatar: () => '/api/upload/users',
+    uploadRoomImage: (roomId: string) => `/api/upload/rooms/${roomId}`,
 };

@@ -4,3 +4,5 @@ build
 .env
 /server.cert
 /server.key
+/public/assets/rooms/
+/public/assets/users/

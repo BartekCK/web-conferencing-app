@@ -50,6 +50,8 @@ const SingleMessageStyled = styled.div`
     }
     > .content {
         margin: 10px 0;
+        max-width: 100%;
+        height: auto;
     }
 `;
 

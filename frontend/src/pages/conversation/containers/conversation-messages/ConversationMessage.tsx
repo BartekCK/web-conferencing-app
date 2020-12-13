@@ -2,14 +2,18 @@ import React from 'react';
 import { ConversationMessageStyles } from './style';
 import { Button, Input } from 'antd';
 import SingleMessage from 'pages/conversation/containers/conversation-messages/SingleMessage';
-import { IMessage } from 'core/types';
+import { IMessage, IUser } from 'core/types';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { IStore } from 'core/store/types';
 import { useTranslation } from 'react-i18next';
+import { useDropzone } from 'react-dropzone';
+import { addRoomImagePost } from 'core/api/commands';
+import { useParams } from 'react-router-dom';
 
 interface IProps {
     isMessagesOpen: boolean;
+    user: IUser;
 }
 
 declare global {
@@ -23,10 +27,35 @@ const ConversationMessage = React.forwardRef(
         props: IProps,
         socketRef: React.MutableRefObject<SocketIOClient.Socket | null>,
     ) => {
-        const { isMessagesOpen } = props;
+        const { isMessagesOpen, user } = props;
         const [inputValue, setInputValue] = React.useState<string>('');
         const [messages, setMessages] = React.useState<IMessage[]>([]);
         const [isTyping, setTyping] = React.useState<string>('');
+        const { slug } = useParams();
+        const { t } = useTranslation();
+
+        const onDrop = React.useCallback((acceptedFiles) => {
+            acceptedFiles.forEach(async (file) => {
+                if (!socketRef.current) return;
+                const formData = new FormData();
+                formData.append('file', file);
+                formData.append('file_name', file.name);
+                const imagePath = await addRoomImagePost(slug, formData);
+                const newMessage: IMessage = {
+                    author: user.email,
+                    date: moment().format('DD.MM.YYYY, HH:mm'),
+                    message: process.env.API_HOST + imagePath,
+                    isFile: true,
+                };
+                setMessages((prev) => [...prev, newMessage]);
+                socketRef.current.emit('send-message', newMessage);
+                setInputValue('');
+            });
+        }, []);
+
+        const { getRootProps, getInputProps, isDragActive } = useDropzone({
+            onDrop,
+        });
 
         let typingTimer;
 
@@ -45,9 +74,6 @@ const ConversationMessage = React.forwardRef(
             });
         }, [socketRef]);
 
-        const { user } = useSelector((state: IStore) => state.auth);
-        const { t } = useTranslation();
-
         const handleChange = (event) => {
             if (!socketRef.current || !user) return;
             setInputValue(event.target.value);
@@ -60,6 +86,7 @@ const ConversationMessage = React.forwardRef(
                 author: user.email,
                 date: moment().format('DD.MM.YYYY, HH:mm'),
                 message: inputValue,
+                isFile: false,
             };
             setMessages((prev) => [...prev, newMessage]);
             socketRef.current.emit('send-message', newMessage);
@@ -73,13 +100,15 @@ const ConversationMessage = React.forwardRef(
 
         return (
             <ConversationMessageStyles isOpen={isMessagesOpen}>
-                <div className="messages--wrapper">
+                <div className="messages--wrapper" {...getRootProps()}>
+                    <input {...getInputProps()} />
                     {messages.map((message, idx) => (
                         <SingleMessage
                             key={idx}
                             message={message.message}
                             author={message.author}
                             date={message.date}
+                            isFile={message.isFile}
                         />
                     ))}
                 </div>

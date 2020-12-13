@@ -6,10 +6,15 @@ import { ConversationStartStyled } from './style';
 import ConversationMessage from 'pages/conversation/containers/conversation-messages';
 import { LeftOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
+import { IUser } from 'core/types';
 
-interface IProps {}
+interface IProps {
+    user: IUser;
+}
 
 const ConversationStart: React.FC<IProps> = (props: IProps) => {
+    const { user } = props;
+
     const [peers, setPeers] = React.useState<{ userId: any; peer: any }[]>([]);
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
 
@@ -124,7 +129,7 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
                 </div>
                 <video ref={myVideoRef} muted />
             </div>
-            <ConversationMessage isMessagesOpen={isMessagesOpen} ref={mySocket} />
+            <ConversationMessage isMessagesOpen={isMessagesOpen} ref={mySocket} user={user} />
         </ConversationStartStyled>
     );
 };
