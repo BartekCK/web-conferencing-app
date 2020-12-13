@@ -8,6 +8,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import routing from './config/routing';
 import { PeerServer } from 'peer';
+import path from 'path';
 
 dotenv.config();
 
@@ -24,6 +25,9 @@ app.use(
         credentials: true,
     }),
 );
+
+app.use(express.static(path.join(__dirname, '../public')));
+
 
 const startServer = async (): Promise<void> => {
     try {

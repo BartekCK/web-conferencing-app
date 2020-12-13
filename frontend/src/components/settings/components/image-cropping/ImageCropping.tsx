@@ -6,6 +6,7 @@ import { Upload } from 'antd';
 // hooks
 import { useTranslation } from 'react-i18next';
 import ImgCrop from 'antd-img-crop';
+import { Routes } from 'core/api/routes';
 
 interface IProps {
     handleModalClose?: () => void;
@@ -17,29 +18,27 @@ const ImageCropping: React.FC<IProps> = ({ handleModalClose }: IProps) => {
 
     React.useEffect(() => {
         // set file List
-        setFileList([
-            {
-                uid: '-1',
-                name: 'image.png',
-                status: 'done',
-                url:
-                    'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-            },
-        ]);
+        // setFileList([
+        //     {
+        //         url:
+        //             'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+        //     },
+        // ]);
     }, []);
 
     const onChange = ({ fileList: newFileList }) => {
-        setFileList(newFileList);
+        console.log(newFileList.response);
     };
 
     return (
         <ImgCrop shape="round">
             <Upload
-                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                action={`${process.env.API_HOST}${Routes.uploadAvatar()}`}
                 listType="picture-card"
                 fileList={fileList}
                 onChange={onChange}
-                onRemove={(file) => console.log(file)}
+                // onRemove={(file) => console.log(file)}
+                withCredentials
             >
                 {fileList.length < 1 && t('common.upload')}
             </Upload>

@@ -10,11 +10,13 @@ import CustomAvatar from 'components/avatar/Avatar';
 import { Modal } from 'antd';
 import { useCookies } from 'react-cookie';
 import { dispatchSetCurrentUser } from 'core/store/slices/auth.slice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IStore } from 'core/store/types';
 
 const UserComponent: React.FC = () => {
     const [isModalVisible, setModalVisible] = React.useState<boolean>(false);
     const [cookies, setCookie, removeCookie] = useCookies(['jwt']);
+    const { user } = useSelector((state: IStore) => state.auth);
     const { t } = useTranslation();
     const dispatch = useDispatch();
 
@@ -35,7 +37,11 @@ const UserComponent: React.FC = () => {
     return (
         <React.Fragment>
             <CustomAvatar
-                imgSrc="https://store-images.s-microsoft.com/image/apps.23952.13510798887611042.610ae026-cc3d-4b4e-9044-1b8721988d93.876c0225-be52-4dab-849f-dee26d8f83ab?mode=scale&q=90&h=270&w=270&background=%23107C10"
+                // imgSrc={
+                //     user && user.image
+                //         ? `${process.env.API_HOST}${user.image}`
+                //         : undefined
+                // }
                 handleClick={handleAvatarClick}
             />
             <RoomContainer />

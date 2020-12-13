@@ -7,4 +7,5 @@ export const Routes = {
     changePassword: () => '/api/users/change-password',
     room: (roomId?: string) => (roomId ? `/api/rooms/${roomId}` : '/api/rooms'),
     users: (param?: string) => (param ? `/api/users/${param}` : '/api/users'),
+    uploadAvatar: () => '/api/upload/users',
 };
