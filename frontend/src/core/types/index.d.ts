@@ -26,3 +26,10 @@ export interface IMessage {
     date: string;
     isFile: boolean;
 }
+
+export interface IUserList {
+    email: string;
+    socketId: string;
+    userId: string;
+    _id: string;
+}

@@ -37,8 +37,9 @@
                 "searchUserByEmail": "Wyszukaj użytkownika po adresie email",
                 "action": "Akacja",
                 "delete": "Usuń",
-                "isWriting": "pisze ..."
-
+                "isWriting": "pisze ...",
+                "messages": "Wiadomości",
+                "users": "Użytkownicy"
             },
             "home": {
                 "header": "Spójrz na świat razem z nami"
@@ -102,7 +103,9 @@
                 "searchUserByEmail": "Search user by email",
                 "action": "Action",
                 "delete": "Delete",
-                "isWriting": "is writing ..."
+                "isWriting": "is writing ...",
+                "messages": "Messages",
+                "users": "Users"
             },
             "home": {
                 "header": "Look at the world with us"
@@ -125,7 +128,6 @@
                 "userCreated": "User was created",
                 "deleteConversation": "Enter the room code to delete",
                 "noAccessRoom": "You don't have access to this room. You will be redirected to the home page in ..."
-
             }
         }
     }

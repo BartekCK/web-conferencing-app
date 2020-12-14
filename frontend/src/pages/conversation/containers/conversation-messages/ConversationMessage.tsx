@@ -1,8 +1,8 @@
 import React from 'react';
-import { ConversationMessageStyles } from './style';
-import { Button, Input } from 'antd';
+import { ConversationMessageStyles, SidebarStyled } from './style';
+import { Button, Input, Tabs } from 'antd';
 import SingleMessage from 'pages/conversation/containers/conversation-messages/SingleMessage';
-import { IMessage, IUser } from 'core/types';
+import { IMessage, IUser, IUserList } from 'core/types';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import { IStore } from 'core/store/types';
@@ -14,10 +14,12 @@ import Picker from 'emoji-picker-react';
 import { PaperClipOutlined, SmileOutlined } from '@ant-design/icons';
 import TextArea from 'antd/es/input/TextArea';
 import useOutsideClick from 'custom--hooks/useOutsideClick';
+import UserList from 'pages/conversation/components/user-list';
 
 interface IProps {
     isMessagesOpen: boolean;
     user: IUser;
+    userList: IUserList[]
 }
 
 declare global {
@@ -26,12 +28,14 @@ declare global {
     }
 }
 
+const { TabPane } = Tabs;
+
 const ConversationMessage = React.forwardRef(
     (
         props: IProps,
         socketRef: React.MutableRefObject<SocketIOClient.Socket | null>,
     ) => {
-        const { isMessagesOpen, user } = props;
+        const { isMessagesOpen, user, userList } = props;
 
         const [inputValue, setInputValue] = React.useState<string>('');
         const [messages, setMessages] = React.useState<IMessage[]>([]);
@@ -44,7 +48,8 @@ const ConversationMessage = React.forwardRef(
         const buttonRef = React.useRef<HTMLButtonElement>(null);
         const divRef = React.useRef<HTMLDivElement>(null);
 
-        useOutsideClick(isEmojiVisible, [divRef, buttonRef], () => setEmojiVisible(false));
+        useOutsideClick(isEmojiVisible, [divRef, buttonRef], () =>
+            setEmojiVisible(false));
 
         const onDrop = React.useCallback((acceptedFiles) => {
             acceptedFiles.forEach(async (file) => {
@@ -116,66 +121,80 @@ const ConversationMessage = React.forwardRef(
         };
 
         return (
-            <ConversationMessageStyles isOpen={isMessagesOpen} isEmojiVisible={isEmojiVisible}>
-                <div
-                    className="messages--wrapper"
-                    {...getRootProps({
-                        onClick: (event) => event.stopPropagation(),
-                    })}
-                >
-                    {messages.map((message, idx) => (
-                        <SingleMessage
-                            user={user}
-                            key={idx}
-                            message={message.message}
-                            author={message.author}
-                            date={message.date}
-                            isFile={message.isFile}
-                        />
-                    ))}
-                </div>
-                {isTyping && (
-                    <div className="is--typing">
-                        {`${isTyping} ${t('common.isWriting')}`}
-                    </div>
-                )}
-                <div className="send--wrapper">
-                    <TextArea
-                        value={inputValue}
-                        onChange={handleChange}
-                        onKeyDown={onKeyDown}
-                        autoSize
-                    />
-                    <div className="emoi">
-                        <button
-                            className="ant-btn"
-                            type="button"
-                            onClick={() => setEmojiVisible((prev) => !prev)}
-                        >
-                            <SmileOutlined />
-                        </button>
-                        <div className="picker" ref={divRef}>
-                            <Picker
-                                onEmojiClick={onEmojiClick}
-                                disableSearchBar
-                                disableAutoFocus
-                            />
-                        </div>
-                    </div>
-                    <button
-                        className="ant-btn"
-                        type="button"
-                        {...getRootProps()}
-                        ref={buttonRef}
-                    >
-                        <input {...getInputProps()} />
-                        <PaperClipOutlined />
-                    </button>
-                    <Button className="" type="primary" onClick={sendMessage}>
-                        {t('common.send')}
-                    </Button>
-                </div>
-            </ConversationMessageStyles>
+            <SidebarStyled isOpen={isMessagesOpen}>
+                <Tabs defaultActiveKey="1" style={{ width: '100%', background: '#212121' }}>
+                    <TabPane tab={t('common.users')} key="1">
+                        <UserList userList={userList} />
+                    </TabPane>
+                    <TabPane tab={t('common.messages')} key="2" style={{ height: '100%' }}>
+                        <ConversationMessageStyles isEmojiVisible={isEmojiVisible}>
+                            <div
+                                className="messages--wrapper"
+                                {...getRootProps({
+                                    onClick: (event) => event.stopPropagation(),
+                                })}
+                            >
+                                {messages.map((message, idx) => (
+                                    <SingleMessage
+                                        user={user}
+                                        key={idx}
+                                        message={message.message}
+                                        author={message.author}
+                                        date={message.date}
+                                        isFile={message.isFile}
+                                    />
+                                ))}
+                                {isTyping && (
+                                    <div className="is--typing">
+                                        {`${isTyping} ${t('common.isWriting')}`}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="send--wrapper">
+                                <TextArea
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyDown={onKeyDown}
+                                    autoSize
+                                />
+                                <div className="emoi">
+                                    <button
+                                        className="ant-btn"
+                                        type="button"
+                                        onClick={() =>
+                                            setEmojiVisible((prev) => !prev)}
+                                    >
+                                        <SmileOutlined />
+                                    </button>
+                                    <div className="picker" ref={divRef}>
+                                        <Picker
+                                            onEmojiClick={onEmojiClick}
+                                            disableSearchBar
+                                            disableAutoFocus
+                                        />
+                                    </div>
+                                </div>
+                                <button
+                                    className="ant-btn"
+                                    type="button"
+                                    {...getRootProps()}
+                                    ref={buttonRef}
+                                >
+                                    <input {...getInputProps()} />
+                                    <PaperClipOutlined />
+                                </button>
+                                <Button
+                                    className=""
+                                    type="primary"
+                                    onClick={sendMessage}
+                                >
+                                    {t('common.send')}
+                                </Button>
+                            </div>
+                        </ConversationMessageStyles>
+                    </TabPane>
+                </Tabs>
+            </SidebarStyled>
         );
     },
 );

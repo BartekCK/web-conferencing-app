@@ -1,17 +1,31 @@
 import styled, { keyframes } from 'styled-components';
 
 interface IProps {
-    isOpen: boolean;
     isEmojiVisible: boolean;
 }
 
+const SidebarStyled = styled.div<{ isOpen: boolean }>`
+  width: 350px;
+  display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
+  background: #212121;
+
+  .ant-tabs-tab {
+    margin: 0 15px;
+  }
+
+  .ant-tabs-tab-btn {
+    color: #c1c1c1;
+  }
+`;
+
 const ConversationMessageStyles = styled.div<IProps>`
     background: #212121;
-    width: 350px;
-    display: ${({ isOpen }: IProps) => (isOpen ? 'flex' : 'none')};
+    width: 100%;
+    display: flex;
     flex-direction: column;
 
     > .messages--wrapper {
+        height: 659px;
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -19,21 +33,21 @@ const ConversationMessageStyles = styled.div<IProps>`
         overflow: auto;
         align-items: center;
         width: 350px;
+
+        > .is--typing {
+            color: #797979;
+            padding: 5px;
+            font-size: 10px;
+            font-weight: bold;
+            background: #ffffff;
+            border-radius: 15px;
+            margin: 5px;
+            align-self: flex-start;
+        }
     }
 
     .messages--wrapper:first-child {
         margin-top: auto !important;
-    }
-
-    > .is--typing {
-        color: #797979;
-        padding: 5px;
-        font-size: 10px;
-        font-weight: bold;
-        background: #ffffff;
-        border-radius: 15px;
-        margin: 5px;
-        align-self: flex-start;
     }
 
     > .send--wrapper {
@@ -43,13 +57,15 @@ const ConversationMessageStyles = styled.div<IProps>`
             position: relative;
 
             > .picker {
+                z-index: 10;
                 position: absolute;
                 top: -10px;
                 right: 0;
-                transform: translate(0, -100%);
-                display: ${({ isEmojiVisible }) => isEmojiVisible ? 'block' : 'none'};
+                transform: translate(25%, -100%);
+                display: ${({ isEmojiVisible }) =>
+        isEmojiVisible ? 'block' : 'none'};
             }
-          
+
             > .emoji-picker-react {
             }
         }
@@ -82,4 +98,4 @@ const SingleMessageStyled = styled.div<{ isCurrentUser: boolean }>`
     }
 `;
 
-export { ConversationMessageStyles, SingleMessageStyled };
+export { SidebarStyled, ConversationMessageStyles, SingleMessageStyled };
