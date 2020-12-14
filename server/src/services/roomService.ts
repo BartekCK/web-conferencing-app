@@ -13,7 +13,7 @@ const roomService = {
             throw new Error('User not found');
         }
         await fs.promises.mkdir(`${PUBLIC_PATH}/assets/rooms/${roomCode}`, { recursive: true });
-        return await Room.create({ owner: user.id, roomCode, guests: [] });
+        return await Room.create({ owner: user.id, roomCode, guests: [], currentUsers: [] });
     },
 
     getAllUserRooms: async (userId: string): Promise<IRoomDocument[]> => {
@@ -52,6 +52,28 @@ const roomService = {
         room.guests = guests || room.guests;
         const result = await room.save();
         return await result.populate('guests').populate('owner').execPopulate();
+    },
+
+    addUserToConversation: async (
+        userId: string,
+        socketId: string,
+        email: string,
+        roomCode: string,
+    ): Promise<IRoomDocument> => {
+        const room: IRoomDocument = await roomService.getUserRoom(roomCode, userId);
+        room.currentUsers.push({ userId, socketId, email });
+        return await room.save();
+    },
+
+    removeUserFromConversation: async (
+        userId: string,
+        socketId: string,
+        email: string,
+        roomCode: string,
+    ): Promise<IRoomDocument> => {
+        const room: IRoomDocument = await roomService.getUserRoom(roomCode, userId);
+        room.currentUsers = room.currentUsers.filter((el: any) => el.socketId !== socketId)
+        return await room.save();
     },
 };
 

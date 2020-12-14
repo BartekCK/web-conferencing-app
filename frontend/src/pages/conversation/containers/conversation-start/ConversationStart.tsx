@@ -17,6 +17,9 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
     const [peers, setPeers] = React.useState<{ userId: any; peer: any }[]>([]);
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
+    const [userList, setUserList] = React.useState<
+        { email: string; socketId: string; userId: string; _id: string }[]
+    >([]);
 
     const myVideoRef = React.useRef<HTMLVideoElement>(null);
     const divWrapperRef = React.useRef<HTMLDivElement>(null);
@@ -70,7 +73,11 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
             });
         });
 
-        mySocket.current.on('user-connected', (userID) => {
+        mySocket.current.on('user-connected', (userID, email) => {
+            if (!mySocket.current) {
+                return;
+            }
+            mySocket.current.emit('user-list', user.email);
             connectToNewUser(userID, myStream.current as MediaStream);
         });
     };
@@ -88,11 +95,16 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
         myPeer.current.on('open', (id: string) => {
             if (!mySocket.current) return;
-            mySocket.current.emit('join-room', slug, id);
+            mySocket.current.emit('join-room', slug, id, user.email, user.id);
         });
 
-        mySocket.current.on('user-disconnected', (userId) => {
-            console.log(`User ${userId} has left`);
+        mySocket.current.on('user-list', (data) => {
+            setUserList(data.currentUsers);
+        });
+
+        mySocket.current.on('user-disconnected', (userId, email) => {
+            console.log(`User ${email} has left`);
+            setUserList((prevState) => prevState.filter((el) => el.email !== email));
             if (peers.some((el) => el.userId === userId)) {
                 const peer = peers.find((el) => el.userId === userId);
                 if (!peer) return;
@@ -129,7 +141,11 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
                 </div>
                 <video ref={myVideoRef} muted />
             </div>
-            <ConversationMessage isMessagesOpen={isMessagesOpen} ref={mySocket} user={user} />
+            <ConversationMessage
+                isMessagesOpen={isMessagesOpen}
+                ref={mySocket}
+                user={user}
+            />
         </ConversationStartStyled>
     );
 };

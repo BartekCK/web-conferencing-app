@@ -18,7 +18,7 @@ import { Spin } from 'antd';
 import ConversationNoAccess from 'pages/conversation/components/no-access';
 
 const initialState: IConversation = {
-    isPlaying: false,
+    isPlaying: true,
     devices: {
         microphoneDeviceID: 'default',
         speakersDeviceID: 'default',
