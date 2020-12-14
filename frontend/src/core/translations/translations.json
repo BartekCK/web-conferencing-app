@@ -59,7 +59,8 @@
                 "waitAnswer": "Oczekiwanie na akceptacje...",
                 "commonError": "Wystąpił nieoczekiwany błąd, przepraszamy",
                 "userCreated": "Użytkownik został utworzony",
-                "deleteConversation": "Wpisz kod pokoju żeby usunać"
+                "deleteConversation": "Wpisz kod pokoju żeby usunać",
+                "noAccessRoom": "Nie masz dostępu do tego pokoju. Zostaniesz przekierowany do strony głównej za ..."
             }
         }
     },
@@ -122,7 +123,9 @@
                 "waitAnswer": "Awaiting entry acceptance...",
                 "commonError": "An unexpected error has occurred",
                 "userCreated": "User was created",
-                "deleteConversation": "Enter the room code to delete"
+                "deleteConversation": "Enter the room code to delete",
+                "noAccessRoom": "You don't have access to this room. You will be redirected to the home page in ..."
+
             }
         }
     }

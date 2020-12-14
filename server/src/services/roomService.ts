@@ -4,6 +4,7 @@ import userService from './userService';
 import { IRoomDTO } from '../dto';
 import fs from 'fs';
 import { PUBLIC_PATH } from '../config/constants';
+import { Types } from 'mongoose';
 
 const roomService = {
     createNewRoom: async (roomCode: string, userId: string): Promise<IRoomDocument> => {
@@ -21,14 +22,23 @@ const roomService = {
     },
 
     getUserRoom: async (roomId: string, userId: string): Promise<IRoomDocument> => {
-        const room: IRoomDocument | null = await Room.findOne({ _id: roomId, owner: userId })
+        const returnArr = () =>
+            Types.ObjectId.isValid(roomId) ? [{ _id: roomId }, { roomCode: roomId }] : [{ roomCode: roomId }];
+        const room: IRoomDocument | null = await Room.findOne({
+            // owner: userId,
+            $or: returnArr(),
+        })
             .populate('owner')
             .populate('guests')
             .exec();
         if (!room) {
             throw new Error('Room not found');
         }
-        return room;
+        const roomObject: any = room.toObject({ aliases: true });
+        if (roomObject.owner._id == userId || roomObject.guests.some((user: any) => user._id == userId)) {
+            return room;
+        }
+        throw new Error('This user do not have access');
     },
 
     deleteUserRoom: async (roomId: string, userId: string): Promise<IRoomDocument> => {

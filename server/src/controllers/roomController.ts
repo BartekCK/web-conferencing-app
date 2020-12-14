@@ -45,8 +45,8 @@ const roomController = {
         try {
             const room: IRoomDocument = await roomService.getUserRoom(roomId, userId);
             return res.status(200).send({ id: room.id, ...room.toObject() });
-        } catch (e) {
-            return res.status(400).send(e);
+        } catch (e: any) {
+            return res.status(400).send({ message: e.message });
         }
     },
 
@@ -55,7 +55,7 @@ const roomController = {
         const { roomId } = req.params;
         try {
             const room: IRoomDocument = await roomService.updateRoom(roomId, userId, req.body);
-            return res.status(200).send({ id: room.id, ...room.toObject()});
+            return res.status(200).send({ id: room.id, ...room.toObject() });
         } catch (e) {
             return res.status(400).send(e);
         }
