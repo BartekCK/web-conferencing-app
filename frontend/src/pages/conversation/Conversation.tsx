@@ -40,7 +40,7 @@ const Conversation: React.FC = () => {
 
     const handleStart = async () => {
         try {
-            const data = await userRoomByIdGet(slug);
+            await userRoomByIdGet(slug);
             setAccess(true);
         } catch (e) {
             setAccess(false);

@@ -11,15 +11,17 @@ const Audio: React.FC = () => {
     const analyser = React.useRef<AnalyserNode>();
     const microphone = React.useRef<MediaStreamAudioSourceNode>();
 
+    const audioStream = React.useRef<MediaStream | null>(null);
+
     const manageAudio = async () => {
-        const audioStream: MediaStream = await navigator.mediaDevices.getUserMedia({
+        audioStream.current = await navigator.mediaDevices.getUserMedia({
             audio: true,
         });
 
         audioContext.current = new AudioContext();
         analyser.current = audioContext.current.createAnalyser();
         microphone.current = audioContext.current.createMediaStreamSource(
-            audioStream,
+            audioStream.current,
         );
         javascriptNode.current = audioContext.current.createScriptProcessor(
             2048,
@@ -58,11 +60,15 @@ const Audio: React.FC = () => {
                 && audioContext.current
                 && analyser.current
                 && microphone.current
+                && audioStream.current
             ) {
                 javascriptNode.current.disconnect();
                 microphone.current.disconnect();
                 analyser.current.disconnect();
                 audioContext.current.close();
+
+                const tracks: MediaStreamTrack[] = audioStream.current.getTracks();
+                tracks.forEach((track) => track.stop());
             }
         };
     }, []);
