@@ -122,7 +122,7 @@ const ConversationMessage = React.forwardRef(
 
         return (
             <SidebarStyled isOpen={isMessagesOpen}>
-                <Tabs defaultActiveKey="1" style={{ width: '100%', background: '#212121' }}>
+                <Tabs defaultActiveKey="1" style={{ width: '350px', background: '#212121' }}>
                     <TabPane tab={t('common.users')} key="1">
                         <UserList userList={userList} />
                     </TabPane>

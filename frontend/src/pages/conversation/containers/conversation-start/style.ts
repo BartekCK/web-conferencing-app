@@ -13,8 +13,6 @@ const ConversationStartStyled = styled.div<IProps>`
     overflow: hidden;
 
     > .video--wrapper {
-        .user--video {
-        }
         > .open--bnt {
             position: absolute;
             top: 0;
@@ -35,20 +33,30 @@ const ConversationStartStyled = styled.div<IProps>`
                 }
             }
         }
-
-        position: relative;
-        overflow: auto;
-        //flex: 0.7;
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+        align-items: center;
+      
+        > .user--video {
+          margin: 10px;
+            position: relative;
+            > .tools--wrapper {
+                position: absolute;
+                bottom: 0;
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
         background: url(${ImageBackground});
-        flex-grow: 1;
+        position: relative;
+        flex: 1;
+        overflow: auto;
       
         video {
             width: 450px;
             height: auto;
-            margin: 20px;
         }
     }
 `;

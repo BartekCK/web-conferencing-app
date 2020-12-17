@@ -8,6 +8,7 @@ const SidebarStyled = styled.div<{ isOpen: boolean }>`
   width: 350px;
   display: ${({ isOpen }) => (isOpen ? 'flex' : 'none')};
   background: #212121;
+  flex: 0.3;
 
   .ant-tabs-tab {
     margin: 0 15px;

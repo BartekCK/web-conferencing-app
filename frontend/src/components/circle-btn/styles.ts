@@ -13,7 +13,7 @@ export const CircleBtnStyled = styled.button<IProps>`
     border-radius: 100%;
     border: none;
     font-size: 1.4em;
-    background: ${({ isTurnOn }: IProps) => (isTurnOn ? 'red' : 'green')};
+    background: ${({ isTurnOn }: IProps) => (isTurnOn ? 'green' : 'red')};
     cursor: pointer;
     &:focus {
         outline: none;

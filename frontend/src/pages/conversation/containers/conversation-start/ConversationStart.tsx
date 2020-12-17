@@ -4,10 +4,12 @@ import Peer from 'peerjs';
 import { useParams } from 'react-router-dom';
 import { ConversationStartStyled } from './style';
 import ConversationMessage from 'pages/conversation/containers/conversation-messages';
-import { LeftOutlined } from '@ant-design/icons';
+import { LeftOutlined, SoundOutlined, VideoCameraOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
-import { IUser, IUserList } from 'core/types';
+import { IGuestStream, IUser, IUserList } from 'core/types';
 import * as stream from 'stream';
+import CircleBtn from 'components/circle-btn';
+import GuestVideo from 'components/guest-video';
 
 interface IProps {
     user: IUser;
@@ -18,15 +20,16 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
     const [userList, setUserList] = React.useState<IUserList[]>([]);
-    const [peopleStreams, setPeopleStreams] = React.useState<
-        { stream: MediaStream; userCall: Peer.MediaConnection }[]
-        >([]);
+    const [peopleStreams, setPeopleStreams] = React.useState<IGuestStream[]>([]);
 
     const myVideoRef = React.useRef<HTMLVideoElement>(null);
     const myStreamRef = React.useRef<MediaStream | undefined>(undefined);
 
     const mySocket = React.useRef<SocketIOClient.Socket | null>(null);
     const myPeer = React.useRef<Peer | null>(null);
+
+    const [isVideoPlay, setVideoPlay] = React.useState<boolean>(true);
+    const [isAudioPlay, setAudioPlay] = React.useState<boolean>(true);
 
     const { slug } = useParams();
 
@@ -133,43 +136,44 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     }, [peopleStreams]);
 
     const renderGuestUser = React.useCallback(() => {
-        return peopleStreams.map((el) => (
-            <video
-                key={el.userCall.peer}
-                ref={(ref: HTMLVideoElement | null) => {
-                    if (ref) {
-                        ref.srcObject = el.stream;
-                    }
-                    return ref;
-                }}
-                autoPlay
-            />));
+        return peopleStreams.map((guestStream) => (
+            <GuestVideo key={guestStream.userCall.peer} peopleStream={guestStream} />));
     }, [peopleStreams]);
 
-    const handleClickStop = () => {
+    const handleVideoClick = () => {
         if (!myStreamRef.current) return;
-        console.log(myStreamRef.current);
-        const tracks: MediaStreamTrack[] = myStreamRef.current.getTracks();
+        const temp: boolean = !isVideoPlay;
+        setVideoPlay(temp);
+        const tracks: MediaStreamTrack[] = myStreamRef.current.getVideoTracks();
         tracks.forEach((track) => {
-            track.enabled = false;
+            track.enabled = temp;
         });
     };
 
-    const handleClickStart = () => {
+    const handleAudioClick = () => {
         if (!myStreamRef.current) return;
-        console.log(myStreamRef.current);
-        const tracks: MediaStreamTrack[] = myStreamRef.current.getTracks();
+        const temp: boolean = !isAudioPlay;
+        setAudioPlay(temp);
+        const tracks: MediaStreamTrack[] = myStreamRef.current.getAudioTracks();
         tracks.forEach((track) => {
-            track.enabled = true;
+            track.enabled = temp;
         });
     };
 
     return (
-        <ConversationStartStyled isMessagesOpen={isMessagesOpen}>
-            <button type="button" onClick={handleClickStop}>STOP</button>
-            <button type="button" onClick={handleClickStart}>START</button>
+        <ConversationStartStyled isMessagesOpen={isMessagesOpen} className="conversation">
             <div className="video--wrapper">
-                <video ref={myVideoRef} muted autoPlay />
+                <div className="user--video">
+                    <video ref={myVideoRef} muted autoPlay />
+                    <div className="tools--wrapper">
+                        <CircleBtn onClick={handleVideoClick} isTurnOn={isVideoPlay} className="m-2">
+                            <VideoCameraOutlined />
+                        </CircleBtn>
+                        <CircleBtn onClick={handleAudioClick} isTurnOn={isAudioPlay} className="m-2">
+                            <SoundOutlined />
+                        </CircleBtn>
+                    </div>
+                </div>
                 {renderGuestUser()}
                 <div className="open--bnt">
                     <Button
