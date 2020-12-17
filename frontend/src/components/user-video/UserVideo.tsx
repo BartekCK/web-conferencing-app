@@ -26,7 +26,7 @@ const UserVideo = React.forwardRef((props: IProps, videoRef: any) => {
         ConversationContext,
     );
 
-    const [microPower] = useAudio(conversationConfig.devices.microphoneDeviceID);
+    const [microPower] = useAudio(true, conversationConfig.devices.microphoneDeviceID);
 
     React.useLayoutEffect(() => {
         // start();

@@ -41,7 +41,7 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
         ConversationContext,
     );
 
-    const [microPower] = useAudio(conversationConfig.devices.microphoneDeviceID);
+    const [microPower] = useAudio(isAudioPlay, conversationConfig.devices.microphoneDeviceID);
 
     const newUserComeIn = (userId: string, myStreamTemp: MediaStream) => {
         if (!myPeer.current) return;

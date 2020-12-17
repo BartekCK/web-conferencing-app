@@ -1,6 +1,6 @@
 import React from 'react';
 
-const useAudio = (audioDeviceID): [number] => {
+const useAudio = (when: boolean, audioDeviceID): [number] => {
     const [microPower, setMicroPower] = React.useState<number>(0);
 
     const javascriptNode = React.useRef<ScriptProcessorNode>();
@@ -55,6 +55,10 @@ const useAudio = (audioDeviceID): [number] => {
     };
 
     React.useEffect(() => {
+        if (!when) {
+            setMicroPower(0);
+            return;
+        }
         manageAudio(audioDeviceID);
         return () => {
             if (
@@ -73,7 +77,7 @@ const useAudio = (audioDeviceID): [number] => {
                 tracks.forEach((track) => track.stop());
             }
         };
-    }, [audioDeviceID]);
+    }, [when, audioDeviceID]);
 
     return [microPower];
 };
