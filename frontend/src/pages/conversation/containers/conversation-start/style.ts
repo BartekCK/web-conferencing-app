@@ -13,6 +13,8 @@ const ConversationStartStyled = styled.div<IProps>`
     overflow: hidden;
 
     > .video--wrapper {
+        .user--video {
+        }
         > .open--bnt {
             position: absolute;
             top: 0;
@@ -42,7 +44,8 @@ const ConversationStartStyled = styled.div<IProps>`
         justify-content: center;
         background: url(${ImageBackground});
         flex-grow: 1;
-        > video {
+      
+        video {
             width: 450px;
             height: auto;
             margin: 20px;

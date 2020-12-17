@@ -56,6 +56,7 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
     };
 
     React.useLayoutEffect(() => {
+        start();
         return () => {
             if (streamRef.current) {
                 streamRef.current.getTracks().forEach((track: MediaStreamTrack) => {
@@ -80,7 +81,6 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
             <ConversationPrepareStyled>
                 <UserVideo
                     openSettingModal={() => setModalOpen(true)}
-                    start={start}
                     ref={videoRef}
                 />
                 <ConversationStartButton />

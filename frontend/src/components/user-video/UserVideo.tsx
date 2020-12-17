@@ -6,10 +6,11 @@ import SettingsButton from 'components/settings-button';
 import useAudio from 'custom--hooks/useAudio';
 import ConversationContext from 'pages/conversation/provider';
 import { IConversationContextShare } from 'pages/conversation/types';
+import CircleBtn from 'components/circle-btn';
+import { SoundOutlined, VideoCameraOutlined } from '@ant-design/icons';
 
 interface IProps {
-    openSettingModal: () => void;
-    start: any;
+    openSettingModal?: () => void;
 }
 
 declare global {
@@ -19,7 +20,7 @@ declare global {
 }
 
 const UserVideo = React.forwardRef((props: IProps, videoRef: any) => {
-    const { openSettingModal, start } = props;
+    const { openSettingModal } = props;
 
     const { conversationConfig } = useContext<IConversationContextShare>(
         ConversationContext,
@@ -28,20 +29,32 @@ const UserVideo = React.forwardRef((props: IProps, videoRef: any) => {
     const [microPower] = useAudio(conversationConfig.devices.microphoneDeviceID);
 
     React.useLayoutEffect(() => {
-        start();
+        // start();
     }, []);
+
+    const handleClick = () => {
+        console.log('click');
+    };
 
     return (
         <VideoStyled>
             <video
-                className="user-video"
+                // className="user-video"
                 ref={videoRef}
                 autoPlay
-                playsInline
+                // playsInline
                 muted
             />
             <Audio microPower={microPower} />
-            <SettingsButton handleClick={openSettingModal} />
+            <div className="tools--wrapper">
+                <CircleBtn onClick={handleClick} isTurnOn className="m-2">
+                    <VideoCameraOutlined />
+                </CircleBtn>
+                <CircleBtn onClick={handleClick} className="m-2">
+                    <SoundOutlined />
+                </CircleBtn>
+            </div>
+            {openSettingModal && <SettingsButton handleClick={openSettingModal} /> }
         </VideoStyled>
     );
 });

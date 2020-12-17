@@ -19,4 +19,10 @@ export const VideoStyled = styled.div`
         right: 20px;
         background: transparent;
     }
+    > .tools--wrapper {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+    }
 `;
