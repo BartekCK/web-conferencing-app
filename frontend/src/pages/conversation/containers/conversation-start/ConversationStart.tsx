@@ -18,15 +18,12 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
     const [userList, setUserList] = React.useState<IUserList[]>([]);
-
-    const myVideoRef = React.useRef<HTMLVideoElement>(null);
-
-    const [myStream, setMyStream] = React.useState<MediaStream | undefined>(
-        undefined,
-    );
     const [peopleStreams, setPeopleStreams] = React.useState<
         { stream: MediaStream; userCall: Peer.MediaConnection }[]
-    >([]);
+        >([]);
+
+    const myVideoRef = React.useRef<HTMLVideoElement>(null);
+    const myStreamRef = React.useRef<MediaStream | undefined>(undefined);
 
     const mySocket = React.useRef<SocketIOClient.Socket | null>(null);
     const myPeer = React.useRef<Peer | null>(null);
@@ -58,19 +55,18 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
     const startMyStream = async () => {
         if (!myVideoRef.current || !mySocket.current || !myPeer.current) return;
-        const tempStream = await navigator.mediaDevices.getUserMedia({
+        myStreamRef.current = await navigator.mediaDevices.getUserMedia({
             audio: false,
             video: true,
         });
-        setMyStream(tempStream);
-        myVideoRef.current.srcObject = tempStream;
+        myVideoRef.current.srcObject = myStreamRef.current;
 
         /**
          * Akcja kiedy dochodzimy do pokoju gdzie sa uzytkownicy. Wysylamy im nasz stream
          * i odbieramy wszystkich innych obecnych
          */
         myPeer.current.on('call', (call) => {
-            call.answer(tempStream); // jezeli ktos dojdzie wyslij mu swoj stream
+            call.answer(myStreamRef.current); // jezeli ktos dojdzie wyslij mu swoj stream
             call.on('stream', (userVideoStream) => {
                 // odbierz wszystkie streamy obecnych juz userow
                 setPeopleStreams((prev) => [
@@ -80,16 +76,13 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
             });
         });
 
-        mySocket.current.on(
-            'user-connected',
-            (newUserPeerId: string, newUserEmail: string) => {
-                if (!mySocket.current) {
-                    return;
-                }
-                mySocket.current.emit('user-list', user.email);
-                newUserComeIn(newUserPeerId, tempStream);
-            },
-        );
+        mySocket.current.on('user-connected', (newUserPeerId: string, newUserEmail: string) => {
+            if (!mySocket.current || !myStreamRef.current) {
+                return;
+            }
+            mySocket.current.emit('user-list', user.email);
+            newUserComeIn(newUserPeerId, myStreamRef.current);
+        });
     };
 
     React.useLayoutEffect(() => {
@@ -113,11 +106,10 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
         });
 
         return () => {
-            console.log(myStream);
-            if (!myVideoRef.current || !mySocket.current || !myPeer.current || !myStream) return;
+            if (!myVideoRef.current || !mySocket.current || !myPeer.current || !myStreamRef.current) return;
             myPeer.current.destroy();
             mySocket.current.close();
-            const tracks: MediaStreamTrack[] = myStream.getTracks();
+            const tracks: MediaStreamTrack[] = myStreamRef.current.getTracks();
             tracks.forEach((track) => track.stop());
             myVideoRef.current.srcObject = null;
         };
@@ -154,8 +146,28 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
             />));
     }, [peopleStreams]);
 
+    const handleClickStop = () => {
+        if (!myStreamRef.current) return;
+        console.log(myStreamRef.current);
+        const tracks: MediaStreamTrack[] = myStreamRef.current.getTracks();
+        tracks.forEach((track) => {
+            track.enabled = false;
+        });
+    };
+
+    const handleClickStart = () => {
+        if (!myStreamRef.current) return;
+        console.log(myStreamRef.current);
+        const tracks: MediaStreamTrack[] = myStreamRef.current.getTracks();
+        tracks.forEach((track) => {
+            track.enabled = true;
+        });
+    };
+
     return (
         <ConversationStartStyled isMessagesOpen={isMessagesOpen}>
+            <button type="button" onClick={handleClickStop}>STOP</button>
+            <button type="button" onClick={handleClickStart}>START</button>
             <div className="video--wrapper">
                 <video ref={myVideoRef} muted autoPlay />
                 {renderGuestUser()}
