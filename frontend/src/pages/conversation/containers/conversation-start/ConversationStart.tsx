@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import io from 'socket.io-client';
 import Peer from 'peerjs';
 import { useParams } from 'react-router-dom';
@@ -10,6 +10,10 @@ import { IGuestStream, IUser, IUserList } from 'core/types';
 import * as stream from 'stream';
 import CircleBtn from 'components/circle-btn';
 import GuestVideo from 'components/guest-video';
+import Audio from 'components/audio/Audio';
+import { IConversationContextShare } from 'pages/conversation/types';
+import ConversationContext from 'pages/conversation/provider';
+import useAudio from 'custom--hooks/useAudio';
 
 interface IProps {
     user: IUser;
@@ -32,6 +36,12 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const [isAudioPlay, setAudioPlay] = React.useState<boolean>(true);
 
     const { slug } = useParams();
+
+    const { conversationConfig } = useContext<IConversationContextShare>(
+        ConversationContext,
+    );
+
+    const [microPower] = useAudio(conversationConfig.devices.microphoneDeviceID);
 
     const newUserComeIn = (userId: string, myStreamTemp: MediaStream) => {
         if (!myPeer.current) return;
@@ -173,6 +183,7 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
                             <SoundOutlined />
                         </CircleBtn>
                     </div>
+                    <Audio microPower={microPower} />
                 </div>
                 {renderGuestUser()}
                 <div className="open--bnt">

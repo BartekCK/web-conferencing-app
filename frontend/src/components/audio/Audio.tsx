@@ -5,6 +5,7 @@ import { AudioStyled } from './styles';
 
 interface IProps {
     microPower: number;
+    className?: string;
 }
 const Audio: React.FC<IProps> = ({ microPower }: IProps) => {
     const calculateColor = (): string => {
@@ -38,26 +39,29 @@ const Audio: React.FC<IProps> = ({ microPower }: IProps) => {
     };
 
     return (
-        <div className="audio--container d-flex">
-            <AudioStyled
+        <AudioStyled className="audio--container d-flex">
+            <div
+                className="audio"
                 style={{
                     backgroundColor: calculateColor(),
                     transform: calculateTransform(),
                 }}
             />
-            <AudioStyled
+            <div
+                className="audio"
                 style={{
                     backgroundColor: calculateColor(),
                     transform: calculateTransform(),
                 }}
             />
-            <AudioStyled
+            <div
+                className="audio"
                 style={{
                     backgroundColor: calculateColor(),
                     transform: calculateTransform(),
                 }}
             />
-        </div>
+        </AudioStyled>
     );
 };
 

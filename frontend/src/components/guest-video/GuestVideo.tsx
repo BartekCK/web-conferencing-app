@@ -17,10 +17,6 @@ interface IProps {
 const GuestVideo: React.FC<IProps> = ({ peopleStream }: IProps) => {
     const [isMuted, setMuted] = React.useState<boolean>(false);
 
-    React.useEffect(() => {
-        console.log(peopleStream);
-    }, [peopleStream]);
-
     return (
         <div className="user--video">
             <video

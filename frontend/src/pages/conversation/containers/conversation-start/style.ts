@@ -37,9 +37,9 @@ const ConversationStartStyled = styled.div<IProps>`
         flex-wrap: wrap;
         justify-content: center;
         align-items: center;
-      
+
         > .user--video {
-          margin: 10px;
+            margin: 10px;
             position: relative;
             > .tools--wrapper {
                 position: absolute;
@@ -47,13 +47,19 @@ const ConversationStartStyled = styled.div<IProps>`
                 left: 50%;
                 transform: translateX(-50%);
             }
+
+            > .audio--container {
+              position: absolute;
+                bottom: 15px;
+                right: 15px;
+            }
         }
 
         background: url(${ImageBackground});
         position: relative;
         flex: 1;
         overflow: auto;
-      
+
         video {
             width: 450px;
             height: auto;
