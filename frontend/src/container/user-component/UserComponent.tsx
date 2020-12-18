@@ -28,12 +28,6 @@ const UserComponent: React.FC = () => {
         setModalVisible(false);
     };
 
-    const handleLogOut = () => {
-        removeCookie('jwt');
-        dispatch(dispatchSetCurrentUser(null));
-        setModalVisible(false);
-    };
-
     return (
         <React.Fragment>
             <CustomAvatar
@@ -52,13 +46,6 @@ const UserComponent: React.FC = () => {
                     onCancel={handleModalClose}
                     footer={null}
                 >
-                    <button
-                        onClick={handleLogOut}
-                        type="button"
-                        className="ant-btn ant-btn-ghost float-right"
-                    >
-                        {t('common.logOut')}
-                    </button>
                     <SettingsComponent handleModalClose={handleModalClose} />
                 </Modal>
             )}
