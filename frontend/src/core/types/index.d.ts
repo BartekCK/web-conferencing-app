@@ -26,7 +26,9 @@ export interface IMessage {
     message: string;
     author: string;
     date: string;
-    isFile: boolean;
+    resultPath?: string;
+    isImage: boolean;
+    isPdf: boolean;
 }
 
 export interface IUserList {

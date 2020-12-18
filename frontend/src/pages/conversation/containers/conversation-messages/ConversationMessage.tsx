@@ -57,12 +57,14 @@ const ConversationMessage = React.forwardRef(
                 const formData = new FormData();
                 formData.append('file', file);
                 formData.append('file_name', file.name);
-                const imagePath = await addRoomImagePost(slug, formData);
+                const { resultPath, type } = await addRoomImagePost(slug, formData);
                 const newMessage: IMessage = {
                     author: user.email,
                     date: moment().format('DD.MM.YYYY, HH:mm'),
-                    message: process.env.API_HOST + imagePath,
-                    isFile: true,
+                    message: process.env.API_HOST + resultPath,
+                    isImage: type === 'image',
+                    resultPath,
+                    isPdf: type === 'pdf',
                 };
                 setMessages((prev) => [...prev, newMessage]);
                 socketRef.current.emit('send-message', newMessage);
@@ -103,7 +105,8 @@ const ConversationMessage = React.forwardRef(
                 author: user.email,
                 date: moment().format('DD.MM.YYYY, HH:mm'),
                 message: inputValue,
-                isFile: false,
+                isPdf: false,
+                isImage: false,
             };
             setMessages((prev) => [...prev, newMessage]);
             socketRef.current.emit('send-message', newMessage);
@@ -141,7 +144,9 @@ const ConversationMessage = React.forwardRef(
                                         message={message.message}
                                         author={message.author}
                                         date={message.date}
-                                        isFile={message.isFile}
+                                        isPdf={message.isPdf}
+                                        isImage={message.isImage}
+                                        resultPath={message.resultPath}
                                     />
                                 ))}
                                 {isTyping && (

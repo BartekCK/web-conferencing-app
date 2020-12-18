@@ -6,7 +6,6 @@ import userService from '../services/userService';
 import { IUserDocument } from '../models/User';
 import { uuid } from 'uuidv4';
 import uploadService from '../services/uploadService';
-import fs from 'fs';
 
 const uploadController = {
     saveUserAvatarPost: async (req: Request, res: Response) => {
@@ -22,8 +21,13 @@ const uploadController = {
         if (!req.file) {
             return res.send('ERROR');
         }
+        res.send(await uploadService.addImageToRoom(roomId, req.file.buffer, req.file.mimetype));
+    },
 
-        res.send(await uploadService.addImageToRoom(roomId, req.file.buffer));
+    assetGet: async (req: Request, res: Response) => {
+        const { assetPath } = req.params;
+        const resultPath = path.join(PUBLIC_PATH, assetPath);
+        res.download(resultPath);
     },
 };
 
