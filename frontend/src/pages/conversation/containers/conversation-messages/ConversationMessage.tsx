@@ -89,7 +89,7 @@ const ConversationMessage = React.forwardRef(
                 clearTimeout(typingTimer);
                 typingTimer = setTimeout(() => {
                     setTyping('');
-                }, 1000);
+                }, 700);
             });
         }, [socketRef]);
 

@@ -123,7 +123,7 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
         myPeer.current.on('open', (id: string) => {
             if (!mySocket.current) return;
-            mySocket.current.emit('join-room', slug, id, user.email, user.id);
+            mySocket.current.emit('join-room', slug, id, user.email, user.id, user.image);
         });
 
         mySocket.current.on('user-list', (data) => {

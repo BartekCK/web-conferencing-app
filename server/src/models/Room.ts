@@ -18,7 +18,7 @@ export interface IRoom {
 
 export interface IRoomDocument extends Document, IRoom {}
 
-const childSchema = new Schema({ socketId: String, email: String, userId: Schema.Types.ObjectId });
+const childSchema = new Schema({ socketId: String, email: String, userId: Schema.Types.ObjectId, userImage: String });
 
 const roomSchema: any = new Schema({
     roomName: {

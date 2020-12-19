@@ -59,9 +59,10 @@ const roomService = {
         socketId: string,
         email: string,
         roomCode: string,
+        userImage?: string,
     ): Promise<IRoomDocument> => {
         const room: IRoomDocument = await roomService.getUserRoom(roomCode, userId);
-        room.currentUsers.push({ userId, socketId, email });
+        room.currentUsers.push({ userId, socketId, email, userImage });
         return await room.save();
     },
 

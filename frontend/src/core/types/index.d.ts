@@ -35,6 +35,7 @@ export interface IUserList {
     email: string;
     socketId: string;
     userId: string;
+    userImage?: string;
     _id: string;
 }
 
