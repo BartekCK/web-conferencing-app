@@ -63,7 +63,8 @@
                 "userCreated": "Użytkownik został utworzony",
                 "deleteConversation": "Wpisz kod pokoju żeby usunać",
                 "noAccessRoom": "Nie masz dostępu do tego pokoju. Zostaniesz przekierowany do strony głównej za ...",
-                "changeLanguage": "Zmień język na"
+                "changeLanguage": "Zmień język na",
+                "wantSpeak": "chce zabrać głos"
             }
         }
     },
@@ -131,7 +132,8 @@
                 "userCreated": "User was created",
                 "deleteConversation": "Enter the room code to delete",
                 "noAccessRoom": "You don't have access to this room. You will be redirected to the home page in ...",
-                "changeLanguage": "Change the language to"
+                "changeLanguage": "Change the language to",
+                "wantSpeak": "wants to speak"
             }
         }
     }

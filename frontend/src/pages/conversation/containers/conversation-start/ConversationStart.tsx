@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { ConversationStartStyled } from './style';
 import ConversationMessage from 'pages/conversation/containers/conversation-messages';
 import { LeftOutlined, SoundOutlined, VideoCameraOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, notification } from 'antd';
 import { IGuestStream, IUser, IUserList } from 'core/types';
 import * as stream from 'stream';
 import CircleBtn from 'components/circle-btn';
@@ -14,6 +14,7 @@ import Audio from 'components/audio/Audio';
 import { IConversationContextShare } from 'pages/conversation/types';
 import ConversationContext from 'pages/conversation/provider';
 import useAudio from 'custom--hooks/useAudio';
+import { useTranslation } from 'react-i18next';
 
 interface IProps {
     user: IUser;
@@ -24,7 +25,7 @@ interface IProps {
 const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const { user, isVideo, isAudio } = props;
 
-    const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
+    const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(false);
     const [userList, setUserList] = React.useState<IUserList[]>([]);
     const [peopleStreams, setPeopleStreams] = React.useState<IGuestStream[]>([]);
 
@@ -42,6 +43,8 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const { conversationConfig } = useContext<IConversationContextShare>(
         ConversationContext,
     );
+
+    const { t } = useTranslation();
 
     const [microPower] = useAudio(isAudioPlay, conversationConfig.devices.microphoneDeviceID);
 
@@ -110,6 +113,13 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
         });
     };
 
+    const renderMessage = (email: string) => (
+        <span>
+            <b className="mr-2">{email}</b>
+            {t('messages.wantSpeak')}
+        </span>
+    );
+
     React.useLayoutEffect(() => {
         mySocket.current = io(process.env.API_HOST as string);
         myPeer.current = new Peer(undefined, {
@@ -128,6 +138,15 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
 
         mySocket.current.on('user-list', (data) => {
             setUserList(data.currentUsers);
+        });
+
+        mySocket.current.on('report-reply', (email: string) => {
+            notification.info({
+                message: renderMessage(email),
+                placement: 'topLeft',
+                duration: 2,
+
+            });
         });
 
         return () => {

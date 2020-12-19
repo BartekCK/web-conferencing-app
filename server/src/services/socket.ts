@@ -24,6 +24,10 @@ const SocketService = (io: Server): void => {
                 socket.to(roomId).emit('receive-is-typing', email);
             });
 
+            socket.on('report-reply-server', (email: string) => {
+                socket.to(roomId).broadcast.emit('report-reply', email);
+            });
+
             socket.on('disconnect', () => {
                 roomService.removeUserFromConversation(userId, socket.id, userEmail, roomId).then((res) => {
                     io.in(roomId).emit('user-list', res);

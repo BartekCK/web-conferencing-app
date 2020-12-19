@@ -6,13 +6,14 @@ import { UserOutlined } from '@ant-design/icons';
 
 interface IProps {
     userList: IUserList[];
+    handleClick: any
 }
 
-const UserList: React.FC<IProps> = ({ userList }: IProps) => {
+const UserList: React.FC<IProps> = ({ userList, handleClick }: IProps) => {
     return (
         <UserListStyles>
             {userList.map((el, idx) => (
-                <div className="item ant-input" key={el.socketId}>
+                <div className="item ant-input" key={el.socketId} onClick={handleClick}>
                     <Avatar
                         src={
                             el.userImage

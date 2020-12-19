@@ -123,11 +123,16 @@ const ConversationMessage = React.forwardRef(
             setInputValue((prev) => prev + emojiObject.emoji);
         };
 
+        const emitReport = () => {
+            if (!socketRef.current) return;
+            socketRef.current.emit('report-reply-server', (user.email));
+        };
+
         return (
             <SidebarStyled isOpen={isMessagesOpen}>
                 <Tabs defaultActiveKey="1" style={{ width: '350px', background: '#212121' }}>
                     <TabPane tab={t('common.users')} key="1">
-                        <UserList userList={userList} />
+                        <UserList userList={userList} handleClick={emitReport} />
                     </TabPane>
                     <TabPane tab={t('common.messages')} key="2" style={{ height: '100%' }}>
                         <ConversationMessageStyles isEmojiVisible={isEmojiVisible}>
