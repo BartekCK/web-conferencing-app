@@ -63,7 +63,7 @@ const SettingsComponent: React.FC<IProps> = ({
                         type="button"
                         className="ant-btn ant-btn-ghost"
                     >
-                        {`${t('messages.changeLanguage')} ${i18n.language.toUpperCase()}`}
+                        {`${t('messages.changeLanguage')} ${i18n.language === 'pl' ? 'EN' : 'PL'}`}
                     </button>
                 </div>
             </TabPane>
