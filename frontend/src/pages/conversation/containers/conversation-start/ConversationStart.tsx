@@ -17,10 +17,12 @@ import useAudio from 'custom--hooks/useAudio';
 
 interface IProps {
     user: IUser;
+    isVideo: boolean;
+    isAudio: boolean;
 }
 
 const ConversationStart: React.FC<IProps> = (props: IProps) => {
-    const { user } = props;
+    const { user, isVideo, isAudio } = props;
 
     const [isMessagesOpen, setMessagesOpen] = React.useState<boolean>(true);
     const [userList, setUserList] = React.useState<IUserList[]>([]);
@@ -32,8 +34,8 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     const mySocket = React.useRef<SocketIOClient.Socket | null>(null);
     const myPeer = React.useRef<Peer | null>(null);
 
-    const [isVideoPlay, setVideoPlay] = React.useState<boolean>(true);
-    const [isAudioPlay, setAudioPlay] = React.useState<boolean>(true);
+    const [isVideoPlay, setVideoPlay] = React.useState<boolean>(isVideo);
+    const [isAudioPlay, setAudioPlay] = React.useState<boolean>(isAudio);
 
     const { slug } = useParams();
 
@@ -73,6 +75,16 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
             video: true,
         });
         myVideoRef.current.srcObject = myStreamRef.current;
+
+        const videoTracks: MediaStreamTrack[] = myStreamRef.current.getVideoTracks();
+        videoTracks.forEach((track) => {
+            track.enabled = isVideo;
+        });
+
+        const audioTracks: MediaStreamTrack[] = myStreamRef.current.getAudioTracks();
+        audioTracks.forEach((track) => {
+            track.enabled = isAudio;
+        });
 
         /**
          * Akcja kiedy dochodzimy do pokoju gdzie sa uzytkownicy. Wysylamy im nasz stream

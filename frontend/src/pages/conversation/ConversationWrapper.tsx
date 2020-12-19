@@ -12,10 +12,26 @@ interface IProps {
 const ConversationWrapper: React.FC<IProps> = ({ conversationConfig }: IProps) => {
     const { user } = useSelector((state: IStore) => state.auth);
 
+    const [isVideoPlay, setVideoPlay] = React.useState<boolean>(true);
+    const [isAudiPlay, setAudioPlay] = React.useState<boolean>(true);
+
     if (conversationConfig.isPlaying && user) {
-        return <ConversationStart user={user} />;
+        return (
+            <ConversationStart
+                user={user}
+                isAudio={isAudiPlay}
+                isVideo={isVideoPlay}
+            />
+        );
     }
-    return <ConversationPrepare />;
+    return (
+        <ConversationPrepare
+            setVideo={setVideoPlay}
+            setAudio={setAudioPlay}
+            isAudio={isAudiPlay}
+            isVideo={isVideoPlay}
+        />
+    );
 };
 
 export default ConversationWrapper;
