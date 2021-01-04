@@ -1,5 +1,6 @@
 import passport from 'passport';
 import { Request } from 'express';
+import { Strategy as FacebookStrategy } from 'passport-facebook';
 import { Strategy, VerifiedCallback } from 'passport-jwt';
 import * as dotenv from 'dotenv';
 import { IToken } from '../interfaces';
@@ -33,4 +34,17 @@ const passportStrategyJWT = passport.use(
     ),
 );
 
-export default passportStrategyJWT.authenticate('jwt', { session: false })
+const facebookStrategy = passport.use(
+    new FacebookStrategy(
+        {
+            clientID: process.env.FACEBOOK_APP_ID || 'secret',
+            clientSecret: process.env.FACEBOOK_APP_SECRET || 'secret',
+            callbackURL: process.env.SERVER_DOMAIN + '/login/facebook',
+        },
+        function (accessToken, refreshToken, profile, done) {
+            return done(null, profile);
+        },
+    ),
+);
+
+export default passportStrategyJWT.authenticate('jwt', { session: false });

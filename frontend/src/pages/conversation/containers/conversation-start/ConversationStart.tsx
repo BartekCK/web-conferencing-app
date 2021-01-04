@@ -123,7 +123,6 @@ const ConversationStart: React.FC<IProps> = (props: IProps) => {
     React.useLayoutEffect(() => {
         mySocket.current = io(process.env.API_HOST as string);
         myPeer.current = new Peer(undefined, {
-            // host: '127.0.0.1',
             host: 'localhost',
             port: 3001,
             secure: false,

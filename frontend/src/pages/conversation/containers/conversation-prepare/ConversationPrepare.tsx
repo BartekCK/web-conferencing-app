@@ -51,8 +51,6 @@ const ConversationPrepare: React.FC<IProps> = (props: IProps) => {
                 },
                 video: {
                     deviceId: videDeviceID ? { exact: videDeviceID } : undefined,
-                    // width: 600,
-                    // height: 300,
                 },
             };
 

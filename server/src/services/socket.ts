@@ -12,7 +12,6 @@ const SocketService = (io: Server): void => {
 
             socket.to(roomId).broadcast.emit('user-connected', peerId, userEmail);
             roomService.addUserToConversation(userId, socket.id, userEmail, roomId, userImage).then((res) => {
-                console.log(res);
                 io.in(roomId).emit('user-list', res);
             });
 
