@@ -83,7 +83,7 @@ const RegisterComponent: React.FC = () => {
                         },
                     ]}
                 >
-                    <Input />
+                    <Input data-test="emailInputTest" />
                 </Form.Item>
 
                 <Form.Item
@@ -97,7 +97,7 @@ const RegisterComponent: React.FC = () => {
                     ]}
                     hasFeedback
                 >
-                    <Input.Password />
+                    <Input.Password data-test="passwordInputTest" />
                 </Form.Item>
 
                 <Form.Item
@@ -127,7 +127,7 @@ const RegisterComponent: React.FC = () => {
                         }),
                     ]}
                 >
-                    <Input.Password />
+                    <Input.Password data-test="passwordRepeatInputTest" />
                 </Form.Item>
 
                 <Form.Item
@@ -140,7 +140,7 @@ const RegisterComponent: React.FC = () => {
                         },
                     ]}
                 >
-                    <Input style={{ width: '100%' }} />
+                    <Input style={{ width: '100%' }} data-test="phoneInputTest" />
                 </Form.Item>
 
                 <Form.Item

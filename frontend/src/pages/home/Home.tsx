@@ -97,6 +97,7 @@ const Home: React.FC = () => {
                         disabled={!user}
                         className="ant-btn ant-btn-primary mx-2"
                         type="button"
+                        data-test="newMeetTest"
                         onClick={handleCreateRoomClick}
                     >
                         {t('common.newMeet')}

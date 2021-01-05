@@ -15,7 +15,7 @@ const CustomAvatar: React.FC<IProps> = (props: IProps) => {
     const { imgSrc, handleClick } = props;
 
     return (
-        <CustomAvatarStyled imgSrc={imgSrc} onClick={handleClick}>
+        <CustomAvatarStyled imgSrc={imgSrc} onClick={handleClick} data-test="avatarTest">
             {!imgSrc && <UserOutlined />}
         </CustomAvatarStyled>
     );

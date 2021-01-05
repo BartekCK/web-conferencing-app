@@ -93,6 +93,7 @@ const LoginComponent: React.FC = () => {
                     type="button"
                     className="ant-btn ant-btn-ghost my-2"
                     onClick={handleSignUp}
+                    data-test="registerBtnTest"
                 >
                     {t('common.signUp')}
                 </button>
