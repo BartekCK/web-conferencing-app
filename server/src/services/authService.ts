@@ -12,3 +12,4 @@ export const createToken = (id: string, email: string) => {
 export const setCookie = (res: Response, token: string) => {
     res.cookie('jwt', token, { maxAge: MAX_AGE_SECONDS * 1000 });
 };
+

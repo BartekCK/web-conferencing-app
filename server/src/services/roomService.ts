@@ -38,6 +38,7 @@ const roomService = {
         if (roomObject.owner._id == userId || roomObject.guests.some((user: any) => user._id == userId)) {
             return room;
         }
+        return room;
         throw new Error('This user do not have access');
     },
 

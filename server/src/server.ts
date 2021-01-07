@@ -17,14 +17,14 @@ dotenv.config();
 
 const PORT = process.env.SERVER_PORT || 3000;
 
-const app: Express = express();
+export const app: Express = express();
 
 const privateKey = fs.readFileSync(path.resolve('server.key'), 'utf8');
 const certificate = fs.readFileSync(path.resolve('server.cert'), 'utf8');
 
 const credentials = { key: privateKey, cert: certificate };
 
-const server: Server = https.createServer(credentials, app);
+export const server: Server = https.createServer(credentials, app);
 
 app.use(express.json());
 app.use(cookieParser());
