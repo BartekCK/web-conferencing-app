@@ -16,6 +16,7 @@ jobs:
         node-version:  [14.x]
 
     steps:
+    - uses: actions/checkout@v1
     - name: Run tests
       working-directory: ../../server
     - run: npm i
