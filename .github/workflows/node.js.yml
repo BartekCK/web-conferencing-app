@@ -10,14 +10,12 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
+    
     strategy:
       matrix:
         node-version:  [14.x]
 
     steps:
-    - uses: actions/checkout@v1
-    - name: Run tests
-      working-directory: ../../server
-    - run: npm i
-    - run: npm run test
+      - working-directory: ../../server
+      - run: npm i
+      - run: npm run test
